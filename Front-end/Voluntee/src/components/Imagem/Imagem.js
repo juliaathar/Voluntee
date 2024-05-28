@@ -11,7 +11,7 @@ export const ImagemApresentacao = styled.Image`
 
 export const LogoBranca = styled.Image`
     width: 243px;
-    height: 104px;
+    height: 110px;
 
     align-self: center;
 `

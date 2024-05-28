@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { Button, Text, TextButton } from './src/components/Botao/Botao';
 import { Titulo } from './src/components/Titulo/Titulo';
-import { ConteinerBottom, ConteinerGeral, ConteinerTeste, ConteinerText } from './src/components/Container/Conteiner';
+import { ConteinerBottom, ConteinerGeral, ConteinerText } from './src/components/Container/Conteiner';
 import { Paragrafo } from './src/components/Paragrafo/Paragrafo';
 
 import { useFonts } from 'expo-font';
 import { IconeBarra, ImagemApresentacao, LogoBranca } from './src/components/Imagem/Imagem';
+import { Button, TextButton } from './src/components/Botao/Style';
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
@@ -25,7 +25,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-
 
       <ConteinerGeral>
         
@@ -51,9 +50,6 @@ export default function App() {
         </ConteinerBottom>
 
       </ConteinerGeral>
-
-
-
 
       <StatusBar style="auto" />
 

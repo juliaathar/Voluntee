@@ -20,5 +20,5 @@ export const ConteinerBottom = styled.View`
     height: 120px;
     width: 100%;
 
-    top: 30px;
+    top: 20px;
 `

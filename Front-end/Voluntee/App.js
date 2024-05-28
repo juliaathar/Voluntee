@@ -1,19 +1,61 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { Button, Text } from './src/components/Botao/Botao';
+import { Button, Text, TextButton } from './src/components/Botao/Botao';
 import { Titulo } from './src/components/Titulo/Titulo';
+import { ConteinerBottom, ConteinerGeral, ConteinerTeste, ConteinerText } from './src/components/Container/Conteiner';
+import { Paragrafo } from './src/components/Paragrafo/Paragrafo';
+
+import { useFonts } from 'expo-font';
+import { IconeBarra, ImagemApresentacao, LogoBranca } from './src/components/Imagem/Imagem';
 
 export default function App() {
+  const [fontsLoaded, fontError] = useFonts({
+    'Lexend': require('./src/assets/fonts/Lexend-VariableFont_wght.ttf'),
+  });
+
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded || fontError) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded, fontError]);
+
+  // if (!fontsLoaded && !fontError) {
+  //   return null;
+  // }
+
   return (
     <View style={styles.container}>
 
-      <Titulo>Descubra campanhas solidárias perto de você.</Titulo>
 
-        <Button>
-          <Text>Pular</Text>
-        </Button>
+      <ConteinerGeral>
+        
+        <LogoBranca source={require('./src/assets/images/LogoBranca.png')} />
 
-        <StatusBar style="auto" />
+        <ImagemApresentacao source={require('./src/assets/images/Apresentação1.png')} />
+
+        <ConteinerText>
+
+          <Titulo>Descubra campanhas solidárias perto de você.</Titulo>
+          <Paragrafo> Explore diversas oportunidades para se envolver em ações que impactam positivamente a sua comunidade.</Paragrafo>
+
+        </ConteinerText>
+
+        <ConteinerBottom>
+
+          <IconeBarra source={require('./src/assets/images/Barra.png')} />
+
+          <Button>
+            <TextButton>Pular</TextButton>
+          </Button>
+
+        </ConteinerBottom>
+
+      </ConteinerGeral>
+
+
+
+
+      <StatusBar style="auto" />
 
     </View>
   );

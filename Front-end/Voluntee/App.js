@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { Button, Text } from './src/components/Botao/Botao';
+import { Botao } from './src/components/Botao/Botao';
 import { Titulo } from './src/components/Titulo/Titulo';
+import { Input } from './src/components/Input/Input';
 
 export default function App() {
   return (
@@ -9,9 +10,14 @@ export default function App() {
 
       <Titulo>Descubra campanhas solidárias perto de você.</Titulo>
 
-        <Button>
-          <Text>Pular</Text>
-        </Button>
+        <Botao
+          textoBotao='aaaaaaa'
+          //alter
+        />
+        <Input
+          placeholder={"aaaaaaaaaaaaaaaaa"}
+          //alter
+        />
 
         <StatusBar style="auto" />
 

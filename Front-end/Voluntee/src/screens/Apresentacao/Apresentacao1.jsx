@@ -1,13 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { Titulo } from './src/components/Titulo/Titulo';
-import { ConteinerBottom, ConteinerGeral, ConteinerText } from './src/components/Container/Conteiner';
-import { Paragrafo } from './src/components/Paragrafo/Paragrafo';
+import { ConteinerBottom, ConteinerGeral, ConteinerText } from '../../components/Container/Conteiner';
+import { IconeBarra, ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
+import { Paragrafo } from '../../components/Paragrafo/Paragrafo';
+import { Titulo } from '../../components/Titulo/Titulo';
+import { Button, TextButton } from '../../components/Botao/Style';
 
-import { IconeBarra, ImagemApresentacao, LogoBranca } from './src/components/Imagem/Imagem';
-import { Button, TextButton } from './src/components/Botao/Style';
-
-export default function App() {
+export default function Apresentação1() {
 
   // const onLayoutRootView = useCallback(async () => {
   //   if (fontsLoaded || fontError) {
@@ -24,9 +23,9 @@ export default function App() {
 
       <ConteinerGeral>
         
-        <LogoBranca source={require('./src/assets/images/LogoBranca.png')} />
+        <LogoBranca source={require('../../assets/images/LogoBranca.png')} />
 
-        <ImagemApresentacao source={require('./src/assets/images/Apresentação1.png')} />
+        <ImagemApresentacao source={require('../../assets/images/Apresentação1.png')} />
 
         <ConteinerText>
 
@@ -37,7 +36,7 @@ export default function App() {
 
         <ConteinerBottom>
 
-          <IconeBarra source={require('./src/assets/images/Barra.png')} />
+          <IconeBarra source={require('../../assets/images/Barra.png')} />
 
           <Button>
             <TextButton>Pular</TextButton>

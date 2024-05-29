@@ -1,4 +1,4 @@
-import { Button, Text } from "./Style"
+import { Button, TextButton } from "./Style"
 
 export const Botao = ({
     textoBotao = "",
@@ -8,7 +8,7 @@ export const Botao = ({
 }) => {
     return(
         <Button onPress={onPress} alter={alter} disabled={disabled}>
-            {disabled ? <ActivityIndicator color="white" /> : <Text alter={alter}>{textoBotao}</Text>}
+            {disabled ? <ActivityIndicator color="white" /> : <TextButton alter={alter}>{textoBotao}</TextButton>}
         </Button>
     )
 }

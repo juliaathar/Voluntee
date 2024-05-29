@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BolasContainer = styled.View`
     height: 9px;
     width: 60px;
-    margin-top: 20px;
+    margin-top: 30px;
     align-self: center;
     align-items: center;
     flex-direction: row;

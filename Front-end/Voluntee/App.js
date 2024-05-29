@@ -1,35 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import { Botao } from './src/components/Botao/Botao';
-import { Titulo } from './src/components/Titulo/Titulo';
-import { Input } from './src/components/Input/Input';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { Eduardo } from './src/screens/testes/eduardo';
+import { Pedro } from './src/screens/testes/pedro';
+import { Navegacao } from './src/screens/Navegacao/Navegacao';
 
 export default function App() {
+
+  //instancia do StackNavigator
+  const Stack = createNativeStackNavigator();
+
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
+      <Stack.Navigator>
 
-      <Titulo>Descubra campanhas solidárias perto de você.</Titulo>
-
-        <Botao
-          textoBotao='aaaaaaa'
-          //alter
-        />
-        <Input
-          placeholder={"aaaaaaaaaaaaaaaaa"}
-          //alter
+        <Stack.Screen
+          name='Navegacao'
+          component={Navegacao}
+          options={{ title: 'Pedro' }}
         />
 
-        <StatusBar style="auto" />
+        <Stack.Screen
+          name='Eduardo'
+          component={Eduardo}
+          options={{ title: 'Eduaro' }}
+        />
 
-    </View>
+        <Stack.Screen
+          name='Pedro'
+          component={Pedro}
+          options={{ title: 'Pedro' }}
+        />
+        
+      </Stack.Navigator>
+
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0066FF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

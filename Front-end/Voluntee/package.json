@@ -10,11 +10,13 @@
   },
   "dependencies": {
     "expo": "~51.0.8",
+    "expo-image": "~1.12.9",
     "expo-status-bar": "~1.12.1",
     "react": "^18.2.0",
     "react-native": "^0.73.2",
     "react-native-svg": "^15.3.0",
-    "expo-font": "expo-google-fonts/lexend"
+    "expo-font": "expo-google-fonts/lexend",
+    "styled-components": "^6.1.11"
   },
   "resolutions": {
     "react": "^18.2.0"

@@ -4,14 +4,10 @@ import { Titulo } from './src/components/Titulo/Titulo';
 import { ConteinerBottom, ConteinerGeral, ConteinerText } from './src/components/Container/Conteiner';
 import { Paragrafo } from './src/components/Paragrafo/Paragrafo';
 
-import { useFonts } from 'expo-font';
 import { IconeBarra, ImagemApresentacao, LogoBranca } from './src/components/Imagem/Imagem';
 import { Button, TextButton } from './src/components/Botao/Style';
 
 export default function App() {
-  const [fontsLoaded, fontError] = useFonts({
-    'Lexend': require('./src/assets/fonts/Lexend-VariableFont_wght.ttf'),
-  });
 
   // const onLayoutRootView = useCallback(async () => {
   //   if (fontsLoaded || fontError) {

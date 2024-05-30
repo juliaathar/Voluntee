@@ -8,8 +8,10 @@ export const Container = styled.View`
 `
 
 export const ConteinerGeral = styled.View`
+    /* height:80%;  */
     width: 90%;
     justify-content: space-between;
+    align-items: center;
 `
 
 export const ConteinerText = styled.View`

@@ -1,13 +1,13 @@
-import { ConteinerGeral, ConteinerText } from './src/components/Container/Style';
-import { ImagemApresentacao, LogoBranca } from './src/components/Imagem/Imagem';
-import { BolinhaSlide } from './src/components/BolinhaSlide/Bolinha';
-import { Paragrafo } from './src/components/Paragrafo/Paragrafo';
+import { ConteinerGeral, ConteinerText } from '../../components/Container/Style';
+import { ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
+import { BolinhaSlide } from '../../components/BolinhaSlide/Bolinha';
+import { Paragrafo } from '../../components/Paragrafo/Paragrafo';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Titulo } from './src/components/Titulo/Titulo';
-import { Botao } from './src/components/Botao/Botao';
+import { Titulo } from '../../components/Titulo/Titulo';
+import { Botao } from '../../components/Botao/Botao';
 import { useState } from 'react';
 
-export default function App() {
+export const Apresentacao = () => {
 
   const [passo, setPasso] = useState(1)
 
@@ -29,15 +29,15 @@ export default function App() {
 
       <ConteinerGeral>
 
-        <LogoBranca source={require('./src/assets/images/LogoBranca.png')} />
+        <LogoBranca source={require('../../assets/images/LogoBranca.png')} />
 
         {passo == 1 ?
-          <ImagemApresentacao source={require('./src/assets/images/apresentacao1.png')} />
+          <ImagemApresentacao source={require('../../assets/images/apresentacao1.png')} />
           :
           passo == 2 ?
-            <ImagemApresentacao source={require('./src/assets/images/apresentacao2.png')}/>
+            <ImagemApresentacao source={require('../../assets/images/apresentacao2.png')}/>
             :
-            <ImagemApresentacao source={require('./src/assets/images/apresentacao3.png')} style={{width : "70%"}}/>
+            <ImagemApresentacao source={require('../../assets/images/apresentacao3.png')} style={{width : "70%"}}/>
         }
 
         <ConteinerText>

@@ -11,19 +11,20 @@ namespace api.voluntee.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private IUsuarioRepository usuarioRepository { get; set; }
+        private readonly IUsuarioRepository _usuarioRepository;
 
-        public UsuarioController()
+        public UsuarioController(IUsuarioRepository usuarioRepository)
         {
-            usuarioRepository = new UsuarioRepository();
-        }
+            _usuarioRepository = usuarioRepository;
+
+        }   
 
         [HttpPost]
         public IActionResult Cadastrar(Usuario usuario)
         {
             try
             {
-                usuarioRepository.Cadastrar(usuario);
+                _usuarioRepository.Cadastrar(usuario);
                 return StatusCode(201);
             }
             catch (Exception)
@@ -38,7 +39,7 @@ namespace api.voluntee.Controllers
         {
             try
             {
-                usuarioRepository.EditarPerfil(id, usuario);
+                _usuarioRepository.EditarPerfil(id, usuario);
                 return StatusCode(201);
             }
             catch (Exception)

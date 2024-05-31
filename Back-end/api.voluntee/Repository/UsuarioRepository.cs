@@ -2,13 +2,27 @@
 using api.voluntee.Domains;
 using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
+using api.voluntee.Services;
+using Microsoft.EntityFrameworkCore;
 using WebAPI.Utils;
 
 namespace api.voluntee.Repository
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-		public VolunteeContext ctx = new VolunteeContext();
+        private readonly VolunteeContext ctx = new VolunteeContext();
+        private readonly PontuacaoService _pontuacaoService;
+
+        //public UsuarioRepository()
+        //{
+        //}
+
+        public UsuarioRepository(VolunteeContext context, PontuacaoService pontuacaoService)
+        {
+            ctx = context;
+            _pontuacaoService = pontuacaoService;
+        }
+
         public void Cadastrar(Usuario usuario)
         {
             try
@@ -51,7 +65,10 @@ namespace api.voluntee.Repository
 
             ctx.Usuarios.Update(usuarioBuscado!);
 
+            _pontuacaoService.IncrementarPontos(id, 100);
+
             ctx.SaveChanges();
         }
+ 
     }
 }

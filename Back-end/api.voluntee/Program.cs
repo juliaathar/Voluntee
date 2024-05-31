@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<VolunteeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=DESKTOP-O595EET; initial catalog=Voluntee; user Id = sa; pwd = Joao310704; TrustServerCertificate=true;")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=ABENATHAR\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai; TrustServerCertificate=true;")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

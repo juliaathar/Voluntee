@@ -10,17 +10,47 @@ namespace api.voluntee.Repository
 		public VolunteeContext ctx = new VolunteeContext();
         public void Cadastrar(Usuario usuario)
         {
-			try
-			{
-                usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
-                ctx.Add(usuario);
-				ctx.SaveChanges();
-			}
-			catch (Exception)
-			{
+            try
+            {
+                bool cpfExiste = ctx.Usuarios.Any(u => u.Cpf == usuario.Cpf);
 
-				throw;
-			}
+                if (cpfExiste)
+                {
+                    throw new InvalidOperationException("CPF já cadastrado.");
+                }
+                else
+                {
+                    usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
+
+                    ctx.Add(usuario);
+                    ctx.SaveChanges();
+                }
+        
+            }
+            catch (InvalidOperationException ex)
+            {
+                throw new InvalidOperationException("Erro ao cadastrar usuário: " + ex.Message, ex);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao cadastrar usuário.", ex);
+            }
+        }
+
+
+        public void EditarPerfil(Guid id, Usuario usuario)
+        {
+            Usuario usuarioBuscado = ctx.Usuarios.Find(id)!;
+
+            if (usuarioBuscado != null)
+            {
+                usuarioBuscado.Email = usuario.Email!;
+                usuarioBuscado.Nome = usuario.Nome!;
+            }
+
+            ctx.Usuarios.Update(usuarioBuscado!);
+
+            ctx.SaveChanges();
         }
     }
 }

@@ -8,5 +8,7 @@ namespace api.voluntee.Interfaces
         void Cadastrar(Usuario usuario);
 
         void EditarPerfil(Guid id, UsuarioUpdateDto usuario);
+        Usuario BuscarUsuario(Guid id);
+
     }
 }

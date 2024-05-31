@@ -25,7 +25,7 @@ namespace api.voluntee.Controllers
             try
             {
                 _usuarioRepository.Cadastrar(usuario);
-                return StatusCode(201);
+                return StatusCode(201, usuario);
             }
             catch (Exception)
             {
@@ -34,13 +34,27 @@ namespace api.voluntee.Controllers
             }
         } 
         
-        [HttpPatch("Editar o perfil do usuário")]
+        [HttpPatch("Id")]
         public IActionResult EditarPerfil(Guid id, UsuarioUpdateDto usuario)
         {
             try
             {
                 _usuarioRepository.EditarPerfil(id, usuario);
-                return StatusCode(201);
+                return StatusCode(201, usuario);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
+        [HttpGet("Id")]
+        public IActionResult BuscarUsuarioPorId(Guid id)
+        {
+            try
+            {
+                return Ok(_usuarioRepository.BuscarUsuario(id));
             }
             catch (Exception)
             {

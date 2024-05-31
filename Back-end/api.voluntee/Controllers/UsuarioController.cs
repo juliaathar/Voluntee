@@ -1,4 +1,5 @@
 ﻿using api.voluntee.Domains;
+using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
 using api.voluntee.Repository;
 using Microsoft.AspNetCore.Http;
@@ -23,6 +24,21 @@ namespace api.voluntee.Controllers
             try
             {
                 usuarioRepository.Cadastrar(usuario);
+                return StatusCode(201);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        } 
+        
+        [HttpPatch("Editar o perfil do usuário")]
+        public IActionResult EditarPerfil(Guid id, UsuarioUpdateDto usuario)
+        {
+            try
+            {
+                usuarioRepository.EditarPerfil(id, usuario);
                 return StatusCode(201);
             }
             catch (Exception)

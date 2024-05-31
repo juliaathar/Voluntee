@@ -1,5 +1,6 @@
 ﻿using api.voluntee.Contexts;
 using api.voluntee.Domains;
+using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
 using WebAPI.Utils;
 
@@ -38,7 +39,7 @@ namespace api.voluntee.Repository
         }
 
 
-        public void EditarPerfil(Guid id, Usuario usuario)
+        public void EditarPerfil(Guid id, UsuarioUpdateDto usuario)
         {
             Usuario usuarioBuscado = ctx.Usuarios.Find(id)!;
 

@@ -1,4 +1,4 @@
-import { FontAwesome6 } from '@expo/vector-icons';
+import { FontAwesome5 } from '@expo/vector-icons';
 import { InputBody, InputInsert } from "./Style"
 
 export const Input = ({
@@ -19,6 +19,7 @@ export const Input = ({
     //eye-slash
     //user-large
     //contact-card
+    //search
     
     return(
         <InputBody 
@@ -32,7 +33,7 @@ export const Input = ({
                 value={fieldValue}
                 alter={alter}
             />
-            <FontAwesome6 name={icon} size={20} color={alter ? "#0066FF" : '#FBFBFB'} />
+            <FontAwesome5 name={icon} size={20} color={alter ? "#0066FF" : '#FBFBFB'} />
         </InputBody>
     )
 }

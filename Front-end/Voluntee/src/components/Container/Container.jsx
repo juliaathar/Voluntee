@@ -7,7 +7,6 @@ export const ContainerColor = ({
         <Container
             color={color}
         >
-
         </Container>
     )
 }

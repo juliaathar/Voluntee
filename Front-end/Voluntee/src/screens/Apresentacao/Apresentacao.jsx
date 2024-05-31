@@ -1,9 +1,9 @@
 import { ConteinerGeral, ConteinerText } from '../../components/Container/Style';
 import { ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
 import { BolinhaSlide } from '../../components/BolinhaSlide/Bolinha';
-import { Paragrafo } from '../../components/Paragrafo/Paragrafo';
+import { Paragrafo } from '../../components/Paragrafo/Style';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Titulo } from '../../components/Titulo/Titulo';
+import { Titulo } from '../../components/Titulo/Style';
 import { Botao } from '../../components/Botao/Botao';
 import { useState } from 'react';
 
@@ -68,7 +68,6 @@ export const Apresentacao = () => {
             }
           }}
         />
-
       </ConteinerGeral>
 
     </SafeAreaView>

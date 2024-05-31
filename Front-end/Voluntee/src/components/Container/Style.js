@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
-export const Container = styled.View`
+export const Container = styled.SafeAreaView`
     background-color: ${({color}) => (color)};
     flex: 1;
-    align-items: 'center';
-    justify-content: 'center';
+    align-items: center;
 `
 
 export const ConteinerGeral = styled.View`
@@ -27,6 +26,5 @@ export const ConteinerText = styled.View`
 export const ConteinerBottom = styled.View`
     height: 120px;
     width: 100%;
-
     top: 20px;
 `

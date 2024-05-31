@@ -1,0 +1,26 @@
+﻿using api.voluntee.Contexts;
+using api.voluntee.Domains;
+using api.voluntee.Interfaces;
+using WebAPI.Utils;
+
+namespace api.voluntee.Repository
+{
+    public class UsuarioRepository : IUsuarioRepository
+    {
+		public VolunteeContext ctx = new VolunteeContext();
+        public void Cadastrar(Usuario usuario)
+        {
+			try
+			{
+                usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
+                ctx.Add(usuario);
+				ctx.SaveChanges();
+			}
+			catch (Exception)
+			{
+
+				throw;
+			}
+        }
+    }
+}

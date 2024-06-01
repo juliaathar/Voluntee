@@ -31,41 +31,45 @@ namespace api.voluntee.Repository
 
         public void Cadastrar(CampanhaPostDto campanhaDto)
         {
-            var usuarioBuscado = ctx.Usuarios.Find(campanhaDto.UsuarioId);
-            if (usuarioBuscado == null)
+            try
             {
-                throw new Exception("Usuário não encontrado");
+                var usuarioBuscado = ctx.Usuarios.Find(campanhaDto.UsuarioId) ?? throw new Exception("Usuário não encontrado");
+
+                bool primeiraCampanha = !ctx.Campanhas.Any(c => c.UsuarioId == campanhaDto.UsuarioId);
+
+                var campanha = new Campanha
+                {
+                    Nome = campanhaDto.Nome,
+                    UsuarioId = campanhaDto.UsuarioId,
+                    Imagem = campanhaDto.Imagem,
+                    Email = campanhaDto.Email,
+                    Descricao = campanhaDto.Descricao,
+                    AceitaDoacao = campanhaDto.AceitaDoacao,
+                    Alimento = campanhaDto.Alimento,
+                    Dinheiro = campanhaDto.Dinheiro,
+                    Roupas = campanhaDto.Roupas,
+                    Longitude = campanhaDto.Longitude,
+                    Latitude = campanhaDto.Latitude,
+                    DataInicio = campanhaDto.DataInicio,
+                    DataEncerramento = campanhaDto.DataEncerramento,
+                    PessoasPresentes = campanhaDto.PessoasPresentes
+
+                };
+
+                ctx.Campanhas.Add(campanha);
+
+                if (primeiraCampanha)
+                {
+                    _pontuacaoService.IncrementarPontos(campanha.UsuarioId, 100);
+                }
+
+                ctx.SaveChanges();
             }
-
-            bool primeiraCampanha = !ctx.Campanhas.Any(c => c.UsuarioId == campanhaDto.UsuarioId);
-
-            var campanha = new Campanha
+            catch (Exception ex)
             {
-                Nome = campanhaDto.Nome,
-                UsuarioId = campanhaDto.UsuarioId,
-                Imagem = campanhaDto.Imagem,
-                Email = campanhaDto.Email,
-                Descricao = campanhaDto.Descricao,
-                AceitaDoacao = campanhaDto.AceitaDoacao,
-                Alimento = campanhaDto.Alimento,
-                Dinheiro = campanhaDto.Dinheiro,
-                Roupas = campanhaDto.Roupas,
-                Longitude = campanhaDto.Longitude,
-                Latitude = campanhaDto.Latitude,
-                DataInicio = campanhaDto.DataInicio,
-                DataEncerramento = campanhaDto.DataEncerramento,
-                PessoasPresentes = campanhaDto.PessoasPresentes
 
-            };
-
-            ctx.Campanhas.Add(campanha);
-
-            if (primeiraCampanha)
-            {
-                _pontuacaoService.IncrementarPontos(campanha.UsuarioId, 100);
+                throw new Exception("Erro ao cadastrar campanha", ex);
             }
-
-            ctx.SaveChanges();
         }
 
 

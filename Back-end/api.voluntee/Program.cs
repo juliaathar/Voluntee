@@ -2,6 +2,7 @@ using api.voluntee.Contexts;
 using api.voluntee.Interfaces;
 using api.voluntee.Repository;
 using api.voluntee.Services;
+using api.voluntee.Utils.SendEmail;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<ICampanhaRepository, CampanhaRepository>();
 builder.Services.AddScoped<IPresencaCampanhaRepository, PresencaCampanhaRepository>();
-builder.Services.AddScoped<PontuacaoService>(); 
+builder.Services.AddScoped<PontuacaoService>();
+builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameof(EmailSettings)));
+builder.Services.AddTransient<IEmailService, EmailService>();
+builder.Services.AddScoped<EmailSendingService>();
 builder.Services.AddDbContext<VolunteeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=ABENATHAR\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai; TrustServerCertificate=true;")));
 var app = builder.Build();

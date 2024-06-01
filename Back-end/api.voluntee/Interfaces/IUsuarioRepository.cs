@@ -10,5 +10,7 @@ namespace api.voluntee.Interfaces
         void EditarPerfil(Guid id, UsuarioUpdateDto usuario);
         Usuario BuscarUsuario(Guid id);
 
+        Usuario BuscarPorEmailESenha(string email, string senha);
+        bool AlterarSenha(string email, string senhaNova);
     }
 }

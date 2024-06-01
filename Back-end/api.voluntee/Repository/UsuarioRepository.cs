@@ -80,5 +80,56 @@ namespace api.voluntee.Repository
             }
         }
 
+        public Usuario BuscarPorEmailESenha(string email, string senha)
+        {
+            try
+            {
+                var user = ctx.Usuarios.Select(u => new Usuario
+                {
+                    Id = u.Id,
+                    Email = u.Email,
+                    Senha = u.Senha,
+                    Nome = u.Nome,
+
+                }).FirstOrDefault
+                (x => x.Email == email);
+
+                if (user == null) return null!;
+
+                if (!Criptografia.CompararHash(senha, user.Senha!)) return null!;
+
+                return user;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool AlterarSenha(string email, string senhaNova)
+        {
+            try
+            {
+                var user = ctx.Usuarios.FirstOrDefault(x => x.Email == email);
+
+                if (user == null) return false;
+
+                user.Senha = Criptografia.GerarHash(senhaNova);
+
+                ctx.Update(user);
+
+                ctx.SaveChanges();
+
+                return true;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+
     }
 }

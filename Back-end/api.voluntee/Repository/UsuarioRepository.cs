@@ -57,7 +57,7 @@ namespace api.voluntee.Repository
                 usuarioBuscado.Email = usuario.Email!;
                 usuarioBuscado.Nome = usuario.Nome!;
 
-                if (!usuarioBuscado.PerfilEditado || usuarioBuscado.PerfilEditado == null)
+                if (usuarioBuscado.PerfilEditado == false)
                 {
                     _pontuacaoService.IncrementarPontos(id, 100);
                     usuarioBuscado.PerfilEditado = true;

@@ -95,7 +95,7 @@ public partial class VolunteeContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC075EBDBAD4");
+            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC0757BE5519");
 
             entity.ToTable("Usuario");
 
@@ -111,6 +111,7 @@ public partial class VolunteeContext : DbContext
             entity.Property(e => e.Nome)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+            entity.Property(e => e.PerfilEditado).HasDefaultValue(false);
             entity.Property(e => e.Senha)
                 .HasMaxLength(255)
                 .IsUnicode(false);

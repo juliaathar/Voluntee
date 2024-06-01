@@ -13,6 +13,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<ICampanhaRepository, CampanhaRepository>();
 builder.Services.AddScoped<PontuacaoService>(); 
 builder.Services.AddDbContext<VolunteeContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=ABENATHAR\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai; TrustServerCertificate=true;")));

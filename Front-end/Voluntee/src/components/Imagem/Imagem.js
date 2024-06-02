@@ -5,6 +5,7 @@ export const ImagemApresentacao = styled.Image`
     height: 36%;
     top: 20px;
     align-self: center;
+    border: 1px;
 `
 
 export const LogoBranca = styled.Image`

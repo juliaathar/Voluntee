@@ -1,16 +1,15 @@
 import styled from "styled-components";
 
 export const Container = styled.SafeAreaView`
-    background-color: ${({color}) => (color)};
     flex: 1;
     align-items: center;
 `
 
 export const ConteinerGeral = styled.View`
-    /* height:80%;  */
     width: 90%;
     justify-content: space-between;
     align-items: center;
+    flex-direction: column;
 `
 
 export const ConteinerText = styled.View`

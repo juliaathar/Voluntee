@@ -11,7 +11,7 @@ export const Button = styled.TouchableOpacity`
 `
 
 export const TextButton = styled.Text`
-    font-family: 'Lexend';
+    font-family: 'Lexend_600SemiBold';
     font-size: 20px;
     font-weight: 600;
 

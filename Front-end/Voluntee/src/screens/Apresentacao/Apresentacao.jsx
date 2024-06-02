@@ -2,83 +2,120 @@ import { ConteinerGeral, ConteinerText } from '../../components/Container/Style'
 import { ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
 import { BolinhaSlide } from '../../components/BolinhaSlide/Bolinha';
 import { Paragrafo } from '../../components/Paragrafo/Style';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Titulo } from '../../components/Titulo/Style';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { TituloH3 } from '../../components/Titulo/Style';
 import { Botao } from '../../components/Botao/Botao';
 import { useState } from 'react';
+import AppIntroSlider from 'react-native-app-intro-slider';
+import { ConteinerSlide, ImagemSlide, SlideBody, SlideText } from './Style';
+
 
 export const Apresentacao = () => {
 
-  const [passo, setPasso] = useState(1)
+  const [showHome, setShowHome] = useState(false)
 
-  const titulos = [
-    "Descubra campanhas solidárias perto de você.",
-    "Envolva-se em projetos significativos.",
-    "Ajude a construir um mundo mais justo e solidário."
+  const slidesDados = [
+    {
+      key: "1",
+      titulo: "Descubra campanhas solidárias perto de você.",
+      paragrafo: "Explore diversas oportunidades para se envolver em ações que impactam positivamente a sua comunidade.",
+      imagem: require('../../assets/images/apresentacao1.png')
+    },
+    {
+      key: "2",
+      titulo: "Envolva-se em projetos significativos.",
+      paragrafo: "Participe de iniciativas que realmente fazem a diferença e contribua para a transformação de vidas.",
+      imagem: require('../../assets/images/apresentacao2.png')
+    },
+    {
+      key: "3",
+      titulo: "Ajude a construir um mundo mais justo e solidário.",
+      paragrafo: "Junte-se a nós e ajude a construir uma sociedade melhor, onde cada pequena ação se soma a um impacto coletivo grandioso.",
+      imagem: require('../../assets/images/apresentacao3.png')
+    },
   ]
 
-  const paragrafos = [
-    "Explore diversas oportunidades para se envolver em ações que impactam positivamente a sua comunidade.",
-    "Participe de iniciativas que realmente fazem a diferença e contribua para a transformação de vidas.",
-    "Junte-se a nós e ajude a construir uma sociedade melhor, onde cada pequena ação se soma a um impacto coletivo grandioso."
-  ]
-
-
-  return (
-    <SafeAreaView style={styles.container}>
-
-      <ConteinerGeral>
-
-        <LogoBranca source={require('../../assets/images/LogoBranca.png')} />
-
-        {passo == 1 ?
-          <ImagemApresentacao source={require('../../assets/images/apresentacao1.png')} />
-          :
-          passo == 2 ?
-            <ImagemApresentacao source={require('../../assets/images/apresentacao2.png')}/>
-            :
-            <ImagemApresentacao source={require('../../assets/images/apresentacao3.png')} style={{width : "70%"}}/>
-        }
-
-        <ConteinerText>
-
-          <Titulo>{titulos[passo - 1]}</Titulo>
-          <Paragrafo>{paragrafos[passo - 1]}</Paragrafo>
-
-        </ConteinerText>
-        <BolinhaSlide
-          passo={passo}
+  const Slides = ({ item }) => {
+    return (
+      <SlideBody>
+        <ImagemSlide
+          source={item.imagem}
+          style={{ width: item.imagem == require('../../assets/images/apresentacao3.png') ? "70%" : "90%" }}
         />
-        <Botao
-          textoBotao={passo != 3 ? "Pular" : "Continuar"}
-          onPress={() => {
-            switch (passo) {
-              case 1:
-                setPasso(2)
-                break;
-              case 2:
-                setPasso(3)
-                break;
-              case 3:
-                setPasso(1)
-                break;
 
-              default:
-                break;
+        <SlideText>
+          <TituloH3>{item.titulo}</TituloH3>
+          <Paragrafo>{item.paragrafo}</Paragrafo>
+        </SlideText>
+      </SlideBody>
+    )
+  }
+
+  if (showHome) {
+    return <Text>Entrou na home</Text>
+  } else {
+    return (
+      <SafeAreaView style={styles.container}>
+        <LogoBranca source={require('../../assets/images/LogoBranca.png')} style={{ marginTop: 30, marginBottom: 10 }} />
+
+        <ConteinerSlide>
+
+          <AppIntroSlider
+            data={slidesDados}
+            keyExtractor={(item) => item.key}
+
+            renderItem={Slides}
+
+            activeDotStyle={{
+              backgroundColor: '#FBFBFB',
+              width: 28
+            }}
+            dotStyle={{
+              backgroundColor: '#FBFBFB',
+              width: 8
+            }}
+
+            bottomButton
+
+            renderNextButton={() =>
+              <View style={styles.slideButton}>
+                <Text style={styles.slideButtonText}>
+                  Pular
+                </Text>
+              </View>
             }
-          }}
-        />
-      </ConteinerGeral>
+            renderDoneButton={() =>
+              <View style={styles.slideButton}>
+                <Text style={styles.slideButtonText}>
+                  Entrar
+                </Text>
+              </View>
+            }
+          />
 
-    </SafeAreaView>
-  );
+        </ConteinerSlide>
+
+      </SafeAreaView>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0066FF',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'center'
   },
+  slideButton: { 
+    width: '100%', 
+    height: 60, 
+    alignItems: "center", 
+    justifyContent: "center", 
+    backgroundColor: "#FBFBFB", 
+    borderRadius: 30 
+  },
+  slideButtonText: { 
+    fontFamily: 'Lexend_600SemiBold', 
+    fontSize: 20, 
+    color: "#0066FF" }
 });

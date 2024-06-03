@@ -21,13 +21,11 @@ export const Cadastro = (navigate) => {
         </ConteinerIcon>
       </ConteinerBolaMenor>
 
-
     {/* Body */}
-
 
       <ConteinerBolaMaior>
 
-        <TituloH2 color="#0066FF">Cadastre-se</TituloH2>
+        <TituloH2>Cadastre-se</TituloH2>
 
         <ConteinerGeral>
 

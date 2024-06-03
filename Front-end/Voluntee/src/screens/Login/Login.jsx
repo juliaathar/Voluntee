@@ -1,38 +1,47 @@
 import { Input } from "../../components/Input/Input";
-import { Titulo, TituloH1, TituloH2 } from "../../components/Titulo/Style";
+import { TituloH2 } from "../../components/Titulo/Style";
 import { ConteinerButton, ConteinerCadastro, ConteinerGeral, ConteinerLink } from "../../components/Container/Style"
-import { ConteinerBolaMaior } from "../Cadastro/Style";
+import { ConteinerBolaMaiorLogin } from "../Cadastro/Style";
 import { Botao } from "../../components/Botao/Botao";
 import { Link, TextLink } from "../../components/Link/Link";
+import { StyleSheet, View } from "react-native";
+import { LogoAzul } from "../../components/Imagem/Imagem";
 
 export const Login = () => {
-    return (
-        <ConteinerBolaMaior>
+  return (
+    <View style={styles.container}>
 
-        <TituloH2 color="#0066FF">Cadastre-se</TituloH2>
+      <LogoAzul source={require('../../assets/images/LogoAzul.png')} />
+
+      <ConteinerBolaMaiorLogin>
+
+        <TituloH2
+          alter>
+          Login</TituloH2>
 
         <ConteinerGeral>
 
           <ConteinerCadastro>
 
             <Input
-              alter
               icon='envelope'
               placeholder='Email'
             >
             </Input>
-        
+
             <Input
-              alter
               icon='eye-slash'
               placeholder='Senha'
-              >
+            >
             </Input>
+
+            <ConteinerLink>
+              <Link alter>Esqueceu a senha?</Link>
+            </ConteinerLink>
 
             <ConteinerButton>
 
               <Botao
-                alter
                 textoBotao='Cadastre-se'
               />
 
@@ -40,8 +49,8 @@ export const Login = () => {
 
             <ConteinerLink>
 
-              <TextLink>Já tem uma conta?</TextLink>
-              <Link>Voltar</Link>
+              <TextLink alter>Não tem uma conta?</TextLink>
+              <Link alter>Entrar</Link>
 
             </ConteinerLink>
 
@@ -49,6 +58,17 @@ export const Login = () => {
 
         </ConteinerGeral>
 
-      </ConteinerBolaMaior>
-    )
+      </ConteinerBolaMaiorLogin>
+
+    </View>
+  )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#FBFBFB',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});

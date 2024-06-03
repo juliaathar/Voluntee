@@ -25,6 +25,7 @@ public partial class Usuario
 
     public bool? PerfilEditado { get; set; }
 
+
     public virtual ICollection<Campanha> Campanhas { get; set; } = new List<Campanha>();
 
     public virtual ICollection<PresencaCampanha> PresencaCampanhas { get; set; } = new List<PresencaCampanha>();

@@ -93,7 +93,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameo
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSendingService>();
 builder.Services.AddDbContext<VolunteeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=ABENATHAR\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai; TrustServerCertificate=true;")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE06-S21\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

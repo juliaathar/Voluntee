@@ -11,6 +11,9 @@ public partial class Instituicao
 
     public string Descricao { get; set; } = null!;
 
+    public string Imagem { get; set; } = null!;
+
+
     public string Email { get; set; } = null!;
 
     public bool AceitaDoacao { get; set; }

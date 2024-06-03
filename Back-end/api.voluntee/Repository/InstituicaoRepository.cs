@@ -37,6 +37,7 @@ namespace api.voluntee.Repository
                 var instituicaoCadastrada = new Instituicao
                 {
                     Nome = instituicao.Nome,
+                    Imagem = instituicao.Imagem,
                     Email = instituicao.Email,
                     Descricao = instituicao.Descricao,
                     AceitaDoacao = instituicao.AceitaDoacao,

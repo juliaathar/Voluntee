@@ -31,15 +31,15 @@ builder.Services.AddAuthentication(options =>
          ValidateLifetime = true,
 
 
-         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("vital-webapi-chave-symmetricsecuritykey")),
+         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("voluntee-webapi-chave-symmetricsecuritykey")),
 
      
          ClockSkew = TimeSpan.FromMinutes(30),
 
-         ValidIssuer = "Vital-WebAPI",
+         ValidIssuer = "Voluntee-WebAPI",
 
 
-         ValidAudience = "Vital-WebAPI"
+         ValidAudience = "Voluntee-WebAPI"
      };
  });
 
@@ -94,7 +94,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameo
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSendingService>();
 builder.Services.AddDbContext<VolunteeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=tcp:NOTE06-S21\\SQLSERVER,5500; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE05-S21; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
 
 var app = builder.Build();
 
@@ -106,7 +106,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

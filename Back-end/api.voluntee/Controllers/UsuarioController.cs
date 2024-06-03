@@ -82,7 +82,7 @@ namespace api.voluntee.Controllers
         }
 
         [HttpPut("AlterarFotoPerfil")]
-        public async Task<IActionResult> UpdateProfileImage(Guid id, [FromForm] UsuarioViewModel form)
+        public async Task<IActionResult> AtualizarImagem(Guid id, [FromForm] UsuarioViewModel form)
         {
             try
             {

@@ -138,7 +138,13 @@ namespace api.voluntee.Repository
                 if (usuarioBuscado != null)
                 {
                     usuarioBuscado.Foto = novaUrlFoto;
+                    if (usuarioBuscado.FotoAtualizada == false)
+                    {
+                        _pontuacaoService.IncrementarPontos(id, 100);
+                        usuarioBuscado.FotoAtualizada = true;
+                    }
                 }
+            
 
                 ctx.SaveChanges();
             }

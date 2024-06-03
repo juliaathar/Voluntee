@@ -24,3 +24,11 @@ export const IconeBarra = styled.Image`
     margin-top: 10px;
     margin-bottom: 32px;
 `
+
+
+export const ImagemRecupSenha = styled.Image`
+    width: 85%;
+    height: 25%;
+    margin-top: 40px;
+    
+`

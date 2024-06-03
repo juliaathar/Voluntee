@@ -1,4 +1,4 @@
-import { Card, Descricao, ImgFundo, NomeCard } from "./Style"
+import { Card, CardsField, Descricao, Field, FieldName, ImgFundo, NomeCard } from "./Style"
 
 function QuebraPalavra(nome, max = 15) {
     if (nome.length > max) {
@@ -7,13 +7,24 @@ function QuebraPalavra(nome, max = 15) {
     return nome;
 }
 
-export const SlideCardPopular = () => {
+export const CardPopularContainer = ({
+    dados
+}) => {
     return(
         <CardsField>
-            <FieldName></FieldName>
-            <Field>
-                //logica vai aqui pra renderizar tudo
-            </Field>
+            <FieldName>Campanhas populares</FieldName>
+            <Field
+                horizontal
+                data={dados}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => 
+            <CardPopular
+                titulo={item.titulo}
+                descricao={item.descricao}
+                imagem={item.imagem}
+            />
+            }
+            />
         </CardsField>
     )
 }
@@ -25,7 +36,10 @@ export const CardPopular = ({
 }) => {
     return(
         <Card >
-            <ImgFundo source={imagem}>
+            <ImgFundo 
+                source={imagem}
+                imageStyle={{ borderRadius: 20}}
+            >
 
             <NomeCard>{titulo}</NomeCard>
             <Descricao>{QuebraPalavra(descricao)}</Descricao>

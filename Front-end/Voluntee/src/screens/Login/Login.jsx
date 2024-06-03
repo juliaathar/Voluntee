@@ -1,8 +1,9 @@
 import { ConteinerGeral } from "../../components/Container/Conteiner";
 import { Input } from "../../components/Input/Input";
 import { Titulo } from "../../components/Titulo/Titulo";
+import { ConteinerGeral } from "../../components/Container/Style"
 
-export default function Login() {
+export const Login = () => {
     return (
         <ConteinerGeral>
 

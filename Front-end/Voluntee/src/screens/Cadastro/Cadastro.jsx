@@ -2,12 +2,11 @@ import { AntDesign } from '@expo/vector-icons';
 
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, View } from 'react-native';
-import { ConteinerGeral } from '../../components/Container/Conteiner';
+import { ConteinerGeral } from '../../components/Container/Style'
 import { Input } from '../../components/Input/Input';
 import { ConteinerBolaMenor, ConteinerBolaMaior, ConteinerIcon } from './Style';
-import { Botao } from '../../components/Botao/Botao';
 
-export default function Cadastro() {
+export const Cadastro = () => {
 
   return (
     <View style={styles.container}>

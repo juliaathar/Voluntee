@@ -1,0 +1,32 @@
+import { Button, View } from "react-native"
+
+export const Navegacao = ({navigation}) => {
+    return(
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <Button
+                title="Login"
+                onPress={() => navigation.navigate("Login")}
+            />
+            <Button
+                title="Cadastro"
+                onPress={() => navigation.navigate("Cadastro")}
+            />
+            <Button
+                title="Apresentacao"
+                onPress={() => navigation.navigate("Apresentacao")}
+            />
+            <Button
+                title="Home"
+                onPress={() => navigation.navigate("Home")}
+            />
+            <Button
+                title="Testes - Eduardo"
+                onPress={() => navigation.navigate("Eduardo")}
+            />
+            <Button
+                title="Testes - Pedro"
+                onPress={() => navigation.navigate("Pedro")}
+            />
+        </View>
+    )
+}

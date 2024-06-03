@@ -129,6 +129,25 @@ namespace api.voluntee.Repository
             }
         }
 
+        public void AtualizarFoto(Guid id, string novaUrlFoto)
+        {
+            try
+            {
+                Usuario usuarioBuscado = ctx.Usuarios.FirstOrDefault(x => x.Id == id)!;
+
+                if (usuarioBuscado != null)
+                {
+                    usuarioBuscado.Foto = novaUrlFoto;
+                }
+
+                ctx.SaveChanges();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
 
 
     }

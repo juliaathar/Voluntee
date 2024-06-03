@@ -2,6 +2,7 @@
 using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
 using api.voluntee.Repository;
+using api.voluntee.Utils.BlobStorage;
 using api.voluntee.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -77,6 +78,39 @@ namespace api.voluntee.Controllers
             {
 
                 throw;
+            }
+        }
+
+        [HttpPut("AlterarFotoPerfil")]
+        public async Task<IActionResult> UpdateProfileImage(Guid id, [FromForm] UsuarioViewModel form)
+        {
+            try
+            {
+
+                Usuario usuarioBuscado = _usuarioRepository.BuscarUsuario(id);
+
+
+                if (usuarioBuscado == null)
+                {
+                    return NotFound();
+                }
+
+                var connectionString = "";
+
+                var containerName = "";
+
+                string fotoUrl = await AzureBlobStorageHelper.UploadImageBlobAsync(form.Arquivo!, connectionString!, containerName!);
+
+
+                usuarioBuscado.Foto = fotoUrl;
+
+                _usuarioRepository.AtualizarFoto(id, fotoUrl);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
     }

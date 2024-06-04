@@ -37,6 +37,15 @@ export const Navegacao = ({navigation}) => {
                 title="RecuperarSenha"
                 onPress={() => navigation.navigate("RecuperarSenha")}
             />
+            <Button
+                title="VerificarEmail"
+                onPress={() => navigation.navigate("VerificarEmail")}
+            />
+
+            <Button
+                title="RedefinirSenha"
+                onPress={() => navigation.navigate("RedefinirSenha")}
+            />
         </View>
     )
 }

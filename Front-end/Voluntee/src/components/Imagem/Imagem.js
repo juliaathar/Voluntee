@@ -36,3 +36,17 @@ export const ImagemRecupSenha = styled.Image`
     margin-top: 40px;
     
 `
+
+export const ImagemVerifEmail = styled.Image`
+    width: 65%;
+    height: 25%;
+    margin-top: 40px;
+    
+`
+
+export const ImagemRedefSenha = styled.Image`
+    width: 67%;
+    height: 30%;
+    margin-top: 40px;
+    
+`

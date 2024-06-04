@@ -23,6 +23,8 @@ import {
   Lexend_600SemiBold, 
   Lexend_700Bold, 
 } from '@expo-google-fonts/lexend';
+import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
+import { RedefinirSenha } from './src/screens/RedefinirSeha/RedefinirSenha';
 
 
 export default function App() {
@@ -95,6 +97,18 @@ export default function App() {
           name='RecuperarSenha'
           component={RecuperarSenha}
           options={{ title: 'RecuperarSenha' }}
+        />
+
+        <Stack.Screen
+          name='VerificarEmail'
+          component={VerificarEmail}
+          options={{ title: 'VerificarEmail' }}
+        />
+
+        <Stack.Screen
+          name='RedefinirSenha'
+          component={RedefinirSenha}
+          options={{ title: 'RedefinirSenha' }}
         />
 
       </Stack.Navigator>

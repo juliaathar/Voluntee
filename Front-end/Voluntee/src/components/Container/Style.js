@@ -53,3 +53,9 @@ export const ConteinerLink = styled.TouchableOpacity`
 
     flex-direction: row;
 `
+
+export const ContainerInput = styled.View`
+   margin-right: 5%; 
+    margin-left: 5%;  
+    flex-direction: row;
+`

@@ -4,13 +4,12 @@ import { View, StyleSheet } from "react-native";
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style";
 import { TituloH3 } from '../../components/Titulo/Style';
 import { Paragrafo } from '../../components/Paragrafo/Style';
-import { ImagemRecupSenha } from '../../components/Imagem/Imagem';
+import { ImagemRedefSenha } from '../../components/Imagem/Imagem';
 import { Input } from '../../components/Input/Input';
 import { Botao } from '../../components/Botao/Botao';
-import { Container, ConteinerBottom, ConteinerButton } from '../../components/Container/Style';
+import { Container, ConteinerButton } from '../../components/Container/Style';
 
-
-export const RecuperarSenha = () => {
+export const RedefinirSenha = () => {
     return (
         <Container style={styles.container}>
             <ConteinerBolaMenor>
@@ -19,22 +18,34 @@ export const RecuperarSenha = () => {
                 </ConteinerIcon>
             </ConteinerBolaMenor>
 
-            <TituloH3>Recuperar Senha</TituloH3>
+            <TituloH3>Redefinir senha</TituloH3>
 
-            <ImagemRecupSenha source={require('../../assets/images/RecuperarSenha.png')} />
+            <ImagemRedefSenha source={require('../../assets/images/RedefinirSenha.png')} />
 
-            <Paragrafo>Informe seu email cadastrado que enviaremos um link para recuperação de senha</Paragrafo>
+            <Paragrafo>Insira e confirme sua nova senha:</Paragrafo>
 
             <Input
-                placeholder={"Email"}
-                icon='envelope'
+              
+              icon='eye-slash'
+              placeholder='Senha'
+            ></Input>
+            
+            <Input
+              
+              icon='eye-slash'
+              placeholder='Senha'
+              type="password"
             ></Input>
 
             <ConteinerButton>
-                <Botao 
-                textoBotao='Entar'
+
+                <Botao
+                    textoBotao='Continuar'
                 />
-            </ConteinerButton>    
+
+            </ConteinerButton>
+
+
         </Container>
     );
 

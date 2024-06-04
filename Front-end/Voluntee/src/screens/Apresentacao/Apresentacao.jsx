@@ -1,4 +1,9 @@
+<<<<<<< HEAD
 import { LogoBranca } from '../../components/Imagem/Imagem';
+=======
+import { ConteinerGeral, ConteinerText } from '../../components/Container/Style';
+import { ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
+>>>>>>> origin/pedro
 import { Paragrafo } from '../../components/Paragrafo/Style';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { TituloH3 } from '../../components/Titulo/Style';

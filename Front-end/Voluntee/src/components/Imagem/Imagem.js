@@ -17,7 +17,15 @@ export const LogoBranca = styled.Image`
 `
 
 export const LogoAzul = styled(LogoBranca)`
-    border: 1px solid red;
+    position: absolute;
+
+    top: 80;
+    width: 239px;
+    height: 100px;
+`
+
+export const LogoAzulLogin = styled(LogoAzul)`
+    top: 0;
 `
 
 export const IconeBarra = styled.Image`

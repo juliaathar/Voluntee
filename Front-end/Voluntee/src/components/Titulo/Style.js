@@ -11,7 +11,7 @@ export const TituloH2 = styled(TituloH3)`
     font-size: 24px;
     color: ${({ alter }) => (alter ? '#FBFBFB' : '#0066FF')};
 
-    top: 20px;   
+    top: 20px;
 `
 
 export const TituloH1 = styled(TituloH3)`

@@ -7,6 +7,7 @@ export const InputBody = styled.View`
     margin-top: 20px;
     border: 2px solid;
     border-color: ${({alter}) => (alter ? '#0066FF' : '#FBFBFB')};
+    /* '#FBFBFB' : '#0066FF' */
     align-items: center;
     flex-direction: row;
 `

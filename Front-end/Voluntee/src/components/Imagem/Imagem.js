@@ -16,6 +16,10 @@ export const LogoBranca = styled.Image`
     //height: 80px;
 `
 
+export const LogoAzul = styled(LogoBranca)`
+    border: 1px solid red;
+`
+
 export const IconeBarra = styled.Image`
     width: 58px;
     height: 8px;

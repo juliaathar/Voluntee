@@ -3,7 +3,6 @@ import { ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
 import { Paragrafo } from '../../components/Paragrafo/Style';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { TituloH3 } from '../../components/Titulo/Style';
-import { Botao } from '../../components/Botao/Botao';
 import { useState } from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { ConteinerSlide, ImagemSlide, SlideBody, SlideText } from './Style';

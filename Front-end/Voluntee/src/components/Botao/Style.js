@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.TouchableOpacity`
+export const  Button = styled.TouchableOpacity`
     border-radius: 30px;
     height: 60px;
     width: 100%;

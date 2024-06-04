@@ -2,17 +2,22 @@ import styled from "styled-components";
 
 export const ConteinerBolaMaior = styled.View`
     height: 98%;
-    width: 660px;
+    width: 180%;
 
     background-color: #FBFBFB;
     border-radius: 400px;
 
     align-self: center;
-    bottom: -160px;
+    bottom: -110px;
 
     position: absolute;
     z-index: -1;
+`
 
+export const ConteinerBolaMaiorLogin = styled(ConteinerBolaMaior)`
+    background-color: #0066FF;
+    
+    bottom: -40%;
 `
 
 export const ConteinerBolaMenor = styled.View`

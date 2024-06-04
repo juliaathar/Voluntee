@@ -25,6 +25,7 @@ import {
 } from '@expo-google-fonts/lexend';
 import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
 import { RedefinirSenha } from './src/screens/RedefinirSeha/RedefinirSenha';
+import { Campanha } from './src/screens/Campanha/Campanha';
 
 
 export default function App() {
@@ -109,6 +110,12 @@ export default function App() {
           name='RedefinirSenha'
           component={RedefinirSenha}
           options={{ title: 'RedefinirSenha' }}
+        />
+
+        <Stack.Screen
+          name='Campanha'
+          component={Campanha}
+          options={{ title: 'Campanha' }}
         />
 
       </Stack.Navigator>

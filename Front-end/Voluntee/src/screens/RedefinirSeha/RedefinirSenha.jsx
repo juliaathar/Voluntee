@@ -8,6 +8,7 @@ import { ImagemRedefSenha } from '../../components/Imagem/Imagem';
 import { Input } from '../../components/Input/Input';
 import { Botao } from '../../components/Botao/Botao';
 import { Container, ConteinerButton } from '../../components/Container/Style';
+import { StatusBar } from 'expo-status-bar';
 
 export const RedefinirSenha = () => {
     return (
@@ -44,6 +45,8 @@ export const RedefinirSenha = () => {
                 />
 
             </ConteinerButton>
+
+            <StatusBar style="auto" />
 
 
         </Container>

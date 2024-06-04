@@ -10,6 +10,7 @@ import { Botao } from '../../components/Botao/Botao';
 import { Container, ContainerInput, ConteinerBottom, ConteinerButton, ConteinerLink } from '../../components/Container/Style';
 import { Link } from '../../components/Link/Link';
 import { InputVerify } from './Style';
+import { StatusBar } from 'expo-status-bar';
 
 
 export const VerificarEmail = () => {
@@ -60,6 +61,8 @@ export const VerificarEmail = () => {
 
 
             <Link alter>Reenviar código</Link>
+
+            <StatusBar style="auto" />
 
         </Container>
     );

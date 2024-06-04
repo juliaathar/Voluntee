@@ -61,5 +61,10 @@ export const ConteinerTopLogin = styled.View`
     height: 35%;
     width: 75%;
 
-    justify-content: space-evenly;
+    justify-content: space-evenly;`
+
+export const ContainerInput = styled.View`
+    margin-right: 5%; 
+    margin-left: 5%;  
+    flex-direction: row;
 `

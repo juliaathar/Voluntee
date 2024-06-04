@@ -1,3 +1,5 @@
+console.disableYellowBox = true;
+
 import { Input } from "../../components/Input/Input";
 import { TituloH2 } from "../../components/Titulo/Style";
 import { ConteinerButton, ConteinerCadastro, ConteinerGeral, ConteinerLink, ConteinerTopLogin } from "../../components/Container/Style"

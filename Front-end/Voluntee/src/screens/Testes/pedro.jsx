@@ -1,7 +1,7 @@
 import { View } from "react-native"
 import { CardPopular, CardPopularContainer } from "../../components/CardPopular/CardPopular";
 import { CardCampanha, CardCampanhaList } from "../../components/CardCampanha/CardCampanha";
-import { CardInstituicao } from "../../components/CardInstituicao/CardInstituicao";
+import { CardInstituicao, CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
 
 export const Pedro = ({ navigation }) => {
     const dados = [
@@ -48,7 +48,9 @@ export const Pedro = ({ navigation }) => {
     ]
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
-            <CardInstituicao/>
+            <CardInstituicaoList
+                dados={dados}
+            />
         </View>
     )
 }

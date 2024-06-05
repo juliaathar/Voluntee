@@ -1,4 +1,4 @@
-import { CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style"
+import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style"
 import { FontAwesome6 } from '@expo/vector-icons';
 
 function QuebraPalavra(nome, max = 15) {
@@ -8,11 +8,12 @@ function QuebraPalavra(nome, max = 15) {
     return nome;
 }
 
-export const CardCampanhaList = ({ dados, onPressMore, }) => {
+export const CardCampanhaList = ({ dados, onPressMore, scroll }) => {
     return (
-        <CardList>
+        <CardList >
             <ListName>Outras campanhas</ListName>
             <List
+                scrollEnable={scroll}
                 data={dados}
                 keyExtractor={(item) => item.id}
                 initialNumToRender={3}
@@ -45,9 +46,13 @@ export const CardCampanha = ({
         <CardBody
             onPress={onPress}
         >
+
             <ImgCard
                 source={imagem}
-            />
+            >
+                <Blur/>
+            </ImgCard>
+
 
             <InfoContainer>
                 <Info>

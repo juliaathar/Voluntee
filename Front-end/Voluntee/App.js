@@ -17,19 +17,16 @@ import { Joao } from './src/screens/Testes/joao';
 
 //Fontes
 import { useFonts } from 'expo-font';
-import { 
-  Lexend_400Regular, 
-  Lexend_500Medium, 
-  Lexend_600SemiBold, 
-  Lexend_700Bold, 
+import {
+  Lexend_400Regular,
+  Lexend_500Medium,
+  Lexend_600SemiBold,
+  Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
 import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
 import { RedefinirSenha } from './src/screens/RedefinirSeha/RedefinirSenha';
-<<<<<<< HEAD
 import { Perfil } from './src/screens/Perfil/Perfil';
-=======
 import { Campanha } from './src/screens/Campanha/Campanha';
->>>>>>> origin/joao
 
 
 export default function App() {
@@ -117,15 +114,15 @@ export default function App() {
         />
 
         <Stack.Screen
-<<<<<<< HEAD
           name='Perfil'
           component={Perfil}
           options={{ title: 'Perfil' }}
-=======
+        />
+
+        <Stack.Screen
           name='Campanha'
           component={Campanha}
           options={{ title: 'Campanha' }}
->>>>>>> origin/joao
         />
 
       </Stack.Navigator>

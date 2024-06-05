@@ -1,4 +1,4 @@
-import { Card, CardsField, Descricao, Field, FieldName, ImgFundo, NomeCard } from "./Style"
+import { BlurPreto, Card, CardsField, Descricao, Field, FieldName, ImgFundo, NomeCard } from "./Style"
 
 function QuebraPalavra(nome, max = 15) {
     if (nome.length > max) {
@@ -43,9 +43,10 @@ export const CardPopular = ({
                 source={imagem}
                 imageStyle={{ borderRadius: 20 }}
             >
-
-                <NomeCard>{titulo}</NomeCard>
-                <Descricao>{QuebraPalavra(descricao)}</Descricao>
+                <BlurPreto>
+                    <NomeCard>{titulo}</NomeCard>
+                    <Descricao>{QuebraPalavra(descricao)}</Descricao>
+                </BlurPreto>
             </ImgFundo>
         </Card>
     )

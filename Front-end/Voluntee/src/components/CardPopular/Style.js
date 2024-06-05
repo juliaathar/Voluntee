@@ -2,19 +2,27 @@ import styled from "styled-components";
 
 //card popular
 export const Card = styled.TouchableOpacity`
-    width: 150px;
+    width: 155px;
     height: 200px;
     border-radius: 20px;
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 10px;
+    //margin-left: 5px;
 `
 export const ImgFundo = styled.ImageBackground`
     justify-content: flex-end;
     align-items: center;
-    //border-radius: 20px;
     border-radius: 20px;
     width: 100%;
     height: 100%;
+`
+
+export const BlurPreto = styled.View`
+    background-color: rgba(0,0,0, 0.3);
+    border-radius: 20px;
+    width: 100%;
+    height: 100%;
+    justify-content: flex-end;
+    align-items: center;
 `
 
 export const Descricao = styled.Text`

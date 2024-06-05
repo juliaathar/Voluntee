@@ -19,11 +19,11 @@ namespace api.voluntee.Repository
             _pontuacaoService = pontuacaoService;
         }
 
-        public void Cadastrar(Usuario usuario)
+        public void Cadastrar(UsuarioPostDto usuarioDto)
         {
             try
             {
-                bool cpfExiste = ctx.Usuarios.Any(u => u.Cpf == usuario.Cpf);
+                bool cpfExiste = ctx.Usuarios.Any(u => u.Cpf == usuarioDto.Cpf);
 
                 if (cpfExiste)
                 {
@@ -31,12 +31,23 @@ namespace api.voluntee.Repository
                 }
                 else
                 {
-                    usuario.Senha = Criptografia.GerarHash(usuario.Senha!);
+                    var usuario = new Usuario
+                    {
+                        Id = Guid.NewGuid(),
+                        Nome = usuarioDto.Nome,
+                        Cpf = usuarioDto.Cpf,
+                        DataNascimento = usuarioDto.DataNascimento,
+                        Email = usuarioDto.Email,
+                        Senha = Criptografia.GerarHash(usuarioDto.Senha!),
+                        CodRecupSenha = usuarioDto.CodRecupSenha,
+                        Pontos = usuarioDto.Pontos,
+                        PerfilEditado = usuarioDto.PerfilEditado,
+                        FotoAtualizada = usuarioDto.FotoAtualizada
+                    };
 
-                    ctx.Add(usuario);
+                    ctx.Usuarios.Add(usuario);
                     ctx.SaveChanges();
                 }
-        
             }
             catch (InvalidOperationException ex)
             {
@@ -47,6 +58,7 @@ namespace api.voluntee.Repository
                 throw new Exception("Erro ao cadastrar usuário.", ex);
             }
         }
+
 
         public void EditarPerfil(Guid id, UsuarioUpdateDto usuario)
         {

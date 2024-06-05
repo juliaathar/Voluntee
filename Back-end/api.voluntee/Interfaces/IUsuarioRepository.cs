@@ -5,7 +5,7 @@ namespace api.voluntee.Interfaces
 {
     public interface IUsuarioRepository
     {
-        void Cadastrar(Usuario usuario);
+        void Cadastrar(UsuarioPostDto usuario);
 
         void EditarPerfil(Guid id, UsuarioUpdateDto usuario);
         Usuario BuscarUsuario(Guid id);

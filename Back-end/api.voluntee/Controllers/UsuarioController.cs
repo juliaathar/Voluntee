@@ -3,6 +3,7 @@ using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
 using api.voluntee.Repository;
 using api.voluntee.Utils.BlobStorage;
+using api.voluntee.Utils.SendEmail;
 using api.voluntee.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,12 @@ namespace api.voluntee.Controllers
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioRepository _usuarioRepository;
+        private readonly EmailSendingService _emailSendingService;
 
-        public UsuarioController(IUsuarioRepository usuarioRepository)
+        public UsuarioController(IUsuarioRepository usuarioRepository, EmailSendingService emailSendingService)
         {
             _usuarioRepository = usuarioRepository;
-
+            _emailSendingService = emailSendingService;
         }
 
         [HttpPatch]
@@ -38,17 +40,19 @@ namespace api.voluntee.Controllers
 
 
         [HttpPost]
-        public IActionResult Cadastrar(Usuario usuario)
+        public async Task<IActionResult> Cadastrar (UsuarioPostDto usuario)
         {
             try
             {
                 _usuarioRepository.Cadastrar(usuario);
-                return StatusCode(201, usuario);
+                await _emailSendingService.SendWelcomeEmail(usuario.Email, usuario.Nome);
+
+                return Ok(usuario);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                return BadRequest(ex.Message);
             }
         } 
         

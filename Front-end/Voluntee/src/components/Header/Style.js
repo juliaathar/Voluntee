@@ -7,17 +7,13 @@ export const HeaderContainer = styled.View`
     justify-content: space-between;
     flex-direction: row;
     align-items: center;
+    top: 0px;
 `
 
 export const ImagePerfil = styled.Image`
     width: 60px;
     height: 60px;
     border-radius: 50px;
-`
-
-export const ImageLogoHeader = styled.Image`
-    width: 120px;
-    height: 50px;
 `
 
 export const MenuHam = styled.TouchableOpacity`

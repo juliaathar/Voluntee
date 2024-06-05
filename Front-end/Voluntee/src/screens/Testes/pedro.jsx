@@ -2,6 +2,8 @@ import { View } from "react-native"
 import { CardPopular, CardPopularContainer } from "../../components/CardPopular/CardPopular";
 import { CardCampanha, CardCampanhaList } from "../../components/CardCampanha/CardCampanha";
 import { CardInstituicao, CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
+import LogoAzulSvg from "../../components/LogoAzulSvg/LogoAzulSvg";
+import LogoBrancoSvg from "../../components/LogoBrancoSvg/LogoBrancoSvg";
 
 export const Pedro = ({ navigation }) => {
     const dados = [
@@ -47,10 +49,9 @@ export const Pedro = ({ navigation }) => {
         },
     ]
     return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center", flexDirection: "row" }}>
-            <CardInstituicaoList
-                dados={dados}
-            />
+        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+            <LogoAzulSvg/>
+            <LogoBrancoSvg/>
         </View>
     )
 }

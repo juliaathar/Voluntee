@@ -1,11 +1,14 @@
 import styled from "styled-components";
+import { CardsField, FieldName } from "../CardPopular/Style";
 
-export const CardBody = styled.View`
+//card
+export const CardBody = styled.TouchableOpacity`
     width: 100%;
     height: 130px;
     //border: 1px solid #0066FF;
     border-radius: 10px 40px 10px 40px;
     flex-direction: row;
+    margin-bottom: 10PX;
 `
 
 export const ImgCard = styled.Image`
@@ -16,21 +19,23 @@ export const ImgCard = styled.Image`
 export const InfoContainer = styled.View`
     width: 70%;
     border-radius: 0px 40px 10px 0px;
-    border: 1px solid #0066FF;
+    //border-left-color: transparent;
+    border: 1px #0066FF;
     align-items: center;
     justify-content: space-evenly;
 `
 export const Info = styled.View`
-    width: 90%;
-    height: 65%;
-    border: 1px;
+    width: 92%;
+    height: 55%;
+    //border: 1px;
 `
 
 export const DataLocal = styled.View`   
-    width: 90%;
+    width: 92%;
     height: 25%;
-    border: 1px;
+    //border: 1px;
     align-items: center;
+    flex-direction: row;
     justify-content: space-between;
 `
 
@@ -44,4 +49,31 @@ export const TituloCard = styled.Text`
 export const DescricaoCard = styled.Text`
     font-family: 'Lexend_400Regular';
     font-size: 14px;
+`
+
+export const Data = styled(DescricaoCard)`
+    font-size: 12px;
+`
+export const Local = styled(Data)``
+
+//flatlist de cards
+export const CardList = styled(CardsField)`
+    height: 480px;
+`
+
+export const ListName = styled(FieldName)`
+    color: #0066FF;
+`
+export const List = styled.FlatList`
+    height: 500px;
+`
+
+export const ShowMore = styled.TouchableOpacity`
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: row;
+`
+export const More = styled(TituloCard)`
+    font-family: "Lexend_500Medium";
 `

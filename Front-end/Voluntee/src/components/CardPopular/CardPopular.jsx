@@ -10,39 +10,42 @@ function QuebraPalavra(nome, max = 15) {
 export const CardPopularContainer = ({
     dados
 }) => {
-    return(
+    return (
         <CardsField>
             <FieldName>Campanhas populares</FieldName>
             <Field
                 horizontal
                 data={dados}
                 keyExtractor={(item) => item.id}
-                renderItem={({item}) => 
-            <CardPopular
-                titulo={item.titulo}
-                descricao={item.descricao}
-                imagem={item.imagem}
-            />
-            }
+                renderItem={({ item }) =>
+                    <CardPopular
+                        titulo={item.titulo}
+                        descricao={item.descricao}
+                        imagem={item.imagem}
+                    />
+                }
             />
         </CardsField>
     )
 }
 
 export const CardPopular = ({
-    titulo ="titulo do card",
-    descricao ="descrição do card popular",
-    imagem = require('../../assets/images/apresentacao3.png')
+    titulo = "titulo do card",
+    descricao = "descrição do card popular",
+    imagem = require('../../assets/images/apresentacao3.png'),
+    onPress
 }) => {
-    return(
-        <Card >
-            <ImgFundo 
+    return (
+        <Card
+            onPress={onPress}
+        >
+            <ImgFundo
                 source={imagem}
-                imageStyle={{ borderRadius: 20}}
+                imageStyle={{ borderRadius: 20 }}
             >
 
-            <NomeCard>{titulo}</NomeCard>
-            <Descricao>{QuebraPalavra(descricao)}</Descricao>
+                <NomeCard>{titulo}</NomeCard>
+                <Descricao>{QuebraPalavra(descricao)}</Descricao>
             </ImgFundo>
         </Card>
     )

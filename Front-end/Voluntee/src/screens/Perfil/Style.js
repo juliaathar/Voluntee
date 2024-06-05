@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { TituloH2, TituloH3 } from "../../components/Titulo/Style";
+import { Container, ConteinerLink } from "../../components/Container/Style";
+import { Button } from "../../components/Botao/Style";
 
 export const ConteinerPerfil = styled.View`
-    width: 100%;
-    height: 38%;
+    width: 110%;
+    height: 290px;
 
     position: absolute;
     top: 8%;
@@ -20,10 +22,12 @@ export const ConteinerAtrásPerfil = styled.View`
     justify-content: space-between;
     align-items: center;
 
-    right: 10%;
-    top: 110px;
+    position: absolute;
+
+    right: 24%;
+    top: 29%;
     
-    width: 35%;
+    width: 32%;
     height: 50px;
 `
 
@@ -40,10 +44,19 @@ export const FotoPerfil = styled.Image`
 
 export const TituloPerfil = styled(TituloH2)`
     font-size: 24px;
+    top: 0px;
 `
 
 export const NomePerfil = styled(TituloH3)`
     font-size: 16px;
+`
+
+export const ConteinerImagem = styled.View`
+    width: 100%;
+
+    position: absolute;
+    
+    top: 38%;
 `
 
 
@@ -57,8 +70,32 @@ export const LabelInput = styled.Text`
 `
 
 export const ConteinerInput = styled.ScrollView`
+    
     width: 110%;
+    height: 600px;
     left: 5%;
 
-    top: 50%;
+    margin-top: 60%;
+    top: 28%;
+`
+
+export const ButtonPerfil = styled(Button)`
+    margin-bottom: 36px;
+    margin-top: 15%;
+    
+    width: 90%;
+`
+
+export const LinkPerfil = styled.Text`
+    font-family: 'Lexend_400Medium';
+    font-size: 18px;
+    color: #FBFBFB;
+`
+
+export const ConteinerLinkPerfil = styled.TouchableOpacity`
+    width: 100%;
+    
+    align-items: center;
+
+    margin-bottom: 20px;
 `

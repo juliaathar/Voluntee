@@ -7,3 +7,8 @@ export const Paragrafo = styled.Text`
     top: 10px;
     text-align: center;
 `
+
+export const ParagrafoCamapanha = styled(Paragrafo)`
+    color: #000000;
+    text-align: left;
+`

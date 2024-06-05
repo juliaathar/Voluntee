@@ -2,6 +2,7 @@
 using api.voluntee.Domains;
 using api.voluntee.Interfaces;
 using api.voluntee.Services;
+using api.voluntee.Utils.BlobStorage;
 
 namespace api.voluntee.Repository
 {
@@ -34,10 +35,22 @@ namespace api.voluntee.Repository
         {
             try
             {
+
+                var connectionString = "";
+
+                var containerName = "";
+
+                string imagemUrl = null;
+
+                if (instituicao.ImagemArquivo != null)
+                {
+                    imagemUrl = AzureBlobStorageHelper.UploadImageBlobAsync(instituicao.ImagemArquivo, connectionString, containerName).GetAwaiter().GetResult();
+                }
+
                 var instituicaoCadastrada = new Instituicao
                 {
                     Nome = instituicao.Nome,
-                    Imagem = instituicao.Imagem,
+                    Imagem = imagemUrl,
                     Email = instituicao.Email,
                     Descricao = instituicao.Descricao,
                     AceitaDoacao = instituicao.AceitaDoacao,

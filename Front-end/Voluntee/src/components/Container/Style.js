@@ -54,8 +54,17 @@ export const ConteinerLink = styled.TouchableOpacity`
     flex-direction: row;
 `
 
+export const ConteinerTopLogin = styled.View`
+    position: absolute;
+    top: 10%;
+
+    height: 35%;
+    width: 75%;
+
+    justify-content: space-evenly;`
+
 export const ContainerInput = styled.View`
-   margin-right: 5%; 
+    margin-right: 5%; 
     margin-left: 5%;  
     flex-direction: row;
 `

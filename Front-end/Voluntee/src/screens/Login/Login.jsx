@@ -1,17 +1,27 @@
+console.disableYellowBox = true;
+
 import { Input } from "../../components/Input/Input";
 import { TituloH2 } from "../../components/Titulo/Style";
-import { ConteinerButton, ConteinerCadastro, ConteinerGeral, ConteinerLink } from "../../components/Container/Style"
+import { ConteinerButton, ConteinerCadastro, ConteinerGeral, ConteinerLink, ConteinerTopLogin } from "../../components/Container/Style"
 import { ConteinerBolaMaiorLogin } from "../Cadastro/Style";
 import { Botao } from "../../components/Botao/Botao";
 import { Link, TextLink } from "../../components/Link/Link";
 import { StyleSheet, View } from "react-native";
-import { LogoAzul } from "../../components/Imagem/Imagem";
+import { LogoAzul, LogoAzulLogin } from "../../components/Imagem/Imagem";
 
 export const Login = () => {
   return (
     <View style={styles.container}>
 
-      <LogoAzul source={require('../../assets/images/LogoAzul.png')} />
+      <ConteinerTopLogin>
+
+        <LogoAzulLogin source={require('../../assets/images/LogoAzul.png')} />
+
+        <TituloH2>Entre e transforme vidas hoje!</TituloH2>
+        {/* <TituloH2>Vidas Hoje!</TituloH2> */}
+
+      </ConteinerTopLogin>
+
 
       <ConteinerBolaMaiorLogin>
 

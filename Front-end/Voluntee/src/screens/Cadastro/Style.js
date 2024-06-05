@@ -16,8 +16,10 @@ export const ConteinerBolaMaior = styled.View`
 
 export const ConteinerBolaMaiorLogin = styled(ConteinerBolaMaior)`
     background-color: #0066FF;
+
+    position: absolute;
     
-    bottom: -40%;
+    top: 48%;
 `
 
 export const ConteinerBolaMenor = styled.View`

@@ -4,6 +4,10 @@ import { CardCampanha, CardCampanhaList } from "../../components/CardCampanha/Ca
 import { CardInstituicao, CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
 import LogoAzulSvg from "../../components/LogoAzulSvg/LogoAzulSvg";
 import LogoBrancoSvg from "../../components/LogoBrancoSvg/LogoBrancoSvg";
+import { Header } from "@react-navigation/stack";
+import { HeaderHome } from "../../components/Header/Header";
+import { useState } from "react";
+import { Menu } from "../../components/Menu/Menu";
 
 export const Pedro = ({ navigation }) => {
     const dados = [
@@ -48,10 +52,18 @@ export const Pedro = ({ navigation }) => {
             local: "Pedrinhas"
         },
     ]
+
+    const [menu, setMenu] = useState(false)
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <LogoAzulSvg/>
-            <LogoBrancoSvg/>
+            <HeaderHome
+                onPress={() => setMenu(true)}
+            />
+            <Menu
+                visible={menu}
+                onRequestClose={() => setMenu(false)}
+                onBack={() => setMenu(false)}
+            />
         </View>
     )
 }

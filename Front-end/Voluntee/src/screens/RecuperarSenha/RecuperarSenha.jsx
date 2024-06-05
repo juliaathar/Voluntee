@@ -8,6 +8,7 @@ import { ImagemRecupSenha } from '../../components/Imagem/Imagem';
 import { Input } from '../../components/Input/Input';
 import { Botao } from '../../components/Botao/Botao';
 import { Container, ConteinerBottom, ConteinerButton } from '../../components/Container/Style';
+import { StatusBar } from 'expo-status-bar';
 
 
 export const RecuperarSenha = () => {
@@ -35,6 +36,8 @@ export const RecuperarSenha = () => {
                 textoBotao='Entar'
                 />
             </ConteinerButton>    
+
+            <StatusBar style="auto" />
         </Container>
     );
 

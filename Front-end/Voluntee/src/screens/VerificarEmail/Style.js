@@ -7,6 +7,7 @@ export const InputVerify = styled.TextInput.attrs({placeholderTextColor: '#FFFFF
     border: 2px solid #FFFFFF;
     border-radius: 50px;
     font-size: 40px;
+    font-family: 'Lexend_400Regular';
     text-align: center;
     color: #FFFFFF;
     margin-top: 30px;

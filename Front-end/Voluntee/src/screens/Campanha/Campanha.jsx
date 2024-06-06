@@ -1,7 +1,7 @@
 import { FontAwesome6 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { ContainerAzul, ConteinerButton } from "../../components/Container/Style";
 import { ConteinerBolaMaiorCampanha, ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style";
 import { StatusBar } from 'expo-status-bar';
@@ -12,8 +12,14 @@ import { ImagemCampanha } from '../../components/Imagem/Imagem';
 import { TituloH2 } from '../../components/Titulo/Style';
 import { HeaderHome } from '../../components/Header/Header';
 import { Botao } from '../../components/Botao/Botao';
+import Maps from '../../components/Maps/Maps';
+import CampanhaModal from '../../components/CampanhaModal/CampanhaModal';
+import { useState } from 'react';
 
-export const Campanha = () => {
+export const Campanha = ({ navigation }) => {
+
+    const [showModalCancel, setShowModalCancel] = useState(false);
+    const [showModalAppointment, setShowAppointment] = useState(false);
     return (
 
         <ContainerAzul>
@@ -39,9 +45,9 @@ export const Campanha = () => {
                     <TituloH2 style={{ top: 10 }} >Chuvas no RS</TituloH2>
 
 
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" />Rio Grande do Sul, Porto Alegre</Text>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" />  Rio Grande do Sul, Porto Alegre</Text>
 
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}><Ionicons name="calendar-clear" size={20} color="#0066FF" />27/09 a 09/12</Text>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}><Ionicons name="calendar-clear" size={20} color="#0066FF" />  27/09 a 09/12</Text>
 
                     <ContainerParagrafo style={{ top: 20 }}>
                         <View style={{ border: 1, backgroundColor: '#0066FF', width: 2 }}></View>
@@ -60,23 +66,32 @@ export const Campanha = () => {
 
                     <TituloH2 style={{ fontSize: 16 }}> johndoe@gmail.com</TituloH2>
 
-                    <TituloH2 style={{ fontSize: 18, color: "#00000"}}> Veja o local da campanha:</TituloH2>
+
+                    <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}> Veja o local da campanha:</TituloH2>
+
+                    <Maps />
+
+
 
                     <ConteinerButton>
                         <Botao
                             alter
                             textoBotao='Participe'
+                            onPressCancel={() => setShowModalCancel(true)}
+                            onPress={() => setShowAppointment(true)}
                         />
                     </ConteinerButton>
 
                 </ConteinerBolaMaiorCampanha>
             </ConteinerInfCampanha>
 
-
+            <CampanhaModal
+                visible={showModalAppointment}
+                setShowAppointment={setShowAppointment}
+                navigation={navigation}
+            />
 
             <StatusBar style="auto" />
-
-
 
         </ContainerAzul>
 

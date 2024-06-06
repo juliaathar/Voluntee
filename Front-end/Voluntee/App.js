@@ -27,6 +27,7 @@ import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
 import { RedefinirSenha } from './src/screens/RedefinirSeha/RedefinirSenha';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
+import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 
 
 export default function App() {
@@ -123,6 +124,12 @@ export default function App() {
           name='Campanha'
           component={Campanha}
           options={{ title: 'Campanha' }}
+        />
+
+        <Stack.Screen
+          name='Instituicao'
+          component={Instituicao}
+          options={{ title: 'Instituicao' }}
         />
 
       </Stack.Navigator>

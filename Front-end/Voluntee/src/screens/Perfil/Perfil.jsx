@@ -2,91 +2,99 @@ import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 import { StyleSheet, View } from "react-native"
-import { TituloH1 } from "../../components/Titulo/Style"
-import { ConteinerGeral } from "../../components/Container/Style"
+import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
-import { ConteinerAtrásPerfil, ConteinerInput, ConteinerPerfil, FotoPerfil, ImagemMedalha, LabelInput, NomePerfil, TituloPerfil } from './Style';
+import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloPerfil } from './Style';
 import { Input } from '../../components/Input/Input';
 import { StatusBar } from 'expo-status-bar';
+import { ScrollView } from 'react-native';
+import { TituloH1 } from '../../components/Titulo/Style';
+import { Button, TextButton } from '../../components/Botao/Style';
 
 export const Perfil = () => {
     return (
+        <ScrollView>
+            <ContainerAzul>
 
-        <View style={styles.container}>
-
-            <ConteinerBolaMenor>
-                <ConteinerIcon>
-                    <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
-                </ConteinerIcon>
-            </ConteinerBolaMenor>
-
-
-
-            <ConteinerPerfil>
-                <TituloPerfil alter>Perfil</TituloPerfil>
-
-                <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} />
-
-                <NomePerfil>John Doe</NomePerfil>
-            </ConteinerPerfil>
-
-            <ConteinerAtrásPerfil>
-                <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
-
-                <Feather name="edit" size={24} color="white" />
-            </ConteinerAtrásPerfil>
+                <ConteinerBolaMenor>
+                    <ConteinerIcon>
+                        <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
+                    </ConteinerIcon>
+                </ConteinerBolaMenor>
 
 
-            {/* Bottom */}
+                <ConteinerPerfil>
+                    <TituloPerfil alter>Perfil</TituloPerfil>
 
-            <ConteinerGeral>
+                    <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} />
 
-                <ConteinerInput>
+                    <NomePerfil>John Doe</NomePerfil>
+                </ConteinerPerfil>
 
-                    <LabelInput>Nome</LabelInput>
-                    <Input
-                        icon=''
-                        placeholder='John Doe'
-                    >
-                    </Input>
+                <ConteinerAtrásPerfil>
+                    <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                    <LabelInput>E-mail</LabelInput>
-                    <Input
-                        icon=''
-                        placeholder='johndoe@gmail.com'
-                    >
-                    </Input>
+                    <Feather name="edit" size={24} color="white" />
+                </ConteinerAtrásPerfil>
 
-                    <LabelInput>Data de nascimento</LabelInput>
-                    <Input
-                        icon=''
-                        placeholder='2005/03/2024'
-                    >
-                    </Input>
+                <ConteinerImagem>
+                    <TituloH1>AQUI VAI IMAGEM DO LEVEL!!!</TituloH1>
+                </ConteinerImagem>
 
-                    <LabelInput>Cpf</LabelInput>
-                    <Input
-                        icon=''
-                        placeholder='675.578.589-09'
-                    >
-                    </Input>
 
-                </ConteinerInput>
+                {/* Bottom */}
 
-            </ConteinerGeral>
+                <ConteinerGeral>
 
-            <StatusBar style="auto" />
+                    <ConteinerInput>
 
-        </View>
+                        <LabelInput>Nome</LabelInput>
+                        <Input
+                            icon=''
+                            placeholder='John Doe'
+                        >
+                        </Input>
 
+                        <LabelInput>E-mail</LabelInput>
+                        <Input
+                            icon=''
+                            placeholder='johndoe@gmail.com'
+                        >
+                        </Input>
+
+                        <LabelInput>Data de nascimento</LabelInput>
+                        <Input
+                            icon=''
+                            placeholder='2005/03/2024'
+                        >
+                        </Input>
+
+                        <LabelInput>Cpf</LabelInput>
+                        <Input
+                            icon=''
+                            placeholder='675.578.589-09'
+                        >
+                        </Input>
+
+
+
+                    </ConteinerInput>
+
+                </ConteinerGeral>
+
+                <StatusBar style="auto" />
+
+                <ButtonPerfil>
+                    <TextButton>Entrar</TextButton>
+                </ButtonPerfil>
+
+                <ConteinerLinkPerfil>
+                    <LinkPerfil>Sair</LinkPerfil>
+                </ConteinerLinkPerfil>
+
+            </ContainerAzul>
+
+
+        </ScrollView>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#0066FF',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-})

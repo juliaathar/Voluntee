@@ -5,6 +5,12 @@ export const Container = styled.SafeAreaView`
     align-items: center;
 `
 
+export const ContainerAzul = styled.SafeAreaView`
+    flex: 1;
+    align-items: center;
+    background-color: #0066FF;
+`
+
 export const ConteinerGeral = styled.View`
     width: 90%;
     /* height: 100%; */

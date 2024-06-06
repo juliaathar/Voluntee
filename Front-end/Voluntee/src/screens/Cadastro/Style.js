@@ -24,19 +24,18 @@ export const ConteinerBolaMaiorLogin = styled(ConteinerBolaMaior)`
 
 export const ConteinerBolaMenor = styled.View`
     width: 70%;
-    height: 32%;
+    height: 35%;
 
     background-color: #FBFBFB;
     border-radius: 400px;
 
-    top: -140px;
-    left: -140px;
+    top: -20%;
+    left: -40%;
 
     position: absolute;
-    z-index: -1;
 
-    padding-top: 150px;
-    padding-left: 130px;
+    padding-top: 45%;
+    padding-left: 40%;
 `
 
 export const ConteinerIcon = styled.TouchableOpacity`

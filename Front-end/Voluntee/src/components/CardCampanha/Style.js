@@ -11,11 +11,20 @@ export const CardBody = styled.TouchableOpacity`
     margin-bottom: 10PX;
 `
 
-export const ImgCard = styled.Image`
-    width: 30%;
+export const ImgCard = styled.ImageBackground`
+    flex: 1;
     height: 100%;
     border-radius: 10px 0px 0px 40px;
+    overflow: hidden;
 `
+
+export const Blur = styled.View`
+    width: 100%;
+    height: 100%;
+    border-radius: 10px 0px 0px 40px;
+    background-color: rgba(0,0,0, 0.3);
+`
+
 export const InfoContainer = styled.View`
     width: 70%;
     border-radius: 0px 40px 10px 0px;
@@ -49,6 +58,7 @@ export const TituloCard = styled.Text`
 export const DescricaoCard = styled.Text`
     font-family: 'Lexend_400Regular';
     font-size: 14px;
+    color: #1E1E1E;
 `
 
 export const Data = styled(DescricaoCard)`
@@ -59,6 +69,7 @@ export const Local = styled(Data)``
 //flatlist de cards
 export const CardList = styled(CardsField)`
     height: 480px;
+    margin-bottom: 20px;
 `
 
 export const ListName = styled(FieldName)`

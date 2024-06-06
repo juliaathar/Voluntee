@@ -117,7 +117,7 @@ export default function App() {
           name='Perfil'
           component={Perfil}
           options={{ title: 'Perfil' }}
-          />
+        />
 
         <Stack.Screen
           name='Campanha'

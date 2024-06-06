@@ -5,6 +5,7 @@ import { Container } from "../../components/Container/Style";
 import { HeaderHome } from "../../components/Header/Header";
 import { Input } from "../../components/Input/Input";
 import OndaHome from "../../components/OndaHome/OndaHome";
+import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
 
 export const Home = () => {
     const dados = [
@@ -67,6 +68,12 @@ export const Home = () => {
             
                 <CardCampanhaList
                     dados={dados}
+                    scroll={false}
+                />
+
+                <CardInstituicaoList
+                    dados={dados}
+                    scroll={false}
                 />
             </Container>
         </ScrollView>

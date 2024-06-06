@@ -33,7 +33,7 @@ export const RecuperarSenha = () => {
 
             <ConteinerButton>
                 <Botao 
-                textoBotao='Entar'
+                textoBotao='Continuar'
                 />
             </ConteinerButton>    
 

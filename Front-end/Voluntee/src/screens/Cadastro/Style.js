@@ -47,16 +47,12 @@ export const ConteinerIcon = styled.TouchableOpacity`
 `
 
 
-export const ConteinerBolaMaiorCampanha = styled.View`
-    height: 85%;
-    width: 99%;
-
+export const ConteinerBolaMaiorCampanha = styled.SafeAreaView`
+    height: 1200px;
+    width: 100%;
     background-color: #FBFBFB;
     border-radius: 20px 20px 0px 0px;
-
-    align-self: center;
-    bottom: -110px;
-
-    position: absolute;
+    position: relative;
     z-index: -1;
+    align-items: center;
 `

@@ -34,14 +34,14 @@ export const RedefinirSenha = () => {
             <Input
               
               icon='eye-slash'
-              placeholder='Senha'
+              placeholder='Confirme sua senha'
               type="password"
             ></Input>
 
             <ConteinerButton>
 
                 <Botao
-                    textoBotao='Continuar'
+                    textoBotao='Redefinir'
                 />
 
             </ConteinerButton>

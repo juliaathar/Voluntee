@@ -19,7 +19,7 @@ export const Eduardo = ({ navigation }) => {
                     progress={0.8} width={200} borderRadius={100}
                 >
                     
-                    {/* <Progress.Bar progress={0.8} width={200} borderRadius={100} /> */}
+                    <Progress.Bar progress={0.8} width={200} borderRadius={100} />
 
                 </ConteinerBarraDeProgresso>
 

@@ -12,7 +12,7 @@ function QuebraPalavra(nome, max = 15) {
 export const CardInstituicaoList = ({ dados, onPressMore, scroll }) => {
     return (
         <CardList style={{height: 320}} >
-            <ListName>Outras campanhas</ListName>
+            <ListName>Instituições que aceitam doações</ListName>
             <List
                 scrollEnable={scroll}
                 data={dados}

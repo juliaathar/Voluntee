@@ -55,7 +55,7 @@ export const Home = () => {
             <Container>
                 <OndaHome />
 
-                <HeaderHome />
+                <HeaderHome/>
 
                 <Input
                     placeholder={"Pesquise"}

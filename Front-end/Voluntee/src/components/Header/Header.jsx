@@ -5,12 +5,13 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 export const HeaderHome = ({
     alter = false,
-    imagem = require('../../assets/images/PerfilTeste.png')
+    imagem = require('../../assets/images/PerfilTeste.png'),
+    onPress
     }) => {
 
     return (
         <HeaderContainer>
-            <MenuHam>
+            <MenuHam onPress={onPress}>
                 <FontAwesome5 name="bars" size={30} color={alter ? "#FBFBFB" : "#0066FF"} />
             </MenuHam>
 

@@ -3,6 +3,7 @@ import { View, Animated, TextInput, StyleSheet } from 'react-native';
 import Svg, { G, Circle } from "react-native-svg";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
+const AnimatedInput = Animated.createAnimatedComponent(TextInput)
 
 export const Eduardo = ({
     percentage = 80,
@@ -19,6 +20,7 @@ export const Eduardo = ({
 }) => {
     const animatedValue = React.useRef(new Animated.Value(0)).current;
     const circleRef = React.useRef()
+    const inputRef = React.useRef()
     const halfCircle = radius + strokeWidth;
     const circleCircunference = 2 * Math.PI * radius;
 
@@ -44,13 +46,20 @@ export const Eduardo = ({
                 circleRef.current.setNativeProps({
                     strokeDashoffset
                 })
-            } 
+            }
+
+            if (inputRef?.current) {
+                inputRef.current.setNativeProps({
+                    text: `${Math.round(v.value)}`
+                })
+            }
         })
+        return (() => {
+            animatedValue.removeAllListeners();
+        }, [max, percentage]);
     })
 
-    return (() => {
-        animatedValue.removeAllListeners();
-    })
+
 
     return (
         <View>
@@ -88,14 +97,15 @@ export const Eduardo = ({
                 </G>
             </Svg>
 
-            <TextInput
+            <AnimatedInput
+                ref={inputRef}
                 underlineColorAndroid="transparent"
                 editable={false}
                 defaultValue='0'
                 style={[
                     StyleSheet.absoluteFillObject,
                     { fontSize: radius / 2, color: textColor ?? color },
-                    { fontWeight: '900',textAlign: 'center' },
+                    { fontWeight: '900', textAlign: 'center' },
                 ]}
             />
 

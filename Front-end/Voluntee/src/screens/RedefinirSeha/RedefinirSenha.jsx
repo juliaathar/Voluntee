@@ -1,6 +1,6 @@
 import { AntDesign } from '@expo/vector-icons';
 
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style";
 import { TituloH3 } from '../../components/Titulo/Style';
 import { Paragrafo } from '../../components/Paragrafo/Style';
@@ -27,13 +27,13 @@ export const RedefinirSenha = () => {
 
             <Input
               
-              icon='eye-slash'
+              icon='envelopeBranco'
               placeholder='Senha'
             ></Input>
             
             <Input
               
-              icon='eye-slash'
+              icon='envelopeBranco'
               placeholder='Senha'
               type="password"
             ></Input>

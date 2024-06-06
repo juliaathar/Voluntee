@@ -45,8 +45,7 @@ export const Eduardo = ({
 
                 circleRef.current.setNativeProps({
                     strokeDashoffset
-                })
-            }
+                })            }
 
             if (inputRef?.current) {
                 inputRef.current.setNativeProps({
@@ -67,7 +66,7 @@ export const Eduardo = ({
             <Svg
                 width={radius * 2}
                 height={radius * 2}
-                viewBox={`0 0 ${halfCircle * 2} ${halfCircle * 2} `}
+                viewBox={`0 0 ${halfCircle * 2} ${halfCircle * 2} `} 
             >
                 <G
                     rotation='-90'

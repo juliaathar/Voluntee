@@ -10,7 +10,7 @@ export const Menu = ({
     return (
         <MenuContainer
             isVisible={visible}
-            //onBackdropPress={onBack}
+            onBackdropPress={onBack}
             animationIn={"slideInLeft"}
             animationOut={"slideOutLeft"}
         >

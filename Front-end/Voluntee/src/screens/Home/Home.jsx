@@ -6,6 +6,8 @@ import { HeaderHome } from "../../components/Header/Header";
 import { Input } from "../../components/Input/Input";
 import OndaHome from "../../components/OndaHome/OndaHome";
 import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
+import { useState } from "react";
+import { Menu } from "../../components/Menu/Menu";
 
 export const Home = () => {
     const dados = [
@@ -50,32 +52,44 @@ export const Home = () => {
             local: "Pedrinhas"
         },
     ]
+
+    const [menu, setMenu] = useState(false)
     return (
-        <ScrollView>
-            <Container>
-                <OndaHome />
+        <>
+            <ScrollView>
+                <Container>
+                    <OndaHome />
 
-                <HeaderHome/>
+                    <HeaderHome 
+                        onPress={() => setMenu(true)}
+                    />
 
-                <Input
-                    placeholder={"Pesquise"}
-                    icon="search"
-                />
+                    <Input
+                        placeholder={"Pesquise"}
+                        icon="search"
+                    />
 
-                <CardPopularContainer
-                    dados={dados}
-                />
+                    <CardPopularContainer
+                        dados={dados}
+                    />
+
+                    <CardCampanhaList
+                        dados={dados}
+                        scroll={false}
+                    />
+
+                    <CardInstituicaoList
+                        dados={dados}
+                        scroll={false}
+                    />
+                </Container>
+            </ScrollView>
             
-                <CardCampanhaList
-                    dados={dados}
-                    scroll={false}
-                />
-
-                <CardInstituicaoList
-                    dados={dados}
-                    scroll={false}
-                />
-            </Container>
-        </ScrollView>
+            <Menu
+                visible={menu}
+                onRequestClose={() => setMenu(false)}
+                onBack={() => setMenu(false)}
+            />
+        </>
     )
 }

@@ -28,7 +28,7 @@ export const RecuperarSenha = () => {
 
             <Input
                 placeholder={"Email"}
-                icon='envelope'
+                icon='envelopeBranco'
             ></Input>
 
             <ConteinerButton>

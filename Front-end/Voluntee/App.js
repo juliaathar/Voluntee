@@ -29,6 +29,7 @@ import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
 
 
+
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Lexend_400Regular,

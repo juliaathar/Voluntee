@@ -99,3 +99,25 @@ export const ConteinerLinkPerfil = styled.TouchableOpacity`
 
     margin-bottom: 20px;
 `
+
+/////////////// Conteiner Para Barra de Progresso
+
+export const ConteinerBarraDeProgresso = styled.View`
+    height: 20px;
+    width: 200px;
+
+    border: 1px solid red;
+    border-radius: 50px;
+`
+
+export const ConteinerParaBarra = styled.View`
+    height: 20%;
+    width: 100%;
+
+    position: absolute;
+
+    border: 1px solid black;
+
+    align-items: center;
+    justify-content: center;
+`

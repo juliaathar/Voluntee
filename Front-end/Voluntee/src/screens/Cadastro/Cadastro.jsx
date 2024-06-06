@@ -13,7 +13,6 @@ import { Link, TextLink } from '../../components/Link/Link';
 import { Paragrafo } from '../../components/Paragrafo/Style';
 
 export const Cadastro = (navigate) => {
-  console.disableYellowBox = true;
 
   return (
     <View style={styles.container}>

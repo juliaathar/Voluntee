@@ -36,7 +36,7 @@ export const Cadastro = (navigate) => {
 
             <Input
               alter
-              icon='user-large'
+              icon='user'
               placeholder='Nome'
             >
             </Input>
@@ -50,28 +50,28 @@ export const Cadastro = (navigate) => {
 
             <Input
               alter
-              icon='contact-card'
+              icon='idCard'
               placeholder='Cpf'
             >
             </Input>
 
             <Input
               alter
-              icon='envelope'
+              icon='envelopeAzul'
               placeholder='Email'
             >
             </Input>
 
             <Input
               alter
-              icon='eye-slash'
+              icon='olhoAzul'
               placeholder='Senha'
             >
             </Input>
 
             <Input
               alter
-              icon='eye-slash'
+              icon='olhoAzul'
               placeholder='Confirmar Senha'
             >
             </Input>

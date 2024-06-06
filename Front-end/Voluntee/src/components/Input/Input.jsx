@@ -1,4 +1,4 @@
-import { FontAwesome5 } from '@expo/vector-icons';
+import { IconCalendar, IconEnvelopeAzul, IconEnvelopeBranco, IconIdCard, IconOlhoCorteAzul, IconOlhoCorteBranco, IconPesquisar, IconUser } from '../Icones/IconesSvg';
 import { InputBody, InputInsert } from "./Style"
 
 export const Input = ({
@@ -14,12 +14,47 @@ export const Input = ({
     {alter ? placeholderTextColor = "#0066FF" : '#FBFBFB'}
 
     //icones:
-    //calendar
-    //envelope
-    //eye-slash
-    //user-large
-    //contact-card
-    //search
+    // <IconUser/> -- user
+    // <IconIdCard/> -- idCard
+    // <IconPesquisar/> -- search
+    // <IconCalendar/> -- calendar
+    // <IconOlhoCorteAzul/> -- olhoAzul
+    // <IconOlhoCorteBranco/> -- olhoBranco
+    // <IconEnvelopeAzul/> -- envelopeAzul
+    // <IconEnvelopeBranco/> -- envelopeBranco
+
+    function IconPull(nome) {
+        switch (nome) {
+            case "user":
+                return <IconUser/>
+                break;
+            case "idCard":
+                return <IconIdCard/>
+                break;
+            case "search":
+                return <IconPesquisar/>
+                break;
+            case "calendar":
+                return <IconCalendar/>
+                break;
+            case "olhoAzul":
+                return <IconOlhoCorteAzul/>
+                break;
+            case "olhoBranco":
+                return <IconOlhoCorteBranco/>
+                break;
+            case "envelopeAzul":
+                return <IconEnvelopeAzul/>
+                break;
+            case "envelopeBranco":
+                return <IconEnvelopeBranco/>
+                break;
+        
+            default:
+                return ""
+                break;
+        }
+    }
     
     return(
         <InputBody 
@@ -33,7 +68,7 @@ export const Input = ({
                 value={fieldValue}
                 alter={alter}
             />
-            <FontAwesome5 name={icon} size={20} color={alter ? "#0066FF" : '#FBFBFB'} />
+            {IconPull(icon)}
         </InputBody>
     )
 }

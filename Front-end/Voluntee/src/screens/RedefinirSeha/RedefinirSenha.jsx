@@ -41,7 +41,7 @@ export const RedefinirSenha = () => {
             <ConteinerButton>
 
                 <Botao
-                    textoBotao='Continuar'
+                    textoBotao='Redefinir'
                 />
 
             </ConteinerButton>

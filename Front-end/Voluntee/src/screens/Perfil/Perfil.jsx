@@ -4,14 +4,30 @@ import { Feather } from '@expo/vector-icons';
 import { StyleSheet, View } from "react-native"
 import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
-import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloPerfil } from './Style';
+import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, ConteinerTouchable, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
 import { Input } from '../../components/Input/Input';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView } from 'react-native';
 import { TituloH1 } from '../../components/Titulo/Style';
 import { Button, TextButton } from '../../components/Botao/Style';
 
+import * as Progress from "react-native-progress"
+import { useEffect, useState } from 'react';
+import Eduardo from '../Testes/eduardo';
+
 export const Perfil = () => {
+
+    const [progress, setProgress] = useState(0);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            // Simulando o progresso aumentando com o tempo
+            setProgress(prevProgress => (prevProgress >= 1 ? 0 : prevProgress + 0.1));
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <ScrollView>
             <ContainerAzul>
@@ -34,13 +50,21 @@ export const Perfil = () => {
                 <ConteinerAtrásPerfil>
                     <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                    <Feather name="edit" size={24} color="white" />
+                    <ConteinerTouchable>
+                        <Feather name="edit" size={24} color="white" />
+                    </ConteinerTouchable>
+
                 </ConteinerAtrásPerfil>
 
                 <ConteinerImagem>
-                    <TituloH1>AQUI VAI IMAGEM DO LEVEL!!!</TituloH1>
-                </ConteinerImagem>
 
+                    <Progress.Bar progress={0.4} width={200} borderColor='#FBFBFB' color='#FBFBFB' />
+
+                    <TituloLevel>20 Level</TituloLevel>
+
+
+
+                </ConteinerImagem>
 
                 {/* Bottom */}
 
@@ -75,7 +99,6 @@ export const Perfil = () => {
                             placeholder='675.578.589-09'
                         >
                         </Input>
-
 
 
                     </ConteinerInput>

@@ -1,5 +1,6 @@
+import { LabelInput } from '../../screens/Perfil/Style';
 import { IconCalendar, IconEnvelopeAzul, IconEnvelopeBranco, IconIdCard, IconOlhoCorteAzul, IconOlhoCorteBranco, IconPesquisar, IconUser } from '../Icones/IconesSvg';
-import { InputBody, InputInsert } from "./Style"
+import { FormInputBody, FormInsert, FormView, InputBody, InputInsert } from "./Style"
 
 export const Input = ({
     placeholder,
@@ -8,10 +9,11 @@ export const Input = ({
     fieldValue = null,
     editable = true,
     alter = false,
-    icon = "envelope"
+    icon = "envelope",
+    secure
 }) => {
 
-    {alter ? placeholderTextColor = "#0066FF" : '#FBFBFB'}
+    { alter ? placeholderTextColor = "#0066FF" : '#FBFBFB' }
 
     //icones:
     // <IconUser/> -- user
@@ -26,38 +28,38 @@ export const Input = ({
     function IconPull(nome) {
         switch (nome) {
             case "user":
-                return <IconUser/>
+                return <IconUser />
                 break;
             case "idCard":
-                return <IconIdCard/>
+                return <IconIdCard />
                 break;
             case "search":
-                return <IconPesquisar/>
+                return <IconPesquisar />
                 break;
             case "calendar":
-                return <IconCalendar/>
+                return <IconCalendar />
                 break;
             case "olhoAzul":
-                return <IconOlhoCorteAzul/>
+                return <IconOlhoCorteAzul />
                 break;
             case "olhoBranco":
-                return <IconOlhoCorteBranco/>
+                return <IconOlhoCorteBranco />
                 break;
             case "envelopeAzul":
-                return <IconEnvelopeAzul/>
+                return <IconEnvelopeAzul />
                 break;
             case "envelopeBranco":
-                return <IconEnvelopeBranco/>
+                return <IconEnvelopeBranco />
                 break;
-        
+
             default:
                 return ""
                 break;
         }
     }
-    
-    return(
-        <InputBody 
+
+    return (
+        <InputBody
             alter={alter}
         >
             <InputInsert
@@ -67,8 +69,36 @@ export const Input = ({
                 editable={editable}
                 value={fieldValue}
                 alter={alter}
+                secureTextEntry={secure}
             />
             {IconPull(icon)}
         </InputBody>
+    )
+}
+
+export const FormInput = ({
+    placeholderTextColor = '#FBFBFB',
+    onChangeText = null,
+    fieldValue = null,
+    editable = true,
+    placeholder = "",
+    label = ""
+}) => {
+    return (
+        <FormView>
+            <LabelInput>{label}</LabelInput>
+            <FormInputBody
+                alter={true}
+            >
+                <FormInsert
+                    placeholderTextColor={placeholderTextColor}
+                    onChangeText={onChangeText}
+                    placeholder={placeholder}
+                    editable={editable}
+                    value={fieldValue}
+                    alter={true}
+                />
+            </FormInputBody>
+        </FormView>
     )
 }

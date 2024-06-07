@@ -7,11 +7,26 @@ import { Paragrafo } from '../../components/Paragrafo/Style';
 import { ImagemRecupSenha } from '../../components/Imagem/Imagem';
 import { Input } from '../../components/Input/Input';
 import { Botao } from '../../components/Botao/Botao';
-import { Container, ConteinerBottom, ConteinerButton } from '../../components/Container/Style';
+import { Container, ConteinerButton } from '../../components/Container/Style';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import api from '../../service/ApiService';
 
 
-export const RecuperarSenha = () => {
+export const RecuperarSenha = ({navigation} ) => {
+
+    const [email, setEmail] = useState('juliaranyol@gmail.com');
+
+    async function EnviarEmail() {
+        await api.post(`/RecuperarSenha?email=${email}`)
+            .then(() => {
+                navigation.replace("VerificarEmail", { emailRecuperacao: email })
+            }).catch(error => {
+                console.log(error);
+            })
+
+    }
+
     return (
         <Container style={styles.container}>
             <ConteinerBolaMenor>
@@ -29,13 +44,18 @@ export const RecuperarSenha = () => {
             <Input
                 placeholder={"Email"}
                 icon='envelopeBranco'
+                value={email}
+                onChangeText={(txt => setEmail(txt))}
             ></Input>
 
             <ConteinerButton>
-                <Botao 
-                textoBotao='Entar'
+                <Botao
+                    textoBotao='Continuar'
+                    onPress={() => EnviarEmail()}
                 />
-            </ConteinerButton>    
+            </ConteinerButton>
+
+            {console.log(email)}
 
             <StatusBar style="auto" />
         </Container>

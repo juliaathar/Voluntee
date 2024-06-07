@@ -9,25 +9,26 @@ import { Login } from './src/screens/Login/Login';
 import { Apresentacao } from './src/screens/Apresentacao/Apresentacao';
 import { Home } from './src/screens/Home/Home';
 import { RecuperarSenha } from './src/screens/RecuperarSenha/RecuperarSenha';
-
-import { Navegacao } from './src/screens/Navegacao/Navegacao';
-import { Eduardo } from './src/screens/Testes/eduardo';
-import { Pedro } from './src/screens/Testes/pedro';
-import { Joao } from './src/screens/Testes/joao';
-
-//Fontes
-import { useFonts } from 'expo-font';
-import { 
-  Lexend_400Regular, 
-  Lexend_500Medium, 
-  Lexend_600SemiBold, 
-  Lexend_700Bold, 
-} from '@expo-google-fonts/lexend';
 import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
 import { RedefinirSenha } from './src/screens/RedefinirSeha/RedefinirSenha';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
+import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';
 
+import { Navegacao } from './src/screens/Navegacao/Navegacao';
+
+import { Pedro } from './src/screens/Testes/pedro';
+import { Joao } from './src/screens/Testes/joao';
+//Fontes
+import { useFonts } from 'expo-font';
+import {
+  Lexend_400Regular,
+  Lexend_500Medium,
+  Lexend_600SemiBold,
+  Lexend_700Bold,
+} from '@expo-google-fonts/lexend';
+import Eduardo from './src/screens/Testes/eduardo';
+import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
@@ -123,6 +124,18 @@ export default function App() {
           name='Campanha'
           component={Campanha}
           options={{ title: 'Campanha' }}
+        />
+
+        <Stack.Screen
+          name='NovaCampanha'
+          component={NovaCampanha}
+          options={{ title: 'NovaCampanha' }}
+        />
+
+        <Stack.Screen
+          name='Instituicao'
+          component={Instituicao}
+          options={{ title: 'Instituicao' }}
         />
 
       </Stack.Navigator>

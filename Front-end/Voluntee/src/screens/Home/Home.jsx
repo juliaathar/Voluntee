@@ -1,13 +1,15 @@
-import { ScrollView } from "react-native";
+import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
 import { CardCampanhaList } from "../../components/CardCampanha/CardCampanha";
 import { CardPopularContainer } from "../../components/CardPopular/CardPopular";
 import { Container } from "../../components/Container/Style";
+import { BotaoConsulta } from "../../components/Botao/Botao";
 import { HeaderHome } from "../../components/Header/Header";
-import { Input } from "../../components/Input/Input";
 import OndaHome from "../../components/OndaHome/OndaHome";
-import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
-import { useState } from "react";
+import { Input } from "../../components/Input/Input";
 import { Menu } from "../../components/Menu/Menu";
+import { useEffect, useState } from "react";
+import api from "../../service/ApiService";
+import { ScrollView } from "react-native";
 
 export const Home = () => {
     const dados = [
@@ -54,13 +56,51 @@ export const Home = () => {
     ]
 
     const [menu, setMenu] = useState(false)
+
+    async function ListarCampanhasPopulares() {
+        await api.get(`/Campanha/ListarCampanhasPopulares`)
+        .then(response => {
+            console.log("Campanhas populares:");
+            console.log(response.data);
+        })
+        .catch(error =>{
+            console.log(`Erro ao listar campanhas populares: ${error}`);
+        })
+    }
+    async function ListarCampanhas() {
+        await api.get(`/Campanha`)
+        .then(response => {
+            console.log("Campanhas:");
+            console.log(response.data);
+        })
+        .catch(error =>{
+            console.log(`Erro ao listar campanhas: ${error}`);
+        })
+    }
+    async function ListarInstituicoes() {
+        await api.get(`/Instituicao`)
+        .then(response => {
+            console.log("Instituicoes:");
+            console.log(response.data);
+        })
+        .catch(error =>{
+            console.log(`Erro ao listar instituicao: ${error}`);
+        })
+    }
+
+    useEffect(() => {
+        ListarCampanhasPopulares()
+        ListarCampanhas()
+        ListarInstituicoes()
+    },[])
+    
     return (
         <>
             <ScrollView>
                 <Container>
                     <OndaHome />
 
-                    <HeaderHome 
+                    <HeaderHome
                         onPress={() => setMenu(true)}
                     />
 
@@ -82,14 +122,17 @@ export const Home = () => {
                         dados={dados}
                         scroll={false}
                     />
+
                 </Container>
             </ScrollView>
-            
+
             <Menu
                 visible={menu}
                 onRequestClose={() => setMenu(false)}
                 onBack={() => setMenu(false)}
             />
+            
+            <BotaoConsulta />
         </>
     )
 }

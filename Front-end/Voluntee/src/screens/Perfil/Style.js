@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TituloH2, TituloH3 } from "../../components/Titulo/Style";
+import { TituloH1, TituloH2, TituloH3 } from "../../components/Titulo/Style";
 import { Container, ConteinerLink } from "../../components/Container/Style";
 import { Button } from "../../components/Botao/Style";
 
@@ -55,6 +55,7 @@ export const ConteinerImagem = styled.View`
     width: 100%;
 
     position: absolute;
+    align-items: center;
     
     top: 38%;
 `
@@ -100,15 +101,11 @@ export const ConteinerLinkPerfil = styled.TouchableOpacity`
     margin-bottom: 20px;
 `
 
-/////////////// Conteiner Para Barra de Progresso
+export const ConteinerTouchable = styled.TouchableOpacity`
 
-export const ConteinerBarraDeProgresso = styled.View`
-    height: 20px;
-    width: 200px;
-
-    border: 1px solid red;
-    border-radius: 50px;
 `
+
+/////////////// Conteiner Para Barra de Progresso
 
 export const ConteinerParaBarra = styled.View`
     height: 20%;
@@ -120,4 +117,8 @@ export const ConteinerParaBarra = styled.View`
 
     align-items: center;
     justify-content: center;
+`
+
+export const TituloLevel = styled(TituloH1)`
+    width: 30%;
 `

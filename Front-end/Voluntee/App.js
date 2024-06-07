@@ -16,7 +16,7 @@ import { Campanha } from './src/screens/Campanha/Campanha';
 import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';
 
 import { Navegacao } from './src/screens/Navegacao/Navegacao';
-import { Eduardo } from './src/screens/Testes/eduardo';
+
 import { Pedro } from './src/screens/Testes/pedro';
 import { Joao } from './src/screens/Testes/joao';
 //Fontes
@@ -27,6 +27,7 @@ import {
   Lexend_600SemiBold, 
   Lexend_700Bold, 
 } from '@expo-google-fonts/lexend';
+import Eduardo from './src/screens/Testes/eduardo';
 
 
 export default function App() {

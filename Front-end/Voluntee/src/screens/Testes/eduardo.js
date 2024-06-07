@@ -1,113 +1,98 @@
-import * as React from 'react'
-import { View, Animated, TextInput, StyleSheet } from 'react-native';
-import Svg, { G, Circle } from "react-native-svg";
+import React, { useEffect, useRef } from 'react';
+import { View, Text, Animated, StyleSheet } from 'react-native';
+import Svg, { G, Circle } from 'react-native-svg';
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle)
-const AnimatedInput = Animated.createAnimatedComponent(TextInput)
+const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
-export const Eduardo = ({
-    percentage = 80,
-    radius = 40,
-    toValue,
+export default function Eduardo({
+    percentage = 50,
+    radius = 80,
     strokeWidth = 10,
     duration = 500,
-    color = 'green',
+    color = "#FFFFFF",
     delay = 0,
-    textColor,
-    max = 100,
-    navigation
-
-}) => {
-    const animatedValue = React.useRef(new Animated.Value(0)).current;
-    const circleRef = React.useRef()
-    const inputRef = React.useRef()
+    textColor = "#FFFFFF",
+    max = 100
+}) {
+    const animatedValue = useRef(new Animated.Value(0)).current;
+    const circleRef = useRef();
     const halfCircle = radius + strokeWidth;
-    const circleCircunference = 2 * Math.PI * radius;
+    const circleCircumference = 2 * Math.PI * radius;
+    const semicircleCircumference = circleCircumference / 2;
 
-    const animation = () => {
+    const animation = (toValue) => {
         return Animated.timing(animatedValue, {
             toValue,
             duration,
             delay,
             useNativeDriver: true,
-        }).start(() => {
-            animation(toValue === 0 ? percentage : 0)
-        })
-    }
+        }).start();
+    };
 
-    React.useEffect(() => {
-        animation(percentage)
+    useEffect(() => {
+        animation(percentage);
 
-        animatedValue.addListener((v) => {
+        const listener = animatedValue.addListener((v) => {
             if (circleRef?.current) {
-                const maxPerc = (100 * v.value) / max
-                const strokeDashoffset = circleCircunference - (circleCircunference * maxPerc) / 100
-
+                const maxPerc = (100 * v.value) / max;
+                const strokeDashoffset = semicircleCircumference - (semicircleCircumference * maxPerc) / 100;
                 circleRef.current.setNativeProps({
-                    strokeDashoffset
-                })            }
-
-            if (inputRef?.current) {
-                inputRef.current.setNativeProps({
-                    text: `${Math.round(v.value)}`
-                })
+                    strokeDashoffset,
+                });
             }
-        })
-        return (() => {
-            animatedValue.removeAllListeners();
-        }, [max, percentage]);
-    })
+        });
 
-
+        return () => {
+            animatedValue.removeListener(listener);
+        };
+    }, [max, percentage]);
 
     return (
-        <View>
-
-            <Svg
-                width={radius * 2}
-                height={radius * 2}
-                viewBox={`0 0 ${halfCircle * 2} ${halfCircle * 2} `} 
-            >
-                <G
-                    rotation='-90'
-                    origin={`${halfCircle}, ${halfCircle}`}
-                >
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Svg width={radius * 2} height={radius} viewBox={`0 0 ${halfCircle * 2} ${halfCircle}`}>
+                <G rotation="-90" origin={`${halfCircle}, ${halfCircle}`}>
                     <Circle
-                        cx='50%'
-                        cy='50%'
+                        cy="50%"
+                        cx="50%"
                         stroke={color}
                         strokeWidth={strokeWidth}
                         r={radius}
-                        fill='transparent'
+                        fill="transparent"
                         strokeOpacity={0.2}
+                        strokeDasharray={semicircleCircumference}
                     />
                     <AnimatedCircle
-                        cx='50%'
-                        cy='50%'
+                        ref={circleRef}
+                        cy="50%"
+                        cx="50%"
                         stroke={color}
                         strokeWidth={strokeWidth}
                         r={radius}
-                        fill='transparent'
-                        strokeDasharray={circleCircunference}
-                        strokeDashoffset={circleCircunference}
-                        strokeLinecap='round'
-                        ref={circleRef}
+                        fill="transparent"
+                        strokeDasharray={semicircleCircumference}
+                        strokeDashoffset={semicircleCircumference}
+                        strokeLinecap="round"
                     />
                 </G>
             </Svg>
-
-            <AnimatedInput
-                ref={inputRef}
-                underlineColorAndroid="transparent"
-                editable={false}
-                defaultValue='0'
-                style={[
-                    StyleSheet.absoluteFillObject,
-                    { fontSize: radius / 2, color: textColor ?? color },
-                    { fontWeight: '900', textAlign: 'center' },
-                ]}
-            />
-
+            <View style={StyleSheet.absoluteFill}>
+                <Text style={[styles.text, { color: textColor }]}>
+                    {`${Math.round((percentage / max) * 100)}`}
+                </Text>
+                <Text style={[styles.text, { color: textColor }]}>
+                    Level
+                </Text>
+            </View>
         </View>
-    )
+    );
 }
+
+const styles = StyleSheet.create({
+    text: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        position: 'absolute',
+        top: '40%',  // Adjusted to position text in the middle of the semicircle
+    },
+});

@@ -3,12 +3,13 @@ import Svg, { Path, Ellipse } from 'react-native-svg';
 
 export const Botao = ({
     textoBotao = "",
+    width = 100,
     alter = false,
     disabled = false,
     onPress
 }) => {
     return (
-        <Button onPress={onPress} alter={alter} disabled={disabled}>
+        <Button onPress={onPress} alter={alter} disabled={disabled} width={width}>
             {disabled ? <ActivityIndicator color="white" /> : <TextButton alter={alter}>{textoBotao}</TextButton>}
         </Button>
     )

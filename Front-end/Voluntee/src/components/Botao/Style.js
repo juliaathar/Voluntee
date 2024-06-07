@@ -3,11 +3,12 @@ import styled from "styled-components";
 export const  Button = styled.TouchableOpacity`
     border-radius: 30px;
     height: 60px;
-    width: 100%;
+    width: ${({width}) => width}%;
     background-color: ${({ alter }) => (alter ? '#0066FF' : '#FBFBFB')};
     align-items: center;
     justify-content: center;
     margin-top: 30px;
+    margin-bottom: 20px;
 `
 
 export const TextButton = styled.Text`

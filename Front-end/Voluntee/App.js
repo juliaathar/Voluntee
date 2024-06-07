@@ -27,6 +27,7 @@ import {
   Lexend_600SemiBold,
   Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
+import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 
 
 export default function App() {

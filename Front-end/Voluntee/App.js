@@ -28,6 +28,7 @@ import {
   Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
 import Eduardo from './src/screens/Testes/eduardo';
+import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 
 
 export default function App() {

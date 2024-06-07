@@ -61,6 +61,6 @@ export const ImagemRedefSenha = styled.Image`
 
 export const ImagemCampanha = styled.Image`
     width: 100%;
-    height: 35%;
+    height: 25%;
     border-radius: 20px 20px 0px 0px;
 `

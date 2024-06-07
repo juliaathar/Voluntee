@@ -21,11 +21,11 @@ import { Pedro } from './src/screens/Testes/pedro';
 import { Joao } from './src/screens/Testes/joao';
 //Fontes
 import { useFonts } from 'expo-font';
-import { 
-  Lexend_400Regular, 
-  Lexend_500Medium, 
-  Lexend_600SemiBold, 
-  Lexend_700Bold, 
+import {
+  Lexend_400Regular,
+  Lexend_500Medium,
+  Lexend_600SemiBold,
+  Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
 
 
@@ -128,7 +128,13 @@ export default function App() {
         <Stack.Screen
           name='NovaCampanha'
           component={NovaCampanha}
-          options={{title: 'NovaCampanha'}}
+          options={{ title: 'NovaCampanha' }}
+        />
+
+        <Stack.Screen
+          name='Instituicao'
+          component={Instituicao}
+          options={{ title: 'Instituicao' }}
         />
 
       </Stack.Navigator>

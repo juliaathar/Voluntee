@@ -8,6 +8,7 @@ import { Header } from "@react-navigation/stack";
 import { HeaderHome } from "../../components/Header/Header";
 import { useState } from "react";
 import { Menu } from "../../components/Menu/Menu";
+import { BotaoConsulta } from "../../components/Botao/Botao";
 
 export const Pedro = ({ navigation }) => {
     const dados = [
@@ -54,16 +55,10 @@ export const Pedro = ({ navigation }) => {
     ]
 
     const [menu, setMenu] = useState(false)
+    
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <HeaderHome
-                onPress={() => setMenu(true)}
-            />
-            <Menu
-                visible={menu}
-                onRequestClose={() => setMenu(false)}
-                onBack={() => setMenu(false)}
-            />
+            <BotaoConsulta/>
         </View>
     )
 }

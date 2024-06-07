@@ -19,7 +19,7 @@ export const LogoBranca = styled.Image`
 export const LogoAzul = styled(LogoBranca)`
     position: absolute;
 
-    top: 80;
+    top: 80px;
     width: 239px;
     height: 100px;
 `

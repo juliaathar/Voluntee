@@ -26,7 +26,8 @@ public partial class VolunteeContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=NOTE06-S21\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;");
+
+        => optionsBuilder.UseSqlServer("Data Source=NOTE05-S21; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,6 +65,7 @@ public partial class VolunteeContext : DbContext
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Descricao).IsUnicode(false);
+            entity.Property(e => e.Imagem).IsUnicode(false);
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -112,6 +114,7 @@ public partial class VolunteeContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.PerfilEditado).HasDefaultValue(false);
+            entity.Property(e => e.FotoAtualizada).HasDefaultValue(false);
             entity.Property(e => e.Senha)
                 .HasMaxLength(255)
                 .IsUnicode(false);

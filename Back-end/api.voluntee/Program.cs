@@ -11,6 +11,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(5242);
+});
+
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(options =>
@@ -31,15 +36,15 @@ builder.Services.AddAuthentication(options =>
          ValidateLifetime = true,
 
 
-         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("vital-webapi-chave-symmetricsecuritykey")),
+         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("voluntee-webapi-chave-symmetricsecuritykey")),
 
      
          ClockSkew = TimeSpan.FromMinutes(30),
 
-         ValidIssuer = "Vital-WebAPI",
+         ValidIssuer = "Voluntee-WebAPI",
 
 
-         ValidAudience = "Vital-WebAPI"
+         ValidAudience = "Voluntee-WebAPI"
      };
  });
 
@@ -86,6 +91,7 @@ builder.Services.AddSwaggerGen(options =>
 
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
 builder.Services.AddScoped<ICampanhaRepository, CampanhaRepository>();
 builder.Services.AddScoped<IPresencaCampanhaRepository, PresencaCampanhaRepository>();
 builder.Services.AddScoped<PontuacaoService>();
@@ -93,7 +99,8 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameo
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSendingService>();
 builder.Services.AddDbContext<VolunteeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE06-S21\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE05-S21; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -104,7 +111,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

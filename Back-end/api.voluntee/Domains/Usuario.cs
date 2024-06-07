@@ -24,6 +24,7 @@ public partial class Usuario
     public int? Pontos { get; set; }
 
     public bool? PerfilEditado { get; set; }
+    public bool? FotoAtualizada { get; set; }
 
 
     public virtual ICollection<Campanha> Campanhas { get; set; } = new List<Campanha>();

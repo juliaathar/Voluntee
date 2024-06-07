@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TituloH2, TituloH3 } from "../../components/Titulo/Style";
+import { TituloH1, TituloH2, TituloH3 } from "../../components/Titulo/Style";
 import { Container, ConteinerLink } from "../../components/Container/Style";
 import { Button } from "../../components/Botao/Style";
 
@@ -55,6 +55,7 @@ export const ConteinerImagem = styled.View`
     width: 100%;
 
     position: absolute;
+    align-items: center;
     
     top: 38%;
 `
@@ -100,35 +101,11 @@ export const ConteinerLinkPerfil = styled.TouchableOpacity`
     margin-bottom: 20px;
 `
 
+export const ConteinerTouchable = styled.TouchableOpacity`
+
+`
+
 /////////////// Conteiner Para Barra de Progresso
-
-export const ConteinerBarraDeProgresso1 = styled.View`
-    height: 20px;
-    width: 10px;
-
-    border: 1px solid red;
-    border-radius: 50px;
-
-    /* transform: rotate(45deg); */
-    /* transform: skew(45deg); */
-    transform: scaleX(2);
-    transform: scaleY(1);
-
-    transform: skewX(30deg);
-    transform: skewY(30deg);
-`
-
-export const ConteinerBarraDeProgresso2 = styled(ConteinerBarraDeProgresso1)`
-    
-`
-
-export const ConteinerBarraDeProgresso3 = styled(ConteinerBarraDeProgresso1)`
-
-`
-
-export const ConteinerBarraDeProgresso4 = styled(ConteinerBarraDeProgresso1)`
-
-`
 
 export const ConteinerParaBarra = styled.View`
     height: 20%;
@@ -140,4 +117,8 @@ export const ConteinerParaBarra = styled.View`
 
     align-items: center;
     justify-content: center;
+`
+
+export const TituloLevel = styled(TituloH1)`
+    width: 30%;
 `

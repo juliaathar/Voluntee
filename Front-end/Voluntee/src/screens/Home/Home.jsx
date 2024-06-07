@@ -8,6 +8,7 @@ import OndaHome from "../../components/OndaHome/OndaHome";
 import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
 import { useState } from "react";
 import { Menu } from "../../components/Menu/Menu";
+import { BotaoConsulta } from "../../components/Botao/Botao";
 
 export const Home = () => {
     const dados = [
@@ -60,7 +61,7 @@ export const Home = () => {
                 <Container>
                     <OndaHome />
 
-                    <HeaderHome 
+                    <HeaderHome
                         onPress={() => setMenu(true)}
                     />
 
@@ -82,14 +83,17 @@ export const Home = () => {
                         dados={dados}
                         scroll={false}
                     />
+
                 </Container>
             </ScrollView>
-            
+
             <Menu
                 visible={menu}
                 onRequestClose={() => setMenu(false)}
                 onBack={() => setMenu(false)}
             />
+            
+            <BotaoConsulta />
         </>
     )
 }

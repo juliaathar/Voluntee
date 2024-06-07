@@ -28,6 +28,7 @@ import {
   Lexend_700Bold, 
 } from '@expo-google-fonts/lexend';
 
+
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Lexend_400Regular,

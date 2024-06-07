@@ -6,7 +6,7 @@ namespace api.voluntee.ViewModels
     public class UsuarioViewModel
     {
         [NotMapped]
-        [JsonIgnore]
+        [JsonIgnore] 
         public IFormFile? Arquivo { get; set; }
         public string? Foto { get; set; }
     }

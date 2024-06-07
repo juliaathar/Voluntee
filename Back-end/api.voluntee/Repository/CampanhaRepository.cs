@@ -3,6 +3,7 @@ using api.voluntee.Domains;
 using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
 using api.voluntee.Services;
+using api.voluntee.Utils.BlobStorage;
 
 namespace api.voluntee.Repository
 {
@@ -37,11 +38,20 @@ namespace api.voluntee.Repository
 
                 bool primeiraCampanha = !ctx.Campanhas.Any(c => c.UsuarioId == campanhaDto.UsuarioId);
 
+                var connectionString = "";
+                var containerName = "";
+                string imagemUrl = null;
+
+                if (campanhaDto.ImagemArquivo != null)
+                {
+                    imagemUrl = AzureBlobStorageHelper.UploadImageBlobAsync(campanhaDto.ImagemArquivo, connectionString, containerName).GetAwaiter().GetResult();
+                }
+
                 var campanha = new Campanha
                 {
                     Nome = campanhaDto.Nome,
                     UsuarioId = campanhaDto.UsuarioId,
-                    Imagem = campanhaDto.Imagem,
+                    Imagem = imagemUrl,
                     Email = campanhaDto.Email,
                     Descricao = campanhaDto.Descricao,
                     AceitaDoacao = campanhaDto.AceitaDoacao,
@@ -53,7 +63,6 @@ namespace api.voluntee.Repository
                     DataInicio = campanhaDto.DataInicio,
                     DataEncerramento = campanhaDto.DataEncerramento,
                     PessoasPresentes = campanhaDto.PessoasPresentes
-
                 };
 
                 ctx.Campanhas.Add(campanha);
@@ -67,10 +76,11 @@ namespace api.voluntee.Repository
             }
             catch (Exception ex)
             {
-
                 throw new Exception("Erro ao cadastrar campanha", ex);
             }
         }
+
+
 
 
         public List<Campanha> ListarCampanhas()

@@ -102,12 +102,32 @@ export const ConteinerLinkPerfil = styled.TouchableOpacity`
 
 /////////////// Conteiner Para Barra de Progresso
 
-export const ConteinerBarraDeProgresso = styled.View`
+export const ConteinerBarraDeProgresso1 = styled.View`
     height: 20px;
-    width: 200px;
+    width: 10px;
 
     border: 1px solid red;
     border-radius: 50px;
+
+    /* transform: rotate(45deg); */
+    /* transform: skew(45deg); */
+    transform: scaleX(2);
+    transform: scaleY(1);
+
+    transform: skewX(30deg);
+    transform: skewY(30deg);
+`
+
+export const ConteinerBarraDeProgresso2 = styled(ConteinerBarraDeProgresso1)`
+    
+`
+
+export const ConteinerBarraDeProgresso3 = styled(ConteinerBarraDeProgresso1)`
+
+`
+
+export const ConteinerBarraDeProgresso4 = styled(ConteinerBarraDeProgresso1)`
+
 `
 
 export const ConteinerParaBarra = styled.View`

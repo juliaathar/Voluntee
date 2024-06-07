@@ -1,9 +1,15 @@
-﻿namespace api.voluntee.Dtos
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace api.voluntee.Dtos
 {
     public class CampanhaPostDto
     {
         public Guid UsuarioId { get; set; }
-        public string Imagem { get; set; } = null!;
+        [NotMapped]
+        [JsonIgnore]
+        public IFormFile? ImagemArquivo { get; set; }
+        public string? Imagem { get; set; }
 
         public string Nome { get; set; } = null!;
 

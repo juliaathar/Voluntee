@@ -19,7 +19,7 @@ export const LogoBranca = styled.Image`
 export const LogoAzul = styled(LogoBranca)`
     position: absolute;
 
-    top: 80;
+    top: 80px;
     width: 239px;
     height: 100px;
 `
@@ -61,6 +61,6 @@ export const ImagemRedefSenha = styled.Image`
 
 export const ImagemCampanha = styled.Image`
     width: 100%;
-    height: 35%;
+    height: 25%;
     border-radius: 20px 20px 0px 0px;
 `

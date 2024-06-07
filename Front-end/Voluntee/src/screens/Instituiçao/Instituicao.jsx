@@ -24,6 +24,7 @@ export const Instituicao = () => {
                 alter
             />
 
+            <View style={{ height: 50 }}></View>
 
             <ConteinerInfCampanha>
                 <ConteinerBolaMaiorInstituicao>
@@ -39,23 +40,23 @@ export const Instituicao = () => {
 
                     <ContainerParagrafo style={{ top: 20 }}>
                         <View style={{ border: 1, backgroundColor: '#0066FF', width: 2 }}></View>
-                        <ParagrafoCamapanha style={{ top: 0 }}>A WorldSkills é uma organização global dedicada à promoção da excelência em competências profissionais. Fundada em 1950, a instituição organiza competições internacionais onde jovens de diversos países demonstram suas habilidades em diferentes profissões. O objetivo é inspirar e elevar os padrões de formação profissional, fomentando a troca de conhecimentos e melhores práticas entre nações. A WorldSkills também trabalha em parceria com governos, educadores e indústrias para valorizar e desenvolver o ensino técnico e profissionalizante ao redor do mundo.</ParagrafoCamapanha>
+                        <ParagrafoCamapanha style={{ top: 0}}>A WorldSkills é uma organização global dedicada à promoção da excelência em competências profissionais. Fundada em 1950, a instituição organiza competições internacionais onde jovens de diversos países demonstram suas habilidades em diferentes profissões. O objetivo é inspirar e elevar os padrões de formação profissional, fomentando a troca de conhecimentos e melhores práticas entre nações. A WorldSkills também trabalha em parceria com governos, educadores e indústrias para valorizar e desenvolver o ensino técnico e profissionalizante ao redor do mundo.</ParagrafoCamapanha>
                     </ContainerParagrafo>
 
                     <TituloH2 style={{ fontSize: 18 }}> Aceitamos doações!</TituloH2>
 
                     <ContainerIcones>
-                        
+
                         <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text>
-                        
+
                     </ContainerIcones>
 
                     <ParagrafoCamapanha>Para doar, entre em contato com este email:</ParagrafoCamapanha>
 
                     <TituloH2 style={{ fontSize: 16 }}> worldskills@gmail.com</TituloH2>
 
-               
-                    <TituloH2 style={{ fontSize: 18, color: "#00000", top:40 }}> Veja o endereço da instituição:</TituloH2>
+
+                    <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}> Veja o endereço da instituição:</TituloH2>
 
                     <Maps />
 

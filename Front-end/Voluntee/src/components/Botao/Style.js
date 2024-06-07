@@ -20,5 +20,17 @@ export const TextButton = styled.Text`
     
 `
 
-//#FBFBFB branco
-//#0066FF azul
+export const NewConsul = styled.TouchableOpacity`
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    background-color: #0066FF;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    justify-content: center;
+    align-items: center;
+`
+    
+    //#FBFBFB branco
+    //#0066FF azul

@@ -9,6 +9,7 @@ import { StyleSheet, View } from "react-native";
 import { LogoAzul, LogoAzulLogin } from "../../components/Imagem/Imagem";
 import { useState } from "react";
 import api from "../../service/ApiService";
+import LogoAzulSvg from "../../components/LogoAzulSvg/LogoAzulSvg";
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -44,7 +45,7 @@ export const Login = () => {
 
       <ConteinerTopLogin>
 
-        <LogoAzulLogin />
+        <LogoAzulSvg width="239" height="100"/>
 
         <TituloH2>Entre e transforme vidas hoje!</TituloH2>
         {/* <TituloH2>Vidas Hoje!</TituloH2> */}

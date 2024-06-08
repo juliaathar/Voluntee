@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style"
 import { FontAwesome6 } from '@expo/vector-icons';
 
@@ -17,14 +18,16 @@ export const CardCampanhaList = ({ dados, onPressMore, scroll }) => {
                 data={dados}
                 keyExtractor={(item) => item.id}
                 initialNumToRender={3}
-                renderItem={({ item }) =>
+                renderItem={({ item }) => item.pessoasPresentes < 5001 ?
                     <CardCampanha
-                        titulo={item.titulo}
+                        titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
-                        datas={item.datas}
-                        local={item.local}
+                        datas={`${moment(item.dataInicio).format('DD/MM/YYYY') } - ${moment(item.dataEncerramento).format('DD/MM/YYYY')}`}
+                        //local={item.local}
                     />
+                    :
+                    <></>
                 }
             />
             <ShowMore onPress={onPressMore}>
@@ -48,7 +51,7 @@ export const CardCampanha = ({
         >
 
             <ImgCard
-                source={imagem}
+                source={{uri: imagem}}
             >
                 <Blur/>
             </ImgCard>

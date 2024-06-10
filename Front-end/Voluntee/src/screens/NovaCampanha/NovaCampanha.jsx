@@ -8,14 +8,58 @@ import { Botao } from "../../components/Botao/Botao"
 import { Menu } from "../../components/Menu/Menu"
 import { ScrollView, View } from "react-native"
 import { useState } from "react"
+import api from "../../service/ApiService"
 
 export const NovaCampanha = () => {
 
     const [menu, setMenu] = useState(false)
+
+
+    const [nome, setNome] = useState("")
+    const [email, setEmail] = useState("")
+    const [descricao, setDescricao] = useState("")
+    const [cep, setCep] = useState("")
+    const [dataInicio, setDataInicio] = useState("00/00/0000")
+    const [dataFinal, setDataFinal] = useState("00/00/0000")
+
     const [doacao, setDoacao] = useState(false)
     const [alimentos, setAlimentos] = useState(false)
     const [roupas, setRoupas] = useState(false)
     const [dinheiro, setDinheiro] = useState(false)
+
+    async function CadastrarCampanha() {
+        await api.post('/Campanha', {
+            UsuarioId: "",
+            Imagem:"",
+            Nome:nome,
+            Email:email,
+            Descricao:descricao,
+            AceitaDoacao:doacao,
+            Alimento:alimentos,
+            Dinheiro:dinheiro,
+            Roupas:roupas,
+            Longitude:"",
+            Latitude:"",
+            DataInicio:dataInicio,
+            DataEncerramento:dataFinal,
+            PessoasPresentes:0,
+        })
+    }
+
+    // UsuarioId
+    // Imagem
+    // Nome
+    // Email
+    // Descricao
+    // AceitaDoacao
+    // Alimento
+    // Dinheiro
+    // Roupas
+    // Longitude
+    // Latitude
+    // DataInicio
+    // DataEncerramento
+    // PessoasPresentes
 
     return (
         <>
@@ -25,7 +69,7 @@ export const NovaCampanha = () => {
                         onPress={() => setMenu(true)}
                         alter
                     />
-                    <View style={{width: "60%", marginBottom: 15}}>
+                    <View style={{ width: "60%", marginBottom: 15 }}>
                         <TituloH2 alter>Cadastre uma campanha</TituloH2>
                     </View>
 
@@ -89,13 +133,13 @@ export const NovaCampanha = () => {
 
                     </SelectContainer>
 
-                    <SubTitulo style={{top: 15}}>Selecione o local onde acontecerá:  </SubTitulo>
+                    <SubTitulo style={{ top: 15 }}>Selecione o local onde acontecerá:  </SubTitulo>
                     <FormInput
                         label="CEP"
                         placeholder="Cep"
                     />
 
-                    <SubTitulo style={{top: 15}}>Selecione o local onde acontecerá:  </SubTitulo>
+                    <SubTitulo style={{ top: 15 }}>Selecione o local onde acontecerá:  </SubTitulo>
                     <FormInput
                         label="Data de início (Opcional)"
                         placeholder="00/00/0000"

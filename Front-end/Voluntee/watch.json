@@ -42,3 +42,34 @@
         "usuarioId": "58415116-dae2-48e8-94c6-ffb448596cf7"
     }
 ]
+
+[
+    {
+        "aceitaDoacao": true,
+        "alimento": true,
+        "descricao": "Competicao internacional",
+        "dinheiro": false,
+        "email": "worldskills@gmail.com",
+        "funcionarios": 21029,
+        "id": "eef707e8-0916-4e0d-b46a-8287314ab70d",
+        "imagem": "https://volunteebd.blob.core.windows.net/imagem/e00660a4942a4cfcae57436266126f43.jpeg",
+        "latitude": 0,
+        "longitude": 0,
+        "nome": "WorldSkilss",
+        "roupas": true
+    },
+    {
+        "aceitaDoacao": true,
+        "alimento": true,
+        "descricao": "Senai",
+        "dinheiro": false,
+        "email": "senai@gmail.com",
+        "funcionarios": 21029,
+        "id": "46f07f22-ab84-4c65-a805-aaea08e6bb01",
+        "imagem": "https://volunteebd.blob.core.windows.net/imagem/89bc24a970cd43108535fbeb5dcc7ad3.jpeg",
+        "latitude": 0,
+        "longitude": 0,
+        "nome": "Senai",
+        "roupas": true
+    }
+]

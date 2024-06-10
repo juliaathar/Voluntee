@@ -11,8 +11,50 @@ import { TituloH2 } from '../../components/Titulo/Style';
 import { Botao } from '../../components/Botao/Botao';
 import { Link, TextLink } from '../../components/Link/Link';
 import { Paragrafo } from '../../components/Paragrafo/Style';
+import { useState } from 'react';
+import api from '../../service/ApiService';
 
 export const Cadastro = (navigate) => {
+
+  const [nome, setNome] = useState('');
+  const [data, setData] = useState('');
+  const [cpf, setCpf] = useState('');
+  const [email, setEmail] = useState('');
+  const [senha, setSenha] = useState('');
+  const [confirm, setConfirm] = useState('');
+
+
+  async function cadastrar() {
+    try {
+      const jsonData = {
+        nome: nome,
+        dataNascimento: data,
+        cpf: cpf,
+        senha: senha,
+        email: email,
+        codRecupSenha: 0,
+        pontos: 0,
+        perfilEditado: true,
+        fotoAtualizada: true,
+      };
+
+      const response = await api.post("/Usuario", JSON.stringify(jsonData), {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.status === 200) {
+        console.log("testeeee");
+        console.log("deu certo");
+        console.log(response.body);
+      }
+
+    } catch (error) {
+      console.log(error);
+      console.log("errroooo");
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -23,7 +65,7 @@ export const Cadastro = (navigate) => {
         </ConteinerIcon>
       </ConteinerBolaMenor>
 
-    {/* Body */}
+      {/* Body */}
 
       <ConteinerBolaMaior>
 
@@ -37,20 +79,8 @@ export const Cadastro = (navigate) => {
               alter
               icon='user'
               placeholder='Nome'
-            >
-            </Input>
-
-            <Input
-              alter
-              icon='calendar'
-              placeholder='Data Nascimento'
-            >
-            </Input>
-
-            <Input
-              alter
-              icon='idCard'
-              placeholder='Cpf'
+              fieldValue={nome}
+              onChangeText={(v) => setNome(v)}
             >
             </Input>
 
@@ -58,6 +88,25 @@ export const Cadastro = (navigate) => {
               alter
               icon='envelopeAzul'
               placeholder='Email'
+              fieldValue={email}
+              onChangeText={(v) => setEmail(v)}
+            >
+            </Input>
+            <Input
+              alter
+              icon='idCard'
+              placeholder='CPF'
+              fieldValue={cpf}
+              onChangeText={(v) => setCpf(v)}
+            >
+            </Input>
+
+            <Input
+              alter
+              icon='calendar'
+              placeholder='Data Nascimento'
+              fieldValue={data}
+              onChangeText={(v) => setData(v)}
             >
             </Input>
 
@@ -65,12 +114,16 @@ export const Cadastro = (navigate) => {
               alter
               icon='olhoAzul'
               placeholder='Senha'
+              fieldValue={senha}
+              secure={true}
+              onChangeText={(v) => setSenha(v)}
             >
             </Input>
 
             <Input
               alter
               icon='olhoAzul'
+              secure={true}
               placeholder='Confirmar Senha'
             >
             </Input>
@@ -79,7 +132,8 @@ export const Cadastro = (navigate) => {
 
               <Botao
                 alter
-                textoBotao='Cadastre-se'
+                textoBotao='Cadastrar'
+                onPress={cadastrar}
               />
 
             </ConteinerButton>

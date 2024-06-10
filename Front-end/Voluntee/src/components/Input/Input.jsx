@@ -9,7 +9,8 @@ export const Input = ({
     fieldValue = null,
     editable = true,
     alter = false,
-    icon = "envelope"
+    icon = "envelope",
+    secure
 }) => {
 
     { alter ? placeholderTextColor = "#0066FF" : '#FBFBFB' }
@@ -68,6 +69,7 @@ export const Input = ({
                 editable={editable}
                 value={fieldValue}
                 alter={alter}
+                secureTextEntry={secure}
             />
             {IconPull(icon)}
         </InputBody>

@@ -13,6 +13,7 @@ import moment from "moment"
 
 import * as MediaLibrary from 'expo-media-library'
 import * as ImagePicker from 'expo-image-picker'
+import axios from "axios"
 export const NovaCampanha = () => {
 
     const [menu, setMenu] = useState(false)
@@ -51,24 +52,41 @@ export const NovaCampanha = () => {
         setImagemUri(result.assets[0].uri)
     }
 
-    async function CadastrarCampanha() {
+    async function getCoordinatesFromCEP() {
+        try {
+            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=SUA_CHAVE_AQUI`);
+            if (response.data.status === 'OK') {
+                const { lat, lng } = response.data.results[0].geometry.location;
+                console.log( lat, lng );
+                return { lat, lng };
+            } else {
+                throw new Error('Erro na busca das coordenadas');
+            }
+        } catch (error) {
+            console.error(error);
+            throw error;
+        }
+    }
 
-        //Imagem arquivo
+    async function CadastrarCampanha() {
+        //CEP
+        const endereco = getCoordinatesFromCEP()
+        //Arquivo a ser enviado
         const formData = new FormData();
 
         // Adicionando outros campos ao formData
         formData.append("UsuarioId", "DBC298C8-D237-4289-86E3-FEEBC32871AE"); // mockado provisório
-        formData.append("Imagem", "../../assets/images/apresentacao3.png"); // mockado provisório
+        formData.append("Imagem", imagemUri);
         formData.append("Nome", nome);
         formData.append("Email", email);
         formData.append("Descricao", descricao);
-        formData.append("AceitaDoacao", doacao); // Convertendo booleano para string, se necessário
+        formData.append("AceitaDoacao", doacao);
         formData.append("Alimento", alimentos);
         formData.append("Dinheiro", dinheiro);
         formData.append("Roupas", roupas);
-        formData.append("Longitude", -46,5707); // mockado provisório
-        formData.append("Latitude", -23,6150); // mockado provisório
-        formData.append("DataInicio", dataInicio); 
+        formData.append("Longitude", (await endereco).lng);
+        formData.append("Latitude", (await endereco).lat); 
+        formData.append("DataInicio", dataInicio);
         formData.append("DataEncerramento", dataFinal);
         formData.append("PessoasPresentes", 0);
         formData.append("ImagemArquivo", {
@@ -90,21 +108,6 @@ export const NovaCampanha = () => {
                 console.log(`Erro ao cadastrar campanha: ${error}`);
             })
     }
-
-    // UsuarioId
-    // Imagem
-    // Nome
-    // Email
-    // Descricao
-    // AceitaDoacao
-    // Alimento
-    // Dinheiro
-    // Roupas
-    // Longitude
-    // Latitude
-    // DataInicio
-    // DataEncerramento
-    // PessoasPresentes
 
     return (
         <>

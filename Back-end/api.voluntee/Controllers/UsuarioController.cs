@@ -117,5 +117,20 @@ namespace api.voluntee.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPut("AlterarSenha")]
+        public IActionResult UpdatePassword(string email, AlterarSenhaViewModel senha)
+        {
+            try
+            {
+                _usuarioRepository.AlterarSenha(email, senha.SenhaNova!);
+
+                return Ok("Senha alterada com sucesso !");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

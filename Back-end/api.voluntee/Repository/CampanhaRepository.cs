@@ -39,6 +39,7 @@ namespace api.voluntee.Repository
                 bool primeiraCampanha = !ctx.Campanhas.Any(c => c.UsuarioId == campanhaDto.UsuarioId);
 
                 var connectionString = "";
+
                 var containerName = "";
                 string imagemUrl = null;
 

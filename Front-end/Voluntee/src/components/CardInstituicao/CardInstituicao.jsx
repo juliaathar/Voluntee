@@ -20,9 +20,12 @@ export const CardInstituicaoList = ({ dados, onPressMore, scroll }) => {
                 initialNumToRender={3}
                 renderItem={({ item }) =>
                     <CardInstituicao
-                        titulo={item.titulo}
+                        titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
+                        dinheiro={item.dinheiro}
+                        alimento={item.alimento}
+                        roupas={item.roupas}
                     />
                 }
             />
@@ -37,12 +40,16 @@ export const CardInstituicao = ({
     titulo = "titulo do card",
     descricao = "descrição do card campanha",
     imagem = require('../../assets/images/ImgTesteCard.png'),
+    dinheiro =false,
+    alimento =false,
+    roupas =false,
+    onPress,
 }) => {
     return (
-        <CardIn>
+        <CardIn onPress={onPress}>
             <ImgIns>
                 <MarkImg/>
-                <Img source={imagem}/>
+                <Img source={{uri: imagem}}/>
             </ImgIns>
 
             <Infos>
@@ -52,9 +59,9 @@ export const CardInstituicao = ({
                 </InfoTexts>
 
                 <MaskHelp>
-                    <FontAwesome6 name="utensils" size={14} color="#0066FF" />
-                    <FontAwesome6 name="hand-holding-dollar" size={14} color="#0066FF" />
-                    <FontAwesome6 name="shirt" size={14} color="#0066FF" />
+                    {alimento ? <FontAwesome6 name="utensils" size={14} color="#0066FF" /> : null} 
+                    {dinheiro ? <FontAwesome6 name="hand-holding-dollar" size={14} color="#0066FF" /> : null} 
+                    {roupas ? <FontAwesome6 name="shirt" size={14} color="#0066FF" /> : null} 
                 </MaskHelp>
             </Infos>
         </CardIn>

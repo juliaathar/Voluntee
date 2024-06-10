@@ -1,0 +1,44 @@
+[
+    {
+        "aceitaDoacao": true,
+        "alimento": true,
+        "dataEncerramento": "1905-07-12T00:00:00",
+        "dataInicio": "1905-07-15T00:00:00",
+        "descricao": "apenas um teste",
+        "dinheiro": true,
+        "email": "teste@gmail.com",
+        "id": "f49fdeab-135d-42be-813a-84ef341d7d91",
+        "imagem": "https://volunteebd.blob.core.windows.net/imagem/logo2.png",
+        "latitude": -47.5325,
+        "longitude": -23.5689,
+        "nome": "Teste",
+        "pessoasPresentes": 90,
+        "presencaCampanhas": [],
+        "roupas": true,
+        "usuario": null,
+        "usuarioId": "58415116-dae2-48e8-94c6-ffb448596cf7"
+    }
+]
+
+
+[
+    {
+        "aceitaDoacao": true,
+        "alimento": true,
+        "dataEncerramento": "1905-06-18T00:00:00",
+        "dataInicio": "1905-06-21T00:00:00",
+        "descricao": "apenas um teste popular!",
+        "dinheiro": true,
+        "email": "teste@gmail.com",
+        "id": "67000284-6d38-4df8-b931-907ced4598a2",
+        "imagem": "https: //volunteebd.blob.core.windows.net/imagem/logo1.png",
+        "latitude": -47.4545,
+        "longitude": -23.2121,
+        "nome": "Teste popular",
+        "pessoasPresentes": 5001,
+        "presencaCampanhas": [],
+        "roupas": true,
+        "usuario": null,
+        "usuarioId": "58415116-dae2-48e8-94c6-ffb448596cf7"
+    }
+]

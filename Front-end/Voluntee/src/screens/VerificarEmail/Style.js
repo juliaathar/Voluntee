@@ -15,3 +15,10 @@ export const InputVerify = styled.TextInput.attrs({placeholderTextColor: '#FFFFF
     margin-left: 4.83%;  
     margin-bottom: 15px;
 `
+
+export const ContentVerify = styled.View`
+    flex-direction: row;
+    justify-content: center;
+    width: 88.88%;
+    margin-top: 20px;
+`

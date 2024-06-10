@@ -15,7 +15,7 @@ import api from '../../service/ApiService';
 
 export const RecuperarSenha = ({navigation} ) => {
 
-    const [email, setEmail] = useState('juliaranyol@gmail.com');
+    const [email, setEmail] = useState('alvesbautistajoaovictor@gmail.com');
 
     async function EnviarEmail() {
         await api.post(`/RecuperarSenha?email=${email}`)
@@ -44,7 +44,7 @@ export const RecuperarSenha = ({navigation} ) => {
             <Input
                 placeholder={"Email"}
                 icon='envelopeBranco'
-                value={email}
+                fieldValue={email}
                 onChangeText={(txt => setEmail(txt))}
             ></Input>
 

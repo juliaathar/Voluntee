@@ -19,7 +19,7 @@ export const CardPopularContainer = ({
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) =>
                     <CardPopular
-                        titulo={item.titulo}
+                        titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
                     />
@@ -40,7 +40,7 @@ export const CardPopular = ({
             onPress={onPress}
         >
             <ImgFundo
-                source={imagem}
+                source={{uri: imagem}}
                 imageStyle={{ borderRadius: 20 }}
             >
                 <BlurPreto>

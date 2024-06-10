@@ -30,7 +30,6 @@ import {
 import Eduardo from './src/screens/Testes/eduardo';
 import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 
-
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
     Lexend_400Regular,

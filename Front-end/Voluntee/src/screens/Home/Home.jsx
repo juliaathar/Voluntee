@@ -1,14 +1,15 @@
-import { ScrollView } from "react-native";
+import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
 import { CardCampanhaList } from "../../components/CardCampanha/CardCampanha";
 import { CardPopularContainer } from "../../components/CardPopular/CardPopular";
 import { Container } from "../../components/Container/Style";
-import { HeaderHome } from "../../components/Header/Header";
-import { Input } from "../../components/Input/Input";
-import OndaHome from "../../components/OndaHome/OndaHome";
-import { CardInstituicaoList } from "../../components/CardInstituicao/CardInstituicao";
-import { useState } from "react";
-import { Menu } from "../../components/Menu/Menu";
 import { BotaoConsulta } from "../../components/Botao/Botao";
+import { HeaderHome } from "../../components/Header/Header";
+import OndaHome from "../../components/OndaHome/OndaHome";
+import { Input } from "../../components/Input/Input";
+import { Menu } from "../../components/Menu/Menu";
+import { useEffect, useState } from "react";
+import api from "../../service/ApiService";
+import { ScrollView } from "react-native";
 
 export const Home = () => {
     const dados = [
@@ -55,6 +56,50 @@ export const Home = () => {
     ]
 
     const [menu, setMenu] = useState(false)
+    const [campanhas, setCampanhas] = useState([])
+    const [campanhasPopulares, setCampanhasPopulares] = useState([])
+
+    async function ListarCampanhasPopulares() {
+        await api.get(`/Campanha/ListarCampanhaPopulares`)
+        .then(async response => {
+            console.log("Campanhas populares:");
+            //console.log(response.data);
+            await setCampanhasPopulares(response.data)
+            console.log(campanhasPopulares);
+        })
+        .catch(error =>{
+            console.log(`Erro ao listar campanhas populares: ${error}`);
+        })
+    }
+    async function ListarCampanhas() {
+        await api.get(`/Campanha`)
+        .then(async response => {
+            console.log("Campanhas:");
+            await setCampanhas(response.data)
+            //console.log(response.data);
+            console.log(campanhas);
+        })
+        .catch(error =>{
+            console.log(`Erro ao listar campanhas: ${error}`);
+        })
+    }
+    async function ListarInstituicoes() {
+        await api.get(`/Instituicao`)
+        .then(response => {
+            console.log("Instituicoes:");
+            console.log(response.data);
+        })
+        .catch(error =>{
+            console.log(`Erro ao listar instituicao: ${error}`);
+        })
+    }
+
+    useEffect(() => {
+        ListarCampanhasPopulares()
+        ListarCampanhas()
+        ListarInstituicoes()
+    },[])
+    
     return (
         <>
             <ScrollView>
@@ -71,11 +116,11 @@ export const Home = () => {
                     />
 
                     <CardPopularContainer
-                        dados={dados}
+                        dados={campanhasPopulares}
                     />
 
                     <CardCampanhaList
-                        dados={dados}
+                        dados={campanhas}
                         scroll={false}
                     />
 

@@ -99,7 +99,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameo
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSendingService>();
 builder.Services.AddDbContext<VolunteeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE05-S21; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE22-S21\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai@134; TrustServerCertificate=true;")));
 
 var app = builder.Build();
 

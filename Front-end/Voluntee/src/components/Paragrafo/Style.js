@@ -11,4 +11,5 @@ export const Paragrafo = styled.Text`
 export const ParagrafoCamapanha = styled(Paragrafo)`
     color: #000000;
     text-align: left;
+    margin-left: 5;
 `

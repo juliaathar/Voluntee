@@ -13,8 +13,8 @@ export default function Maps() {
   const [finalPosition, setFinalPosition] = useState({
     latitude: -23.7024,
     longitude: -46.5035,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01
   })
 
   async function getInitialPosition() {
@@ -30,7 +30,6 @@ export default function Maps() {
     if (mapReference.current && initialPosition) {
       mapReference.current.fitToCoordinates(
         [
-          { latitude: initialPosition.latitude, longitude: initialPosition.longitude },
           { latitude: finalPosition.latitude, longitude: finalPosition.longitude }
         ],
         {
@@ -70,10 +69,10 @@ export default function Maps() {
               style={{ width: '100%', flex: 1 }}
               mapType='mutedStandard'
               initialRegion={{
-                latitude: initialPosition.latitude,
-                longitude: initialPosition.longitude,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05
+                latitude: finalPosition.latitude,
+                longitude: finalPosition.longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
               }}
               provider={PROVIDER_GOOGLE}
               ref={mapReference}

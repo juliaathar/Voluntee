@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import api from "../../service/ApiService";
 import { ScrollView } from "react-native";
 
-export const Home = () => {
+export const Home = ({navigation}) => {
 
     const [menu, setMenu] = useState(false)
     const [campanhas, setCampanhas] = useState([])
@@ -83,11 +83,13 @@ export const Home = () => {
                     <CardCampanhaList
                         dados={campanhas}
                         scroll={false}
+                        navigation={navigation}
                     />
 
                     <CardInstituicaoList
                         dados={instituicoes}
                         scroll={false}
+                        navigation={navigation}
                     />
 
                 </Container>

@@ -1,3 +1,4 @@
+import { ActivityIndicator } from "react-native";
 import { Button, NewConsul, TextButton } from "./Style"
 import Svg, { Path, Ellipse } from 'react-native-svg';
 
@@ -6,11 +7,12 @@ export const Botao = ({
     width = 100,
     alter = false,
     disabled = false,
-    onPress
+    onPress,
+    loading,
 }) => {
     return (
-        <Button onPress={onPress} alter={alter} disabled={disabled} width={width}>
-            {disabled ? <ActivityIndicator color="white" /> : <TextButton alter={alter}>{textoBotao}</TextButton>}
+        <Button onPress={onPress} alter={alter} disabled={disabled} width={width} loading={loading}>
+            {loading ? <ActivityIndicator color="#0066FF" /> : <TextButton alter={alter}>{textoBotao}</TextButton>}
         </Button>
     )
 }

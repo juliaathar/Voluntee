@@ -10,7 +10,8 @@ export const Input = ({
     editable = true,
     alter = false,
     icon = "envelope",
-    secure
+    secure,
+    style
 }) => {
 
     { alter ? placeholderTextColor = "#0066FF" : '#FBFBFB' }
@@ -61,6 +62,7 @@ export const Input = ({
     return (
         <InputBody
             alter={alter}
+            style={style}
         >
             <InputInsert
                 placeholderTextColor={placeholderTextColor}

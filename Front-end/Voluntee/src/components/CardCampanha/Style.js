@@ -68,7 +68,7 @@ export const Local = styled(Data)``
 
 //flatlist de cards
 export const CardList = styled(CardsField)`
-    height: 480px;
+    height: ${({ tamanho }) => (tamanho >= 3 ? '480px' : tamanho == 2 ? '270px' : '130px')};
     margin-bottom: 20px;
 `
 
@@ -76,6 +76,7 @@ export const ListName = styled(FieldName)`
     color: #0066FF;
 `
 export const List = styled.FlatList`
+    //height: ${({ tamanho }) => (tamanho >= 3 ? '500px' : tamanho == 2 ? '290px' : '150px')};
     height: 500px;
 `
 

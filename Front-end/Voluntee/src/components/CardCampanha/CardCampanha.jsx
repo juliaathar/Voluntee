@@ -12,8 +12,12 @@ function QuebraPalavra(nome, max = 15) {
 
 export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => {
     const [profileData, setProfileData] = useState('')
+    
+
     return (
-        <CardList >
+        <CardList 
+            tamanho={dados.length}
+        >
             <ListName>Outras campanhas</ListName>
             <List
                 scrollEnable={scroll}
@@ -25,7 +29,7 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                         titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
-                        datas={`${moment(item.dataInicio).format('DD/MM/YYYY') } - ${moment(item.dataEncerramento).format('DD/MM/YYYY')}`}
+                        datas={`${moment(item.dataInicio).format('DD/MM') } - ${moment(item.dataEncerramento).format('DD/MM')}`}
                         //local={item.local}
                         onPress={() => navigation.replace('Campanha', { 
                             profileData: profileData, 

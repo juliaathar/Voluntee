@@ -22,7 +22,7 @@ export const NovaCampanha = () => {
     const [nome, setNome] = useState("")
     const [email, setEmail] = useState("")
     const [descricao, setDescricao] = useState("")
-    const [cep, setCep] = useState("00000-000")
+    const [cep, setCep] = useState("")
     const [dataInicio, setDataInicio] = useState(moment().format("DD/MM/YYYY"))
     const [dataFinal, setDataFinal] = useState(moment().add(7, 'days').format("DD/MM/YYYY"))
 
@@ -30,9 +30,6 @@ export const NovaCampanha = () => {
     const [alimentos, setAlimentos] = useState(false)
     const [roupas, setRoupas] = useState(false)
     const [dinheiro, setDinheiro] = useState(false)
-
-    const [latitude, setLatitude] = useState("")
-    const [longitude, setLongitude] = useState("")
 
     useEffect(() => {
         (async () => {

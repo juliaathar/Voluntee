@@ -101,7 +101,7 @@ export const ConteinerLinkPerfil = styled.TouchableOpacity`
     margin-bottom: 20px;
 `
 
-export const ConteinerTouchable = styled.TouchableOpacity`
+export const BotaoCamera = styled.TouchableOpacity`
 
 `
 

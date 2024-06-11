@@ -19,7 +19,7 @@ export const ConteinerBolaMaiorLogin = styled(ConteinerBolaMaior)`
 
     position: absolute;
     
-    top: 48%;
+    top: 46%;
 `
 
 export const ConteinerBolaMenor = styled.View`

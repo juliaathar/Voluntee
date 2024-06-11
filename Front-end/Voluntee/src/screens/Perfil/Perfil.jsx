@@ -1,118 +1,140 @@
 import { userDecodeToken } from '../../utils/Auth';
 
-import { useCameraPermissions } from 'expo-camera';
+// import { useCameraPermissions } from 'expo-camera';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
 import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
-import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, ConteinerTouchable, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
+import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, BotaoCamera, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
 import { Input } from '../../components/Input/Input';
 import { StatusBar } from 'expo-status-bar';
-import { Button, KeyboardAvoidingView, Platform, ScrollView, Text, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import { TextButton } from '../../components/Botao/Style';
 
 import * as Progress from "react-native-progress"
 import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage/lib/typescript';
 
-export const Perfil = ({navigation}) => {
+import { Masks, useMaskedInputProps } from "react-native-mask-input"
+
+export const Perfil = ({ navigation, route }) => {
 
     const [editarPerfil, setEditarPerfil] = useState(false)
+    const [idUsuario, setIdUsuario] = useState('')
     const [nome, setNome] = useState('')
     const [email, setEmail] = useState('')
     const [cpf, setCpf] = useState('')
     const [dataNasc, setDataNasc] = useState()
 
-    const [foto, setFoto] = useState('')
+    const [fotoPerfil, setFotoPerfil] = useState('')
     const [pontos, setPontos] = useState()
 
-    /////// Camera
 
-    // const [facing, setFacing] = useState('back');
-    // const [permission, requestPermission] = useCameraPermissions();
-
-    // if (!permission) {
-    //     // Camera permissions are still loading.
-    //     return <View />;
-    // }
-
-    // if (!permission.granted) {
-    //     // Camera permissions are not granted yet.
-    //     return (
-    //         <View>
-    //             <Text>We need your permission to show the camera</Text>
-    //             <Button onPress={requestPermission} title="grant permission" />
-    //         </View>
-    //     );
-    // }
-
-    function toggleCameraFacing() {
-        setFacing(current => (current === 'back' ? 'front' : 'back'));
-    }
-
-
-    async function profileLoad() {
+    async function carregarPerfil() {
         const token = await userDecodeToken()
 
         setNome(token.nome)
-        setCpf(token.cpf)
         setEmail(token.email)
-        setIdUser(token.jti)
+
+        setIdUsuario(token.jti)
 
         await getUser(token)
     }
 
 
-    async function TrazUsuário(token) {
+    async function getUsuario(token) {
 
         try {
             const response = await api.get(`/${url}/BuscarPorId?id=${token.jti}`);
-            setDataNasc(response.data.dataNascimento)
-            setCpf(response.data.cpf)
+            setFotoPerfil(response.data.usuarioDto.fotoPerfil)
+            setDataNasc(response.data.usuarioDto.dataNascimento)
+            setCpf(response.data.usuarioDto.cpf)
         } catch (error) {
-            Alert.alert("Erro ao buscar dados do usuario")
+            Alert.alert("Erro ao buscar dados do usuario:" + error)
         }
     }
-
-
-    useEffect(() => {
-
-    })
 
     async function atualizarUsuario() {
         const token = JSON.parse(await AsyncStorage.getItem('token')).token;
         try {
             await api.put('/Usuario', {
-                nome: nome = setNome(),
-                email: email = setEmail(),
-                dataNasc: dataNasc = setDataNasc(),
-                cpf: cpf = setCpf(),
-                foto: foto = setFoto()
-            })
+                nome: nome,
+                email: email,
+                dataNasc: dataNasc,
+                cpf: cpf,
+                fotoPerfil: fotoPerfil
+            }, { headers: { Authorization: `Bearer ${token}` } })
 
-            console.log('Tá trazendo');
+            setEditarPerfil(false);
 
         } catch (error) {
             console.log('Não foi possível atualizar os dados do usuário: ' + error);
         }
     }
 
+    async function AlterarFotoPerfil() {
+        const formData = new FormData();
+        formData.append("Arquivo", {
+            uri: route.params.photoUri,
+            name: `image.jpg`,
+            type: `image/jpg`
+        })
+
+        try {
+            await api.put(`/Usuario/AlterarFotoPerfil?id=${idUser}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(() => {
+                setFotoUsuario(route.params.photoUri)
+            })
+        } catch (error) {
+            Alert.alert('Erro ao atualizar foto de perfil do usuario')
+            console.log(error);
+        }
+
+    }
+
+    async function CancelEdit() {
+        setEditarPerfil(false)
+        carregarPerfil()
+    }
+
+    useEffect(() => {
+        carregarPerfil();
+    }, [])
+
+    useEffect(() => {
+        if (route.params && idUsuario != '') {
+            AlterarFotoPerfil()
+        }
+
+    }, [route.params, idUsuario])
+
     async function closeApp() {
         await AsyncStorage.removeItem('token')
         navigation.replace("Login")
     }
 
-    async function alterarFotoPerfil() {
-        try {
-            //Abrir a camera, e salvar a foto logo após tirada
-            console.log('A foto foi tirada!');
-        } catch (error) {
-            console.log('Não foi possível alterar a foto de perfil: ' + error)
+    function formatarData(data, isValid) {
+        if (isValid == false) {
+            return moment(data).format('YYYY-MM-DD');
         }
+        return moment(data).format('DD/MM/YYYY');
     }
 
+    const cpfMasked = useMaskedInputProps({
+        value: cpf,
+        onChangeText: setCpf,
+        mask: Masks.BRL_CPF
+    })
 
+    const dataMasked = useMaskedInputProps({
+        value: dataNasc,
+        onChangeText: setDataNasc,
+        mask: Masks.DATE_DDMMYYYY
+    });
 
 
     return (
@@ -130,23 +152,24 @@ export const Perfil = ({navigation}) => {
 
 
                         <ConteinerPerfil>
-                            <TituloPerfil alter>Perfil</TituloPerfil>
+                            <TituloPerfil alter>Perfil</TituloPerfil>   
 
-                            <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} />
+                            {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
+                            <FotoPerfil source={{ uri: fotoPerfil }} />
 
-                            <NomePerfil>John Doe</NomePerfil>
+                            <NomePerfil>{nome}</NomePerfil>
                         </ConteinerPerfil>
 
                         <ConteinerAtrásPerfil>
                             <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                            <ConteinerTouchable>
+                            <BotaoCamera>
                                 <Feather
                                     name="edit"
                                     size={24}
                                     color="white"
                                 />
-                            </ConteinerTouchable>
+                            </BotaoCamera>
 
                         </ConteinerAtrásPerfil>
 
@@ -166,25 +189,26 @@ export const Perfil = ({navigation}) => {
                             <ConteinerInput>
 
                                 <LabelInput>Nome</LabelInput>
-                                <Input placeholder=''
+                                <Input 
+                                    fieldValue={nome}
                                 >
                                 </Input>
 
                                 <LabelInput>E-mail</LabelInput>
                                 <Input
-                                    placeholder=''
+                                    fieldValue={email}
                                 >
                                 </Input>
 
                                 <LabelInput>Data de nascimento</LabelInput>
                                 <Input
-                                    placeholder=''
+                                    fieldValue={dataNasc ? formatarData(dataNasc) : null}
                                 >
                                 </Input>
 
                                 <LabelInput>Cpf</LabelInput>
                                 <Input
-                                    placeholder=''
+                                    fieldValue={cpf}
                                 >
                                 </Input>
 
@@ -222,24 +246,24 @@ export const Perfil = ({navigation}) => {
 
 
                         <ConteinerPerfil>
-                            <TituloPerfil alter>Perfil</TituloPerfil>
+                            <TituloPerfil alter>Perfil</TituloPerfil>   
 
-                            <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} />
+                            {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
+                            <FotoPerfil source={{ uri: fotoPerfil }} />
 
-                            <NomePerfil>John Doe</NomePerfil>
+                            <NomePerfil>{nome}</NomePerfil>
                         </ConteinerPerfil>
 
                         <ConteinerAtrásPerfil>
                             <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                            <ConteinerTouchable>
+                            {/* <BotaoCamera>
                                 <Feather
-                                    onPress={editarPerfil => setEditarPerfil(true)}
                                     name="edit"
                                     size={24}
                                     color="white"
                                 />
-                            </ConteinerTouchable>
+                            </BotaoCamera> */}
 
                         </ConteinerAtrásPerfil>
 
@@ -250,6 +274,7 @@ export const Perfil = ({navigation}) => {
                             <TituloLevel>20 Level</TituloLevel>
 
 
+
                         </ConteinerImagem>
 
 
@@ -258,25 +283,26 @@ export const Perfil = ({navigation}) => {
                             <ConteinerInput>
 
                                 <LabelInput>Nome</LabelInput>
-                                <Input placeholder=''
+                                <Input 
+                                    fieldValue={nome}
                                 >
                                 </Input>
 
                                 <LabelInput>E-mail</LabelInput>
                                 <Input
-                                    placeholder=''
+                                    fieldValue={email}
                                 >
                                 </Input>
 
                                 <LabelInput>Data de nascimento</LabelInput>
                                 <Input
-                                    placeholder=''
+                                    fieldValue={dataNasc ? formatarData(dataNasc) : null}
                                 >
                                 </Input>
 
                                 <LabelInput>Cpf</LabelInput>
                                 <Input
-                                    placeholder=''
+                                    fieldValue={cpf}
                                 >
                                 </Input>
 
@@ -286,8 +312,8 @@ export const Perfil = ({navigation}) => {
                         </ConteinerGeral>
 
 
-                        <ButtonPerfil onPress={() => atualizarUsuario(false)}>
-                            <ButtonTitle>SALVAR</ButtonTitle>
+                        <ButtonPerfil onPress={() => atualizarUsuario(true)}>
+                            <TextButton>Editar</TextButton>
                         </ButtonPerfil>
 
 

@@ -14,7 +14,7 @@ import { TextButton } from '../../components/Botao/Style';
 
 import * as Progress from "react-native-progress"
 import { useEffect, useState } from 'react';
-import AsyncStorage from '@react-native-async-storage/async-storage/lib/typescript';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { Masks, useMaskedInputProps } from "react-native-mask-input"
 

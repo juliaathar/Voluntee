@@ -15,7 +15,7 @@ import api from '../../service/ApiService';
 
 export const RecuperarSenha = ({navigation} ) => {
 
-    const [email, setEmail] = useState('alvesbautistajoaovictor@gmail.com');
+    const [email, setEmail] = useState('');
 
     async function EnviarEmail() {
         await api.post(`/RecuperarSenha?email=${email}`)

@@ -9,8 +9,25 @@ import { Input } from '../../components/Input/Input';
 import { Botao } from '../../components/Botao/Botao';
 import { Container, ConteinerButton } from '../../components/Container/Style';
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
+import api from '../../service/ApiService';
 
-export const RedefinirSenha = () => {
+export const RedefinirSenha = ({ navigation, route }) => {
+    const [senha, setSenha] = useState(null);
+    const [confirmarSenha, Setconfirmarsenha] = useState(null);
+
+
+    async function AtualizarSenha() {
+        if (senha === confirmarSenha) {
+            await api.put(`/Usuario/AlterarSenha?email=${route.params.emailRecuperacao}`, {
+                senhaNova: senha
+            }).then(() => {
+                navigation.replace("Login")
+            }).catch(error => {
+                console.log(error);
+            })
+        }
+    }
     return (
         <Container style={styles.container}>
             <ConteinerBolaMenor>
@@ -26,22 +43,26 @@ export const RedefinirSenha = () => {
             <Paragrafo>Insira e confirme sua nova senha:</Paragrafo>
 
             <Input
-              
-              icon='envelopeBranco'
-              placeholder='Senha'
+
+                icon='olhoBranco'
+                placeholder='Senha'
+                secure={true}
+                onChangeText={(txt) => setSenha(txt)}
             ></Input>
-            
+
             <Input
-              
-              icon='envelopeBranco'
-              placeholder='Senha'
-              type="password"
+
+                icon='olhoBranco'
+                placeholder='Senha'
+                secure={true}
+                onChangeText={(txt) => Setconfirmarsenha(txt)}
             ></Input>
 
             <ConteinerButton>
 
                 <Botao
                     textoBotao='Redefinir'
+                    onPress={() => AtualizarSenha()}
                 />
 
             </ConteinerButton>

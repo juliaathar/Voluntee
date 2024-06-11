@@ -58,16 +58,6 @@ export const NovaCampanha = () => {
             if (response.data.status === 'OK') {
                 const { lat, lng } = response.data.results[0].geometry.location;
                 console.log( lat, lng );
-                
-                // setLatitude(lat.toString().replace(".",","))
-                // setLongitude(lng.toString().replace(".",","))
-
-                // //js 23.2222 number
-                // //maps 23,2222 number != string
-                
-                // const Coordenada = [latitude, longitude]
-
-                //console.log( Coordenada );
 
                 return { lat, lng };
             } else {

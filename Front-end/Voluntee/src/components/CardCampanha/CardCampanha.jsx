@@ -1,6 +1,7 @@
 import moment from "moment";
 import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style"
 import { FontAwesome6 } from '@expo/vector-icons';
+import { useState } from "react";
 
 function QuebraPalavra(nome, max = 15) {
     if (nome.length > max) {
@@ -9,7 +10,8 @@ function QuebraPalavra(nome, max = 15) {
     return nome;
 }
 
-export const CardCampanhaList = ({ dados, onPressMore, scroll }) => {
+export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => {
+    const [profileData, setProfileData] = useState('')
     return (
         <CardList >
             <ListName>Outras campanhas</ListName>
@@ -25,6 +27,21 @@ export const CardCampanhaList = ({ dados, onPressMore, scroll }) => {
                         imagem={item.imagem}
                         datas={`${moment(item.dataInicio).format('DD/MM/YYYY') } - ${moment(item.dataEncerramento).format('DD/MM/YYYY')}`}
                         //local={item.local}
+                        onPress={() => navigation.replace('Campanha', { 
+                            profileData: profileData, 
+                            idCampanha: item.id,
+                            titulo: item.nome,
+                            email: item.email,
+                            descricao: item.descricao,
+                            imagem: item.imagem,
+                            datas: `${moment(item.dataInicio).format('DD/MM/YYYY')} - ${moment(item.dataEncerramento).format('DD/MM/YYYY')}`,
+                            local: item.local,
+                            dinheiro:item.dinheiro,
+                            alimento:item.alimento,
+                            roupas:item.roupas
+                        })}
+
+                        
                     />
                     :
                     <></>
@@ -33,6 +50,8 @@ export const CardCampanhaList = ({ dados, onPressMore, scroll }) => {
             <ShowMore onPress={onPressMore}>
                 <More>Ver mais...</More>
             </ShowMore>
+
+            
         </CardList>
     )
 }

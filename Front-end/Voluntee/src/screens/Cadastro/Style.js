@@ -47,22 +47,23 @@ export const ConteinerIcon = styled.TouchableOpacity`
 `
 
 
-export const ConteinerBolaMaiorCampanha = styled.SafeAreaView`
-    height: 1210px;
-    width: 100%;
+export const ConteinerBolaMaiorCampanha = styled.View`
+    max-height: 1000px;
     background-color: #FBFBFB;
     border-radius: 20px 20px 0px 0px;
     position: relative;
     z-index: -1;
     align-items: center;
+    flex: 1;
 `
 
 export const ConteinerBolaMaiorInstituicao = styled.SafeAreaView`
-    height: 1100px;
+    max-height: 1000px;
     width: 100%;
     background-color: #FBFBFB;
     border-radius: 20px 20px 0px 0px;
     position: relative;
     z-index: -1;
     align-items: center;
+    flex: 1;
 `

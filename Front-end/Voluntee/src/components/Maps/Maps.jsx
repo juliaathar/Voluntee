@@ -81,7 +81,7 @@ export default function Maps() {
                 coordinate={finalPosition}
                 title='Destino'
                 description='Local de destino'
-                pinColor='blue'
+                pinColor='#0066FF'
               />
             </MapView>
           </View>

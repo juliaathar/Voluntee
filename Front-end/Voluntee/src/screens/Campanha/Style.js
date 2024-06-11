@@ -28,7 +28,6 @@ export const ContainerParagrafo = styled.SafeAreaView`
 `
 
 export const ConteinerInfCampanha = styled.ScrollView`
-    
     width: 100%;
 `
 

@@ -1,3 +1,65 @@
 {
-    "teste":"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+    "_parts": [
+        [
+            "UsuarioId",
+            "DBC298C8-D237-4289-86E3-FEEBC32871AE"
+        ],
+        [
+            "Imagem",
+            "file:///data/user/0/host.exp.exponent/cache/ExperienceData/%2540anonymous%252FVoluntee-32f3313f-bff1-4e88-8a89-5ccf644f0abe/ImagePicker/300c45c2-974b-4738-964b-87a806377139.jpeg"
+        ],
+        [
+            "Nome",
+            "Assalto "
+        ],
+        [
+            "Email",
+            "AssaltanteChave@gmail.com"
+        ],
+        [
+            "Descricao",
+            "Assalto beneficente "
+        ],
+        [
+            "AceitaDoacao",
+            true
+        ],
+        [
+            "Alimento",
+            true
+        ],
+        [
+            "Dinheiro",
+            true
+        ],
+        [
+            "Roupas",
+            false
+        ],
+        [
+            "Longitude",
+            -46.7441
+        ],
+        [
+            "Latitude",
+            -23.4379
+        ],
+        [
+            "DataInicio",
+            "11/06/2024"
+        ],
+        [
+            "DataEncerramento",
+            "18/06/2024"
+        ],
+        [
+            "PessoasPresentes",
+            0
+        ],
+        [
+            "ImagemArquivo",
+            [Object
+            ]
+        ]
+    ]
 }

@@ -31,6 +31,9 @@ export const NovaCampanha = () => {
     const [roupas, setRoupas] = useState(false)
     const [dinheiro, setDinheiro] = useState(false)
 
+    const [latitude, setLatitude] = useState("")
+    const [longitude, setLongitude] = useState("")
+
     useEffect(() => {
         (async () => {
             const { status } = await MediaLibrary.requestPermissionsAsync();
@@ -39,10 +42,6 @@ export const NovaCampanha = () => {
             //console.log(getMediaLibrary);
         })
     }, [])
-
-    useEffect(() => {
-        console.log(imagemUri);
-    }, [imagemUri])
 
     async function SelectImageGallery() {
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -54,10 +53,22 @@ export const NovaCampanha = () => {
 
     async function getCoordinatesFromCEP() {
         try {
-            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=SUA_CHAVE_AQUI`);
+            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=AIzaSyACRpUbQd6xc9VIyHYHGoIMZf-UzQ544XU`);
+
             if (response.data.status === 'OK') {
                 const { lat, lng } = response.data.results[0].geometry.location;
                 console.log( lat, lng );
+                
+                // setLatitude(lat.toString().replace(".",","))
+                // setLongitude(lng.toString().replace(".",","))
+
+                // //js 23.2222 number
+                // //maps 23,2222 number != string
+                
+                // const Coordenada = [latitude, longitude]
+
+                //console.log( Coordenada );
+
                 return { lat, lng };
             } else {
                 throw new Error('Erro na busca das coordenadas');
@@ -70,7 +81,7 @@ export const NovaCampanha = () => {
 
     async function CadastrarCampanha() {
         //CEP
-        const endereco = getCoordinatesFromCEP()
+        const endereco = await getCoordinatesFromCEP()
         //Arquivo a ser enviado
         const formData = new FormData();
 
@@ -84,8 +95,8 @@ export const NovaCampanha = () => {
         formData.append("Alimento", alimentos);
         formData.append("Dinheiro", dinheiro);
         formData.append("Roupas", roupas);
-        formData.append("Longitude", (await endereco).lng);
-        formData.append("Latitude", (await endereco).lat); 
+        formData.append("Longitude", parseFloat(endereco.lng).toFixed(4));
+        formData.append("Latitude",  parseFloat(endereco.lat).toFixed(4)); 
         formData.append("DataInicio", dataInicio);
         formData.append("DataEncerramento", dataFinal);
         formData.append("PessoasPresentes", 0);
@@ -95,6 +106,8 @@ export const NovaCampanha = () => {
             type: `image/${imagemUri.split(".").pop()}`
         });
 
+        console.log(typeof parseFloat(endereco.lng).toFixed(4));
+        console.log(formData);
         await api.post('/Campanha', formData, {
             headers: {
                 "Content-Type": "multipart/form-data"

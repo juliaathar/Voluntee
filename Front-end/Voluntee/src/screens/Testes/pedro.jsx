@@ -6,59 +6,35 @@ import LogoAzulSvg from "../../components/LogoAzulSvg/LogoAzulSvg";
 import LogoBrancoSvg from "../../components/LogoBrancoSvg/LogoBrancoSvg";
 import { Header } from "@react-navigation/stack";
 import { HeaderHome } from "../../components/Header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu } from "../../components/Menu/Menu";
 import { BotaoConsulta } from "../../components/Botao/Botao";
+import api from "../../service/ApiService";
 
 export const Pedro = ({ navigation }) => {
-    const dados = [
-        {
-            id: 1,
-            titulo: "Teste.1",
-            descricao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum facilis harum voluptate autem qui dolorum nemo rerum dolores cum voluptas expedita laboriosam ipsam obcaecati natus ullam, nisi a fuga aperiam.",
-            imagem: require('../../assets/images/ImgTesteCard.png'),
-            datas: "07:45 - 11:00",
-            local: "Sao paulo"
-        },
-        {
-            id: 2,
-            titulo: "Teste.2",
-            descricao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum facilis harum voluptate autem qui dolorum nemo rerum dolores cum voluptas expedita laboriosam ipsam obcaecati natus ullam, nisi a fuga aperiam.",
-            imagem: require('../../assets/images/ImgTesteCard.png'),
-            datas: "14:00 - 17:45",
-            local: "Sergipe"
-        },
-        {
-            id: 3,
-            titulo: "Teste.3",
-            descricao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum facilis harum voluptate autem qui dolorum nemo rerum dolores cum voluptas expedita laboriosam ipsam obcaecati natus ullam, nisi a fuga aperiam.",
-            imagem: require('../../assets/images/ImgTesteCard.png'),
-            datas: "06:00 - 10:50",
-            local: "Praia grande"
-        },
-        {
-            id: 4,
-            titulo: "Teste.4",
-            descricao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum facilis harum voluptate autem qui dolorum nemo rerum dolores cum voluptas expedita laboriosam ipsam obcaecati natus ullam, nisi a fuga aperiam.",
-            imagem: require('../../assets/images/ImgTesteCard.png'),
-            datas: "17:00 - 19:00",
-            local: "Belo Horizonte"
-        },
-        {
-            id: 5,
-            titulo: "Teste.5",
-            descricao: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Earum facilis harum voluptate autem qui dolorum nemo rerum dolores cum voluptas expedita laboriosam ipsam obcaecati natus ullam, nisi a fuga aperiam.",
-            imagem: require('../../assets/images/ImgTesteCard.png'),
-            datas: "19:00 - 21:00",
-            local: "Pedrinhas"
-        },
-    ]
+    const [campanhas, setCampanhas] = useState([])
+    async function ListarCampanhas() {
+        await api.get(`/Campanha`)
+            .then(async response => {
+                console.log("Campanhas:");
+                await setCampanhas(response.data)
+                //console.log(response.data);
+                console.log(campanhas);
+            })
+            .catch(error => {
+                console.log(`Erro ao listar campanhas: ${error}`);
+            })
+    }
 
-    const [menu, setMenu] = useState(false)
-    
+    useEffect(()=>{
+        ListarCampanhas()
+    },[])
+
     return (
         <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <BotaoConsulta/>
+            <CardCampanhaList
+                dados={campanhas}
+            />
         </View>
     )
 }

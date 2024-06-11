@@ -1,123 +1,336 @@
+import { userDecodeToken } from '../../utils/Auth';
+
+// import { useCameraPermissions } from 'expo-camera';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 
-import { StyleSheet, View } from "react-native"
 import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
-import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, ConteinerTouchable, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
+import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, BotaoCamera, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
 import { Input } from '../../components/Input/Input';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView } from 'react-native';
-import { TituloH1 } from '../../components/Titulo/Style';
-import { Button, TextButton } from '../../components/Botao/Style';
+import { KeyboardAvoidingView, ScrollView } from 'react-native';
+import { TextButton } from '../../components/Botao/Style';
 
 import * as Progress from "react-native-progress"
 import { useEffect, useState } from 'react';
-import Eduardo from '../Testes/eduardo';
+import AsyncStorage from '@react-native-async-storage/async-storage/lib/typescript';
 
-export const Perfil = () => {
+import { Masks, useMaskedInputProps } from "react-native-mask-input"
 
-    const [progress, setProgress] = useState(0);
+export const Perfil = ({ navigation, route }) => {
+
+    const [editarPerfil, setEditarPerfil] = useState(false)
+    const [idUsuario, setIdUsuario] = useState('')
+    const [nome, setNome] = useState('')
+    const [email, setEmail] = useState('')
+    const [cpf, setCpf] = useState('')
+    const [dataNasc, setDataNasc] = useState()
+
+    const [fotoPerfil, setFotoPerfil] = useState('')
+    const [pontos, setPontos] = useState()
+
+
+    async function carregarPerfil() {
+        const token = await userDecodeToken()
+
+        setNome(token.nome)
+        setEmail(token.email)
+
+        setIdUsuario(token.jti)
+
+        await getUser(token)
+    }
+
+
+    async function getUsuario(token) {
+
+        try {
+            const response = await api.get(`/${url}/BuscarPorId?id=${token.jti}`);
+            setFotoPerfil(response.data.usuarioDto.fotoPerfil)
+            setDataNasc(response.data.usuarioDto.dataNascimento)
+            setCpf(response.data.usuarioDto.cpf)
+        } catch (error) {
+            Alert.alert("Erro ao buscar dados do usuario:" + error)
+        }
+    }
+
+    async function atualizarUsuario() {
+        const token = JSON.parse(await AsyncStorage.getItem('token')).token;
+        try {
+            await api.put('/Usuario', {
+                nome: nome,
+                email: email,
+                dataNasc: dataNasc,
+                cpf: cpf,
+                fotoPerfil: fotoPerfil
+            }, { headers: { Authorization: `Bearer ${token}` } })
+
+            setEditarPerfil(false);
+
+        } catch (error) {
+            console.log('Não foi possível atualizar os dados do usuário: ' + error);
+        }
+    }
+
+    async function AlterarFotoPerfil() {
+        const formData = new FormData();
+        formData.append("Arquivo", {
+            uri: route.params.photoUri,
+            name: `image.jpg`,
+            type: `image/jpg`
+        })
+
+        try {
+            await api.put(`/Usuario/AlterarFotoPerfil?id=${idUser}`, formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                }
+            }).then(() => {
+                setFotoUsuario(route.params.photoUri)
+            })
+        } catch (error) {
+            Alert.alert('Erro ao atualizar foto de perfil do usuario')
+            console.log(error);
+        }
+
+    }
+
+    async function CancelEdit() {
+        setEditarPerfil(false)
+        carregarPerfil()
+    }
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            // Simulando o progresso aumentando com o tempo
-            setProgress(prevProgress => (prevProgress >= 1 ? 0 : prevProgress + 0.1));
-        }, 1000);
+        carregarPerfil();
+    }, [])
 
-        return () => clearInterval(timer);
-    }, []);
+    useEffect(() => {
+        if (route.params && idUsuario != '') {
+            AlterarFotoPerfil()
+        }
+
+    }, [route.params, idUsuario])
+
+    async function closeApp() {
+        await AsyncStorage.removeItem('token')
+        navigation.replace("Login")
+    }
+
+    function formatarData(data, isValid) {
+        if (isValid == false) {
+            return moment(data).format('YYYY-MM-DD');
+        }
+        return moment(data).format('DD/MM/YYYY');
+    }
+
+    const cpfMasked = useMaskedInputProps({
+        value: cpf,
+        onChangeText: setCpf,
+        mask: Masks.BRL_CPF
+    })
+
+    const dataMasked = useMaskedInputProps({
+        value: dataNasc,
+        onChangeText: setDataNasc,
+        mask: Masks.DATE_DDMMYYYY
+    });
+
 
     return (
-        <ScrollView>
-            <ContainerAzul>
+        <KeyboardAvoidingView style={{ width: '100%', alignSelf: 'center' }} keyboardVerticalOffset={80}>
+            {!editarPerfil ? (
+                <ScrollView>
 
-                <ConteinerBolaMenor>
-                    <ConteinerIcon>
-                        <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
-                    </ConteinerIcon>
-                </ConteinerBolaMenor>
+                    <ContainerAzul>
 
-
-                <ConteinerPerfil>
-                    <TituloPerfil alter>Perfil</TituloPerfil>
-
-                    <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} />
-
-                    <NomePerfil>John Doe</NomePerfil>
-                </ConteinerPerfil>
-
-                <ConteinerAtrásPerfil>
-                    <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
-
-                    <ConteinerTouchable>
-                        <Feather name="edit" size={24} color="white" />
-                    </ConteinerTouchable>
-
-                </ConteinerAtrásPerfil>
-
-                <ConteinerImagem>
-
-                    <Progress.Bar progress={0.4} width={200} borderColor='#FBFBFB' color='#FBFBFB' />
-
-                    <TituloLevel>20 Level</TituloLevel>
+                        <ConteinerBolaMenor>
+                            <ConteinerIcon>
+                                <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
+                            </ConteinerIcon>
+                        </ConteinerBolaMenor>
 
 
+                        <ConteinerPerfil>
+                            <TituloPerfil alter>Perfil</TituloPerfil>   
 
-                </ConteinerImagem>
+                            {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
+                            <FotoPerfil source={{ uri: fotoPerfil }} />
 
-                {/* Bottom */}
+                            <NomePerfil>{nome}</NomePerfil>
+                        </ConteinerPerfil>
 
-                <ConteinerGeral>
+                        <ConteinerAtrásPerfil>
+                            <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                    <ConteinerInput>
+                            <BotaoCamera>
+                                <Feather
+                                    name="edit"
+                                    size={24}
+                                    color="white"
+                                />
+                            </BotaoCamera>
 
-                        <LabelInput>Nome</LabelInput>
-                        <Input
-                            icon=''
-                            placeholder='John Doe'
-                        >
-                        </Input>
+                        </ConteinerAtrásPerfil>
 
-                        <LabelInput>E-mail</LabelInput>
-                        <Input
-                            icon=''
-                            placeholder='johndoe@gmail.com'
-                        >
-                        </Input>
+                        <ConteinerImagem>
 
-                        <LabelInput>Data de nascimento</LabelInput>
-                        <Input
-                            icon=''
-                            placeholder='2005/03/2024'
-                        >
-                        </Input>
+                            <Progress.Bar progress={0.7} width={200} borderColor='#FBFBFB' color='#FBFBFB' />
 
-                        <LabelInput>Cpf</LabelInput>
-                        <Input
-                            icon=''
-                            placeholder='675.578.589-09'
-                        >
-                        </Input>
+                            <TituloLevel>20 Level</TituloLevel>
 
 
-                    </ConteinerInput>
 
-                </ConteinerGeral>
-
-                <StatusBar style="auto" />
-
-                <ButtonPerfil>
-                    <TextButton>Entrar</TextButton>
-                </ButtonPerfil>
-
-                <ConteinerLinkPerfil>
-                    <LinkPerfil>Sair</LinkPerfil>
-                </ConteinerLinkPerfil>
-
-            </ContainerAzul>
+                        </ConteinerImagem>
 
 
-        </ScrollView>
+                        <ConteinerGeral>
+
+                            <ConteinerInput>
+
+                                <LabelInput>Nome</LabelInput>
+                                <Input 
+                                    fieldValue={nome}
+                                >
+                                </Input>
+
+                                <LabelInput>E-mail</LabelInput>
+                                <Input
+                                    fieldValue={email}
+                                >
+                                </Input>
+
+                                <LabelInput>Data de nascimento</LabelInput>
+                                <Input
+                                    fieldValue={dataNasc ? formatarData(dataNasc) : null}
+                                >
+                                </Input>
+
+                                <LabelInput>Cpf</LabelInput>
+                                <Input
+                                    fieldValue={cpf}
+                                >
+                                </Input>
+
+                            </ConteinerInput>
+
+
+                        </ConteinerGeral>
+
+
+                        <ButtonPerfil onPress={() => atualizarUsuario(true)}>
+                            <TextButton>Editar</TextButton>
+                        </ButtonPerfil>
+
+
+                        <ConteinerLinkPerfil>
+                            <LinkPerfil onPress={() => closeApp()}>Sair</LinkPerfil>
+                        </ConteinerLinkPerfil>
+
+
+                    </ContainerAzul>
+
+                    <StatusBar style="auto" />
+
+                </ScrollView>
+            ) : (
+                <ScrollView>
+
+                    <ContainerAzul>
+
+                        <ConteinerBolaMenor>
+                            <ConteinerIcon>
+                                <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
+                            </ConteinerIcon>
+                        </ConteinerBolaMenor>
+
+
+                        <ConteinerPerfil>
+                            <TituloPerfil alter>Perfil</TituloPerfil>   
+
+                            {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
+                            <FotoPerfil source={{ uri: fotoPerfil }} />
+
+                            <NomePerfil>{nome}</NomePerfil>
+                        </ConteinerPerfil>
+
+                        <ConteinerAtrásPerfil>
+                            <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
+
+                            {/* <BotaoCamera>
+                                <Feather
+                                    name="edit"
+                                    size={24}
+                                    color="white"
+                                />
+                            </BotaoCamera> */}
+
+                        </ConteinerAtrásPerfil>
+
+                        <ConteinerImagem>
+
+                            <Progress.Bar progress={0.7} width={200} borderColor='#FBFBFB' color='#FBFBFB' />
+
+                            <TituloLevel>20 Level</TituloLevel>
+
+
+
+                        </ConteinerImagem>
+
+
+                        <ConteinerGeral>
+
+                            <ConteinerInput>
+
+                                <LabelInput>Nome</LabelInput>
+                                <Input 
+                                    fieldValue={nome}
+                                >
+                                </Input>
+
+                                <LabelInput>E-mail</LabelInput>
+                                <Input
+                                    fieldValue={email}
+                                >
+                                </Input>
+
+                                <LabelInput>Data de nascimento</LabelInput>
+                                <Input
+                                    fieldValue={dataNasc ? formatarData(dataNasc) : null}
+                                >
+                                </Input>
+
+                                <LabelInput>Cpf</LabelInput>
+                                <Input
+                                    fieldValue={cpf}
+                                >
+                                </Input>
+
+                            </ConteinerInput>
+
+
+                        </ConteinerGeral>
+
+
+                        <ButtonPerfil onPress={() => atualizarUsuario(true)}>
+                            <TextButton>Editar</TextButton>
+                        </ButtonPerfil>
+
+
+                        <ConteinerLinkPerfil>
+                            <LinkPerfil onPress={() => closeApp()}>Sair</LinkPerfil>
+                        </ConteinerLinkPerfil>
+
+
+                    </ContainerAzul>
+
+                    <StatusBar style="auto" />
+
+                </ScrollView>
+            )
+
+            }
+        </KeyboardAvoidingView>
+
     )
 }

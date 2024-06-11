@@ -34,26 +34,30 @@ export const Perfil = ({ navigation, route }) => {
     async function carregarPerfil() {
         const token = await userDecodeToken()
 
-        setNome(token.nome)
+
+        setNome(token.name)
         setEmail(token.email)
+        setCpf(token.cpf)
+        setDataNasc(token.dataNasc)
+        setIdUsuario(token.id)
 
-        setIdUsuario(token.jti)
+        await atualizarUsuario(token)
 
-        await getUser(token)
+        console.log(token);
     }
 
 
-    async function getUsuario(token) {
+    // async function atualizarUsuario(token) {
 
-        try {
-            const response = await api.get(`/${url}/BuscarPorId?id=${token.jti}`);
-            setFotoPerfil(response.data.usuarioDto.fotoPerfil)
-            setDataNasc(response.data.usuarioDto.dataNascimento)
-            setCpf(response.data.usuarioDto.cpf)
-        } catch (error) {
-            Alert.alert("Erro ao buscar dados do usuario:" + error)
-        }
-    }
+    //     try {
+    //         const response = await api.get(`/${url}/BuscarPorId?id=${token.jti}`);
+    //         setFotoPerfil(response.data.usuarioDto.fotoPerfil)
+    //         setDataNasc(response.data.usuarioDto.dataNascimento)
+    //         setCpf(response.data.usuarioDto.cpf)
+    //     } catch (error) {
+    //         Alert.alert("Erro ao buscar dados do usuario:" + error)
+    //     }
+    // }
 
     async function atualizarUsuario() {
         const token = JSON.parse(await AsyncStorage.getItem('token')).token;
@@ -82,7 +86,7 @@ export const Perfil = ({ navigation, route }) => {
         })
 
         try {
-            await api.put(`/Usuario/AlterarFotoPerfil?id=${idUser}`, formData, {
+            await api.put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 }
@@ -96,7 +100,7 @@ export const Perfil = ({ navigation, route }) => {
 
     }
 
-    async function CancelEdit() {
+    async function cancelarEdicao() {
         setEditarPerfil(false)
         carregarPerfil()
     }
@@ -112,7 +116,7 @@ export const Perfil = ({ navigation, route }) => {
 
     }, [route.params, idUsuario])
 
-    async function closeApp() {
+    async function fecharApp() {
         await AsyncStorage.removeItem('token')
         navigation.replace("Login")
     }
@@ -145,14 +149,14 @@ export const Perfil = ({ navigation, route }) => {
                     <ContainerAzul>
 
                         <ConteinerBolaMenor>
-                            <ConteinerIcon>
+                            <ConteinerIcon onPress={() => navigation.navigate('Home')}>
                                 <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
                             </ConteinerIcon>
                         </ConteinerBolaMenor>
 
 
                         <ConteinerPerfil>
-                            <TituloPerfil alter>Perfil</TituloPerfil>   
+                            <TituloPerfil alter>Perfil</TituloPerfil>
 
                             {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
                             <FotoPerfil source={{ uri: fotoPerfil }} />
@@ -163,7 +167,7 @@ export const Perfil = ({ navigation, route }) => {
                         <ConteinerAtrásPerfil>
                             <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                            <BotaoCamera>
+                            <BotaoCamera onPress={() => navigation.navigate("CameraPhoto")}>
                                 <Feather
                                     name="edit"
                                     size={24}
@@ -189,26 +193,30 @@ export const Perfil = ({ navigation, route }) => {
                             <ConteinerInput>
 
                                 <LabelInput>Nome</LabelInput>
-                                <Input 
+                                <Input
                                     fieldValue={nome}
+                                    editable={false}
                                 >
                                 </Input>
 
                                 <LabelInput>E-mail</LabelInput>
                                 <Input
                                     fieldValue={email}
+                                    editable={false}
                                 >
                                 </Input>
 
                                 <LabelInput>Data de nascimento</LabelInput>
                                 <Input
                                     fieldValue={dataNasc ? formatarData(dataNasc) : null}
+                                    editable={false}
                                 >
                                 </Input>
 
                                 <LabelInput>Cpf</LabelInput>
                                 <Input
                                     fieldValue={cpf}
+                                    editable={false}
                                 >
                                 </Input>
 
@@ -224,7 +232,7 @@ export const Perfil = ({ navigation, route }) => {
 
 
                         <ConteinerLinkPerfil>
-                            <LinkPerfil onPress={() => closeApp()}>Sair</LinkPerfil>
+                            <LinkPerfil onPress={() => fecharApp()}>Sair</LinkPerfil>
                         </ConteinerLinkPerfil>
 
 
@@ -246,7 +254,7 @@ export const Perfil = ({ navigation, route }) => {
 
 
                         <ConteinerPerfil>
-                            <TituloPerfil alter>Perfil</TituloPerfil>   
+                            <TituloPerfil alter>Perfil</TituloPerfil>
 
                             {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
                             <FotoPerfil source={{ uri: fotoPerfil }} />
@@ -283,7 +291,7 @@ export const Perfil = ({ navigation, route }) => {
                             <ConteinerInput>
 
                                 <LabelInput>Nome</LabelInput>
-                                <Input 
+                                <Input
                                     fieldValue={nome}
                                 >
                                 </Input>
@@ -318,7 +326,7 @@ export const Perfil = ({ navigation, route }) => {
 
 
                         <ConteinerLinkPerfil>
-                            <LinkPerfil onPress={() => closeApp()}>Sair</LinkPerfil>
+                            <LinkPerfil onPress={() => cancelarEdicao()}>Sair</LinkPerfil>
                         </ConteinerLinkPerfil>
 
 

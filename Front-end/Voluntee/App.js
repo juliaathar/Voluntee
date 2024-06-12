@@ -15,8 +15,6 @@ import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
 import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';
 
-import { Navegacao } from './src/screens/Navegacao/Navegacao';
-
 import { Pedro } from './src/screens/Testes/pedro';
 import { Joao } from './src/screens/Testes/joao';
 //Fontes
@@ -47,12 +45,6 @@ export default function App() {
       <Stack.Navigator screenOptions={{
         headerShown: false
       }}>
-
-        <Stack.Screen
-          name='Navegacao'
-          component={Navegacao}
-          options={{ title: 'Navegacao' }}
-        />
 
         <Stack.Screen
           name='Apresentacao'

@@ -8,7 +8,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import { ConteinerSlide, ImagemSlide, SlideBody, SlideText } from './Style';
 
 
-export const Apresentacao = () => {
+export const Apresentacao = ({navigation}) => {
 
   const [showHome, setShowHome] = useState(false)
 
@@ -74,6 +74,7 @@ export const Apresentacao = () => {
             }}
 
             bottomButton
+            onDone={() => navigation.replace("Login")}
 
             renderNextButton={() =>
               <View style={styles.slideButton}>

@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { Masks, useMaskedInputProps } from "react-native-mask-input"
+import api from '../../service/ApiService';
 
 export const Perfil = ({ navigation, route }) => {
 

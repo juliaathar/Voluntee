@@ -6,8 +6,9 @@ import { FontAwesome5 } from '@expo/vector-icons';
 export const HeaderHome = ({
     alter = false,
     imagem = require('../../assets/images/PerfilTeste.png'),
-    onPress
-    }) => {
+    onPress,
+    navigation
+}) => {
 
     return (
         <HeaderContainer>
@@ -17,7 +18,9 @@ export const HeaderHome = ({
 
             {alter ? <LogoBrancoSvg width="120" height="50" /> : <LogoAzulSvg width="120" height="50" />}
 
-            <ImagePerfil source={imagem} />
+            <MenuHam onPress={() => navigation.navigate("Perfil")}>
+                <ImagePerfil source={imagem} />
+            </MenuHam>
         </HeaderContainer>
     )
 }

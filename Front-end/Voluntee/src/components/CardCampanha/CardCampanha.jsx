@@ -6,7 +6,7 @@ import axios from 'axios';
 
 async function getCityFromCoordinates(latitude, longitude) {
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyACRpUbQd6xc9VIyHYHGoIMZf-UzQ544XU`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=`);
         if (response.data.status === "OK") {
             console.log(response);
             const addressComponents = response.data.results[0].address_components;

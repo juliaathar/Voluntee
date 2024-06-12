@@ -78,6 +78,7 @@ export const Home = ({navigation}) => {
 
                     <CardPopularContainer
                         dados={campanhasPopulares}
+                        navigation={navigation}
                     />
 
                     <CardCampanhaList

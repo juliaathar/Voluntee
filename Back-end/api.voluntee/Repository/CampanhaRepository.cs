@@ -4,6 +4,7 @@ using api.voluntee.Dtos;
 using api.voluntee.Interfaces;
 using api.voluntee.Services;
 using api.voluntee.Utils.BlobStorage;
+using System.Globalization;
 
 namespace api.voluntee.Repository
 {
@@ -37,7 +38,6 @@ namespace api.voluntee.Repository
                 var usuarioBuscado = ctx.Usuarios.Find(campanhaDto.UsuarioId) ?? throw new Exception("Usuário não encontrado");
 
                 bool primeiraCampanha = !ctx.Campanhas.Any(c => c.UsuarioId == campanhaDto.UsuarioId);
-
                 var connectionString = "";
 
                 var containerName = "";
@@ -59,8 +59,8 @@ namespace api.voluntee.Repository
                     Alimento = campanhaDto.Alimento,
                     Dinheiro = campanhaDto.Dinheiro,
                     Roupas = campanhaDto.Roupas,
-                    Longitude = campanhaDto.Longitude,
-                    Latitude = campanhaDto.Latitude,
+                    Longitude = Decimal.Parse(campanhaDto.Longitude, CultureInfo.InvariantCulture),
+                    Latitude = Decimal.Parse(campanhaDto.Latitude, CultureInfo.InvariantCulture),
                     DataInicio = campanhaDto.DataInicio,
                     DataEncerramento = campanhaDto.DataEncerramento,
                     PessoasPresentes = campanhaDto.PessoasPresentes

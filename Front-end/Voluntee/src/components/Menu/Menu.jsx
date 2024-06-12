@@ -1,12 +1,14 @@
-import LogoAzulSvg from "../LogoAzulSvg/LogoAzulSvg"
-import { LinkContainer, LinkLetra, LinkMenu, Links, MarBaixo, MarCima, MenuContainer } from "./Style"
+import { useNavigation } from '@react-navigation/native';
+import LogoAzulSvg from "../LogoAzulSvg/LogoAzulSvg";
+import { LinkContainer, LinkLetra, LinkMenu, Links, MarBaixo, MarCima, MenuContainer } from "./Style";
 
 export const Menu = ({
     visible,
     onRequestClose,
-    onBack,
-    navigation
+    onBack
 }) => {
+    const navigation = useNavigation();
+
     return (
         <MenuContainer
             isVisible={visible}
@@ -30,7 +32,7 @@ export const Menu = ({
                         <LinkLetra>Instituições</LinkLetra>
                     </LinkMenu>
                     <LinkMenu>
-                        <LinkLetra>Perfil</LinkLetra>
+                        <LinkLetra onPress={() => navigation.navigate("Perfil")}>Perfil</LinkLetra>
                     </LinkMenu>
                     <LinkMenu onPress={onRequestClose}>
                         <LinkLetra>Sair</LinkLetra>
@@ -40,5 +42,5 @@ export const Menu = ({
 
             <MarBaixo />
         </MenuContainer>
-    )
-}
+    );
+};

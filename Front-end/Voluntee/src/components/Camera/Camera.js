@@ -1,5 +1,8 @@
 import { FontAwesome6 } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
+
+import * as MediaLibrary from 'expo-media-library'
 
 import { useEffect, useRef, useState } from "react"
 import { Image, Modal, StyleSheet, TouchableOpacity, View } from "react-native"
@@ -8,20 +11,23 @@ import { CameraView, useCameraPermissions } from 'expo-camera';
 
 import { TextLink } from '../Link/Link';
 import { TextButton } from '../Botao/Style';
+import { Container } from '../Container/Style';
+import { BotaoCaptura, BotaoFlash, BotaoFlip, BotaoRetornaFoto, Btn, CaixaCamera, CaixaDeCima, ConfiruracaoBotaoCaptura } from './Style';
+
 
 export const CameraPhoto = ({ navigation, route }) => {
     const cameraRef = useRef(null)
     const [photo, setPhoto] = useState(null)
     const [openModal, setOpenModal] = useState(false)
     const [tipoCamera, setTipoCamera] = useState('front')
-    const [flashOn, setFlashOn] = useState('off')
+    const [LigaFlash, setLigaFlash] = useState('off')
     const [latestPhoto, setLatestPhoto] = useState(null)
 
     const [cameraPermission, requestCameraPermissions] = useCameraPermissions();
     const [mediaPermission, requestMediaPermissions] = MediaLibrary.usePermissions();
 
 
-    async function CapturePhoto() {
+    async function capturaFoto() {
         if (cameraRef) {
             const photo = await cameraRef.current.takePictureAsync({ quality: 1 })
             setPhoto(photo.uri)
@@ -46,7 +52,7 @@ export const CameraPhoto = ({ navigation, route }) => {
         }
     }
 
-    async function SelectImageGallery() {
+    async function SelecionaImagemGaleria() {
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             quality: 1
@@ -70,70 +76,67 @@ export const CameraPhoto = ({ navigation, route }) => {
         })();
     }, [])
 
-    useEffect(() => {
-        if (route.params) {
-            ultimaFoto ()
-        }
-    }, [])
-    // return (
-        // <Container>
-        //     <CameraView
-        //         ref={cameraRef}
-        //         facing={tipoCamera}
-        //         style={styles.camera}
-        //         flash={flashOn}
-        //     >
-        //         <BoxTop>
-        //             <BtnReturnPhoto onPress={() => { route.params.isProfile ? navigation.navigate("Profile") : navigation.navigate("SeePrescription") }}>
-        //                 <EvilIcons name="close-o" size={70} color="white" />
-        //             </BtnReturnPhoto>
-        //             <BtnFlash onPress={() => setFlashOn(flashOn == 'on' ? 'off' : 'on')}>
-        //                 <Ionicons name={flashOn === 'on' ? "flash" : "flash-off"} size={42} color={flashOn === 'on' ? "yellow" : "white"} />
-        //             </BtnFlash>
-        //         </BoxTop>
-        //         <BoxCamera>
-        //             <TouchableOpacity onPress={() => SelectImageGallery()}>
-        //                 {
-        //                     latestPhoto != null ?
-        //                         (
-        //                             <LastPhoto source={{ uri: latestPhoto }} />
-        //                         ) : null
-        //                 }
-        //             </TouchableOpacity>
+    // useEffect(() => {
+    //     if (route.params) {
+    //         ultimaFoto ()
+    //     }
+    // }, [])
+    return (
+        <Container>
+            <CameraView
+                ref={cameraRef}
+                facing={tipoCamera}
+                style={styles.camera}
+                flash={LigaFlash}
+            >
+                <CaixaDeCima>
+                    <BotaoFlash onPress={() => setLigaFlash(flashOn == 'on' ? 'off' : 'on')}>
+                        <Ionicons name={LigaFlash === 'on' ? "flash" : "flash-off"} size={42} color={LigaFlash === 'on' ? "yellow" : "white"} />
+                    </BotaoFlash>
+                </CaixaDeCima>
+                <CaixaCamera>
+                    <TouchableOpacity onPress={() => SelecionaImagemGaleria()}>
+                        {
+                            latestPhoto != null ?
+                                (
+                                    <LastPhoto source={{ uri: latestPhoto }} />
+                                ) : null
+                        }
+                    </TouchableOpacity>
 
 
-        //             <BtnCapture onPress={() => CapturePhoto()}>
-        //                 <ConfigBtnCapture></ConfigBtnCapture>
-        //             </BtnCapture>
+                    <BotaoCaptura onPress={() => capturaFoto()}>
+                        <ConfiruracaoBotaoCaptura></ConfiruracaoBotaoCaptura>
+                    </BotaoCaptura>
 
-        //             <BtnFlip onPress={() => setTipoCamera(tipoCamera == 'front' ? 'back' : 'front')}>
-        //                 <FontAwesome6 name="camera-rotate" size={45} color="white" />
-        //             </BtnFlip>
+                    <BotaoFlip onPress={() => setTipoCamera(tipoCamera == 'front' ? 'back' : 'front')}>
+                        <FontAwesome6 name="camera-rotate" size={45} color="white" />
+                    </BotaoFlip>
 
-        //         </BoxCamera>
-        //     </CameraView>
+                </CaixaCamera>
+            </CameraView>
 
 
-        //     <Modal
-        //         animationType='slide'
-        //         transparent={false}
-        //         visible={openModal}
-        //     >
-        //         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
-        //             <Image
-        //                 style={{ width: '100%', height: 500, borderRadius: 10 }}
-        //                 source={{ uri: photo }}
-        //             />
-        //             <Btn onPress={() => onPressEnviar()}>
-        //                 <ButtonTitle >ENVIAR</ButtonTitle>
-        //             </Btn>
+            <Modal
+                animationType='slide'
+                transparent={false}
+                visible={openModal}
+            >
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', padding: 30 }}>
+                    <Image
+                        style={{ width: '100%', height: 500, borderRadius: 10 }}
+                        source={{ uri: photo }}
+                    />
+                    <Btn onPress={() => onPressEnviar()}>
+                        <TextButton >ENVIAR</TextButton>
+                    </Btn>
 
-        //             <LinkCancel onPress={() => setOpenModal(false)}>Refazer</LinkCancel>
-        //         </View>
+                    <TextLink onPress={() => setOpenModal(false)}>Refazer</TextLink>
+                </View>
 
-        //     </Modal>
-        // </Container>
-    // )
+            </Modal>
+        </Container>
+    )
 }
 
 const styles = StyleSheet.create({

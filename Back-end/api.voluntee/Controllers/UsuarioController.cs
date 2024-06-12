@@ -83,6 +83,20 @@ namespace api.voluntee.Controllers
 
                 throw;
             }
+        }  
+        
+        [HttpGet("ListarPresencasCampanhas")]
+        public IActionResult ListarCampanhasUsuario(Guid idUsuario)
+        {
+            try
+            {
+                return Ok(_usuarioRepository.ListarPresencasCampanhas(idUsuario));
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         [HttpPut("AlterarFotoPerfil")]

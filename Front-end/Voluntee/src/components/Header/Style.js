@@ -18,6 +18,7 @@ export const ImagePerfil = styled.Image`
 
 export const MenuHam = styled.TouchableOpacity`
     width: 60px;
-    height: 30px;
+    height: 60px;
     align-items: center;
+    justify-content: center;
 `

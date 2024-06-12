@@ -69,6 +69,7 @@ export const Home = ({navigation}) => {
 
                     <HeaderHome
                         onPress={() => setMenu(true)}
+                        navigation={navigation}
                     />
 
                     <Input

@@ -43,7 +43,7 @@ export const Login = ({ navigation }) => {
         console.log("Token salvo:", response.data);
       }
 
-      navigation.navigate('Home');
+      navigation.replace('Home');
 
       setBtnLoad(false);
 

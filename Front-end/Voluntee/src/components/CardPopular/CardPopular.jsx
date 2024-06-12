@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { BlurPreto, Card, CardsField, Descricao, Field, FieldName, ImgFundo, NomeCard } from "./Style"
+import moment from "moment";
 
 function QuebraPalavra(nome, max = 15) {
     if (nome.length > max) {
@@ -8,8 +10,12 @@ function QuebraPalavra(nome, max = 15) {
 }
 
 export const CardPopularContainer = ({
-    dados
+    navigation, 
+    dados, 
+    onPressMore, 
+    scroll
 }) => {
+    const [profileData, setProfileData] = useState('')
     return (
         <CardsField>
             <FieldName>Campanhas populares</FieldName>
@@ -22,6 +28,23 @@ export const CardPopularContainer = ({
                         titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
+                        latitude={item.latitude}
+                        longitude={item.longitude}
+                        onPress={() => navigation.navigate('Campanha', { 
+                            profileData: profileData, 
+                            idCampanha: item.id,
+                            titulo: item.nome,
+                            email: item.email,
+                            descricao: item.descricao,
+                            imagem: item.imagem,
+                            datas: `${moment(item.dataInicio).format('DD/MM/YYYY')} - ${moment(item.dataEncerramento).format('DD/MM/YYYY')}`,
+                            local: item.local,
+                            dinheiro:item.dinheiro,
+                            alimento:item.alimento,
+                            roupas:item.roupas,
+                            latitude: item.latitude,
+                            longitude: item.longitude
+                        })}
                     />
                 }
             />

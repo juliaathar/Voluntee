@@ -50,7 +50,7 @@ export const NovaCampanha = () => {
 
     async function getCoordinatesFromCEP() {
         try {
-            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=AIzaSyACRpUbQd6xc9VIyHYHGoIMZf-UzQ544XU`);
+            const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${cep}&key=`);
 
             if (response.data.status === 'OK') {
                 const { lat, lng } = response.data.results[0].geometry.location;

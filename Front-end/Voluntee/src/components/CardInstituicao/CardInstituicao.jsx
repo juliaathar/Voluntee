@@ -3,6 +3,7 @@ import { CardList, DescricaoCard, List, ListName, More, ShowMore, TituloCard } f
 import { FontAwesome6 } from '@expo/vector-icons';
 import { useState } from "react";
 
+
 function QuebraPalavra(nome, max = 15) {
     if (nome.length > max) {
         return nome.slice(0, max) + "...";
@@ -28,7 +29,9 @@ export const CardInstituicaoList = ({ navigation, dados, onPressMore, scroll }) 
                         dinheiro={item.dinheiro}
                         alimento={item.alimento}
                         roupas={item.roupas}
-                        onPress={() => navigation.replace('Instituicao', { 
+                        latitude={item.latitude}
+                        longitude={item.longitude}
+                        onPress={() => navigation.navigate('Instituicao', { 
                             profileData: profileData, 
                             idCampanha: item.id,
                             titulo: item.nome,
@@ -39,7 +42,9 @@ export const CardInstituicaoList = ({ navigation, dados, onPressMore, scroll }) 
                             local: item.local,
                             dinheiro:item.dinheiro,
                             alimento:item.alimento,
-                            roupas:item.roupas
+                            roupas:item.roupas,
+                            latitude: item.latitude,
+                            longitude: item.longitude
                         })}
                     />
                 }

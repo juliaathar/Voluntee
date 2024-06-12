@@ -15,12 +15,50 @@ import { HeaderHome } from '../../components/Header/Header';
 import { Botao } from '../../components/Botao/Botao';
 import Maps from '../../components/Maps/Maps';
 import { Menu } from '../../components/Menu/Menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+async function getAddressFromCoordinates(latitude, longitude) {
+    try {
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyACRpUbQd6xc9VIyHYHGoIMZf-UzQ544XU`);
+        if (response.data.status === "OK") {
+            const addressComponents = response.data.results[0].address_components;
+            let city = '';
+            let state = '';
+
+            addressComponents.forEach(component => {
+                if (component.types.includes('administrative_area_level_2')) {
+                    city = component.long_name;
+                }
+                if (component.types.includes('administrative_area_level_1')) {
+                    state = component.short_name;
+                }
+            });
+
+            return `${city}, ${state}`;
+        } else {
+            throw new Error("Unable to fetch address.");
+        }
+    } catch (error) {
+        console.error("Error fetching address: ", error);
+        return "Unknown location";
+    }
+}
 
 export const Instituicao = ({ route, navigation }) => {
-    const { titulo, descricao, imagem, funcionarios, local, email, alimento, dinheiro, roupas } = route.params;
+    const { titulo, descricao, imagem, funcionarios, local, email, alimento, dinheiro, roupas ,latitude, longitude } = route.params;
 
     const [menu, setMenu] = useState(false)
+    const [address, setAddress] = useState(local);
+
+    useEffect(() => {
+        if (latitude && longitude) {
+            getAddressFromCoordinates(latitude, longitude)
+                .then(address => setAddress(address))
+                .catch(error => console.error(error));
+        }
+    }, [latitude, longitude]);
+
     return (
 
         <ContainerAzul>
@@ -40,7 +78,7 @@ export const Instituicao = ({ route, navigation }) => {
                     <TituloH2 style={{ top: 10 }} >{titulo}</TituloH2>
 
 
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" /> {local}</Text>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" /> {address}</Text>
 
                     <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}><FontAwesome name="group" size={20} color="#0066FF" />  {funcionarios} Funcionários</Text>
 
@@ -64,7 +102,7 @@ export const Instituicao = ({ route, navigation }) => {
 
                     <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}> Veja o endereço da instituição:</TituloH2>
 
-                    <Maps />
+                    <Maps latitude={latitude} longitude={longitude} />
 
                 </ConteinerBolaMaiorInstituicao>
             </ConteinerInfCampanha>

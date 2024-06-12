@@ -28,7 +28,9 @@ export const CardPopularContainer = ({
                         titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
-                        onPress={() => navigation.replace('Campanha', { 
+                        latitude={item.latitude}
+                        longitude={item.longitude}
+                        onPress={() => navigation.navigate('Campanha', { 
                             profileData: profileData, 
                             idCampanha: item.id,
                             titulo: item.nome,
@@ -39,7 +41,9 @@ export const CardPopularContainer = ({
                             local: item.local,
                             dinheiro:item.dinheiro,
                             alimento:item.alimento,
-                            roupas:item.roupas
+                            roupas:item.roupas,
+                            latitude: item.latitude,
+                            longitude: item.longitude
                         })}
                     />
                 }

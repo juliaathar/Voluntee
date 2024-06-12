@@ -82,6 +82,7 @@ export default function Maps() {
                 title='Destino'
                 description='Local de destino'
                 pinColor='#0066FF'
+                
               />
             </MapView>
           </View>

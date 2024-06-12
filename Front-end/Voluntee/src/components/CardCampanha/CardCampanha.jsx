@@ -12,10 +12,10 @@ function QuebraPalavra(nome, max = 15) {
 
 export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => {
     const [profileData, setProfileData] = useState('')
-    
+
 
     return (
-        <CardList 
+        <CardList
             tamanho={dados.length}
         >
             <ListName>Outras campanhas</ListName>
@@ -29,10 +29,12 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                         titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
-                        datas={`${moment(item.dataInicio).format('DD/MM') } - ${moment(item.dataEncerramento).format('DD/MM')}`}
-                        //local={item.local}
-                        onPress={() => navigation.replace('Campanha', { 
-                            profileData: profileData, 
+                        datas={`${moment(item.dataInicio).format('DD/MM')} - ${moment(item.dataEncerramento).format('DD/MM')}`}
+                        local={item.local}
+                        latitude={item.latitude}
+                        longitude={item.longitude}
+                        onPress={() => navigation.replace('Campanha', {
+                            profileData: profileData,
                             idCampanha: item.id,
                             titulo: item.nome,
                             email: item.email,
@@ -40,12 +42,13 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                             imagem: item.imagem,
                             datas: `${moment(item.dataInicio).format('DD/MM/YYYY')} - ${moment(item.dataEncerramento).format('DD/MM/YYYY')}`,
                             local: item.local,
-                            dinheiro:item.dinheiro,
-                            alimento:item.alimento,
-                            roupas:item.roupas
+                            dinheiro: item.dinheiro,
+                            alimento: item.alimento,
+                            roupas: item.roupas,
+                            latitude: item.latitude,
+                            longitude: item.longitude
                         })}
 
-                        
                     />
                     :
                     <></>
@@ -55,7 +58,7 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                 <More>Ver mais...</More>
             </ShowMore>
 
-            
+
         </CardList>
     )
 }
@@ -66,6 +69,8 @@ export const CardCampanha = ({
     imagem = require('../../assets/images/apresentacao3.png'),
     datas = "inicio - fim",
     local = "informe o local",
+    latitude, 
+    longitude,
     onPress
 }) => {
     return (
@@ -74,9 +79,9 @@ export const CardCampanha = ({
         >
 
             <ImgCard
-                source={{uri: imagem}}
+                source={{ uri: imagem }}
             >
-                <Blur/>
+                <Blur />
             </ImgCard>
 
 
@@ -91,7 +96,7 @@ export const CardCampanha = ({
                         <FontAwesome6 name="calendar-day" size={14} color="#0066FF" /> {datas}
                     </Data>
                     <Local>
-                        <FontAwesome6 name="location-dot" size={14} color="#0066FF" /> {local}
+                        <FontAwesome6 name="location-dot" size={14} color="#0066FF" /> {local} ({latitude}, {longitude})
                     </Local>
                 </DataLocal>
             </InfoContainer>

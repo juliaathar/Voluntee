@@ -22,13 +22,13 @@ export const Menu = ({
                 <LogoAzulSvg width="170" />
 
                 <Links>
-                    <LinkMenu>
+                    <LinkMenu onPress={() => navigation.navigate("Home")}>
                         <LinkLetra>Home</LinkLetra>
                     </LinkMenu>
                     <LinkMenu>
-                        <LinkLetra>Campanhas</LinkLetra>
+                        <LinkLetra onPress={() => navigation.navigate("Home")}>Campanhas</LinkLetra>
                     </LinkMenu>
-                    <LinkMenu>
+                    <LinkMenu onPress={() => navigation.navigate("Home")}>
                         <LinkLetra>Instituições</LinkLetra>
                     </LinkMenu>
                     <LinkMenu>

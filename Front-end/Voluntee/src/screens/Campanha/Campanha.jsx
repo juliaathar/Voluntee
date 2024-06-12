@@ -25,8 +25,8 @@ export const Campanha = ({ route, navigation }) => {
 
     return (
         <ContainerAzul>
-            <HeaderHome 
-                alter 
+            <HeaderHome
+                alter
                 onPress={() => setMenu(true)}
             />
 

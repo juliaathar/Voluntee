@@ -44,7 +44,6 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                             alimento:item.alimento,
                             roupas:item.roupas
                         })}
-
                         
                     />
                     :

@@ -88,12 +88,13 @@ namespace api.voluntee.Repository
         {
             try
             {
-                return ctx.Campanhas.ToList();
+
+                int valorPopularidade = 5000;
+                return ctx.Campanhas.Where(p => p.PessoasPresentes < valorPopularidade).ToList();
             }
             catch (Exception ex)
             {
-
-                throw new Exception("Erro ao listar campanhas", ex);
+                throw new Exception("Erro ao achar campanhas populares", ex);
             }
         }
 
@@ -109,6 +110,7 @@ namespace api.voluntee.Repository
             {
                 throw new Exception("Erro ao achar campanhas populares", ex);
             }
-        }
+        }     
+
     }
 }

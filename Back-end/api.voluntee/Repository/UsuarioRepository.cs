@@ -8,7 +8,7 @@ using WebAPI.Utils;
 
 namespace api.voluntee.Repository
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepository : IUsuarioRepository 
     {
         private readonly VolunteeContext ctx = new VolunteeContext();
         private readonly PontuacaoService _pontuacaoService;
@@ -166,7 +166,22 @@ namespace api.voluntee.Repository
             }
         }
 
+        public List<Campanha> ListarPresencasCampanhas(Guid usuarioId)
+        {
+            try
+            {
+                var campanhas = ctx.PresencaCampanhas
+                                   .Where(pc => pc.UsuarioId == usuarioId)
+                                   .Include(pc => pc.Campanha)
+                                   .Select(pc => pc.Campanha)
+                                   .ToList();
 
-
+                return campanhas;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao listar campanhas em que o usuário está presente.", ex);
+            }
+        }
     }
 }

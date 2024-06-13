@@ -29,3 +29,12 @@ export const RecordImage = styled.Image`
     height: 48px;
     border-radius: 10px ;
 `
+
+export const ButtonClose = styled.TouchableOpacity `
+    position: 'absolute';
+    left: 150;
+    bottom: 15;
+    
+    z-Index: 1;
+    
+`

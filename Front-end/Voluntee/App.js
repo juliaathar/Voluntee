@@ -24,6 +24,7 @@ import {
   Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
 import { Instituicao } from './src/screens/Instituiçao/Instituicao';
+import { MinhasCampanhas } from './src/screens/MinhasCampanhas/MinhasCampanhas';
 
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
@@ -59,6 +60,24 @@ export default function App() {
           name='Login'
           component={Login}
           options={{ title: 'Login' }}
+        />
+
+        <Stack.Screen
+          name='Eduardo'
+          component={Eduardo}
+          options={{ title: 'Eduardo' }}
+        />
+
+        <Stack.Screen
+          name='Pedro'
+          component={Pedro}
+          options={{ title: 'Pedro' }}
+        />
+
+        <Stack.Screen
+          name='Joao'
+          component={Joao}
+          options={{ title: 'Joao' }}
         />
 
         <Stack.Screen
@@ -107,6 +126,12 @@ export default function App() {
           name='Instituicao'
           component={Instituicao}
           options={{ title: 'Instituicao' }}
+        />
+
+        <Stack.Screen
+          name='MinhasCampanhas'
+          component={MinhasCampanhas}
+          options={{ title: 'MinhasCampanhas' }}
         />
 
       </Stack.Navigator>

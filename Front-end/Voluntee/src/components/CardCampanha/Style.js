@@ -51,14 +51,14 @@ export const DataLocal = styled.View`
 export const TituloCard = styled.Text`
     font-family: "Lexend_600SemiBold";
     font-size: 16px;
-    color: #0066FF;
+    color: ${({ alter }) => (alter ? '#FBFBFB' : '#0066FF')};
     
 `
 
 export const DescricaoCard = styled.Text`
     font-family: 'Lexend_400Regular';
     font-size: 14px;
-    color: #1E1E1E;
+    color: ${({ alter }) => (alter ? '#FBFBFB' : '#1E1E1E')};
 `
 
 export const Data = styled(DescricaoCard)`

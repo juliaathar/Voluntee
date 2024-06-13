@@ -11,6 +11,7 @@ export const SubTitulo = styled(TituloH3)`
 export const SelectContainer = styled.View`
     width: 90%;
     margin-bottom: 10px;
+    align-items: start;
 `
 
 export const ButtonsContainer = styled.View`

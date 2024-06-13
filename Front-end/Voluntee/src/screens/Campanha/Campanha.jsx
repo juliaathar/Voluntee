@@ -53,7 +53,11 @@ export const Campanha = ({ route, navigation }) => {
 
     const [address, setAddress] = useState(local);
 
-    useEffect(() => {   
+    const closeModal = () => {
+        setShowAppointment(false);
+    };
+
+    useEffect(() => {
         if (latitude && longitude) {
             getAddressFromCoordinates(latitude, longitude)
                 .then(address => setAddress(address))
@@ -117,6 +121,8 @@ export const Campanha = ({ route, navigation }) => {
                 visible={showModalAppointment}
                 setShowAppointment={setShowAppointment}
                 navigation={navigation}
+                idCampanha={idCampanha}
+                onCloseModal={closeModal}
             />
 
             <Menu

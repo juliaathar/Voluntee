@@ -15,10 +15,6 @@ import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
 import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';
 
-// import { Pedro } from './src/screens/Testes/pedro';
-// import { Joao } from './src/screens/Testes/joao';
-// import Eduardo from './src/screens/Testes/eduardo';
-
 //Fontes
 import { useFonts } from 'expo-font';
 import {
@@ -65,24 +61,6 @@ export default function App() {
           component={Login}
           options={{ title: 'Login' }}
         />
-
-        {/* <Stack.Screen
-          name='Eduardo'
-          component={Eduardo}
-          options={{ title: 'Eduardo' }}
-        /> */}
-
-        {/* <Stack.Screen
-          name='Pedro'
-          component={Pedro}
-          options={{ title: 'Pedro' }}
-        />
-
-        <Stack.Screen
-          name='Joao'
-          component={Joao}
-          options={{ title: 'Joao' }}
-        /> */}
 
         <Stack.Screen
           name='Home'

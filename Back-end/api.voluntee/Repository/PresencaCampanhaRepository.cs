@@ -35,7 +35,7 @@ namespace api.voluntee.Repository
 
                 _ctx.PresencaCampanhas.Add(new PresencaCampanha { UsuarioId = idUsuario, CampanhaId = idCampanha });
 
-                _pontuacaoService.IncrementarPontos(idUsuario, 20);
+                _pontuacaoService.IncrementarPontos(idUsuario, 35);
 
                 _ctx.SaveChanges();
             }

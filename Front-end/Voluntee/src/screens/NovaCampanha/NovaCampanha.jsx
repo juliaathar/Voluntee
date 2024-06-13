@@ -14,22 +14,31 @@ import moment from "moment"
 import * as MediaLibrary from 'expo-media-library'
 import * as ImagePicker from 'expo-image-picker'
 import axios from "axios"
+import * as yup from "yup"
+import { ParagrafoErro } from "../../components/Paragrafo/Style"
 export const NovaCampanha = () => {
+    const [menu, setMenu] = useState(false);
+    const [imagemUri, setImagemUri] = useState("");
+    const [nome, setNome] = useState("");
+    const [email, setEmail] = useState("");
+    const [descricao, setDescricao] = useState("");
+    const [cep, setCep] = useState("");
+    const [dataInicio, setDataInicio] = useState('');
+    const [dataFinal, setDataFinal] = useState('');
+    const [doacao, setDoacao] = useState(false);
+    const [alimentos, setAlimentos] = useState(false);
+    const [roupas, setRoupas] = useState(false);
+    const [dinheiro, setDinheiro] = useState(false);
+    const [errors, setErrors] = useState({});
 
-    const [menu, setMenu] = useState(false)
-
-    const [imagemUri, setImagemUri] = useState("")
-    const [nome, setNome] = useState("")
-    const [email, setEmail] = useState("")
-    const [descricao, setDescricao] = useState("")
-    const [cep, setCep] = useState("")
-    const [dataInicio, setDataInicio] = useState(moment().format("DD/MM/YYYY"))
-    const [dataFinal, setDataFinal] = useState(moment().add(7, 'days').format("DD/MM/YYYY"))
-
-    const [doacao, setDoacao] = useState(false)
-    const [alimentos, setAlimentos] = useState(false)
-    const [roupas, setRoupas] = useState(false)
-    const [dinheiro, setDinheiro] = useState(false)
+    const schema = yup.object().shape({
+        nome: yup.string().required('Campo obrigatório'),
+        email: yup.string().email('Email inválido').required('Campo obrigatório'),
+        descricao: yup.string().required('Campo obrigatório'),
+        cep: yup.string().required('Campo obrigatório'),
+        // dataInicio: yup.string().required('Campo obrigatório').matches(/^\d{4}\/\d{2}\/\d{2}$/, 'Data inválida (DD/MM/AAAA)'),
+        // dataFinal: yup.string().required('Campo obrigatório').matches(/^\d{4}\/\d{2}\/\d{2}$/, 'Data inválida (DD/MM/AAAA)'),
+    });
 
     useEffect(() => {
         (async () => {
@@ -54,7 +63,7 @@ export const NovaCampanha = () => {
 
             if (response.data.status === 'OK') {
                 const { lat, lng } = response.data.results[0].geometry.location;
-                console.log( lat, lng );
+                console.log(lat, lng);
 
                 return { lat, lng };
             } else {
@@ -67,46 +76,51 @@ export const NovaCampanha = () => {
     }
 
     async function CadastrarCampanha() {
-        //CEP
-        const endereco = await getCoordinatesFromCEP()
-        //Arquivo a ser enviado
-        const formData = new FormData();
+        try {
+            await schema.validate({ nome, email, descricao, cep, dataInicio, dataFinal }, { abortEarly: false });
+            const endereco = await getCoordinatesFromCEP();
+            const formData = new FormData();
 
-        // Adicionando outros campos ao formData
-        formData.append("UsuarioId", "DBC298C8-D237-4289-86E3-FEEBC32871AE"); // mockado provisório
-        formData.append("Imagem", imagemUri);
-        formData.append("Nome", nome);
-        formData.append("Email", email);
-        formData.append("Descricao", descricao);
-        formData.append("AceitaDoacao", doacao);
-        formData.append("Alimento", alimentos);
-        formData.append("Dinheiro", dinheiro);
-        formData.append("Roupas", roupas);
-        formData.append("Longitude", parseFloat(endereco.lng).toFixed(4));
-        formData.append("Latitude",  parseFloat(endereco.lat).toFixed(4)); 
-        formData.append("DataInicio", dataInicio);
-        formData.append("DataEncerramento", dataFinal);
-        formData.append("PessoasPresentes", 0);
-        formData.append("ImagemArquivo", {
-            uri: imagemUri,
-            name: `image.${imagemUri.split(".").pop()}`,
-            type: `image/${imagemUri.split(".").pop()}`
-        });
+            formData.append("UsuarioId", "DBC298C8-D237-4289-86E3-FEEBC32871AE");
+            formData.append("Imagem", imagemUri);
+            formData.append("Nome", nome);
+            formData.append("Email", email);
+            formData.append("Descricao", descricao);
+            formData.append("AceitaDoacao", doacao);
+            formData.append("Alimento", alimentos);
+            formData.append("Dinheiro", dinheiro);
+            formData.append("Roupas", roupas);
+            formData.append("Longitude", parseFloat(endereco.lng).toFixed(4));
+            formData.append("Latitude", parseFloat(endereco.lat).toFixed(4));
+            formData.append("DataInicio", dataInicio);
+            formData.append("DataEncerramento", dataFinal);
+            formData.append("PessoasPresentes", 0);
+            formData.append("ImagemArquivo", {
+                uri: imagemUri,
+                name: `image.${imagemUri.split(".").pop()}`,
+                type: `image/${imagemUri.split(".").pop()}`
+            });
 
-        console.log(typeof parseFloat(endereco.lng).toFixed(4));
-        console.log(formData);
-        await api.post('/Campanha', formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            },
-        })
-            .then(async response => {
-                console.log("Campanha Cadastrada:");
-                console.log(response.status);
-            })
-            .catch(error => {
+            await api.post('/Campanha', formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },
+            }).then(async response => {
+                console.log("Campanha Cadastrada:", response.status);
+            }).catch(error => {
                 console.log(`Erro ao cadastrar campanha: ${error}`);
-            })
+            });
+        } catch (error) {
+            if (error instanceof yup.ValidationError) {
+                let validationErrors = {};
+                error.inner.forEach(err => {
+                    validationErrors[err.path] = err.message;
+                });
+                setErrors(validationErrors);
+            } else {
+                console.log('Erro ao cadastrar:', error);
+            }
+        }
     }
 
     return (
@@ -127,18 +141,24 @@ export const NovaCampanha = () => {
                         fieldValue={nome}
                         onChangeText={(newValue) => setNome(newValue)}
                     />
+                    {errors.nome && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.nome}</ParagrafoErro>}
                     <FormInput
                         label="E-mail"
                         placeholder="Email do organizador"
                         fieldValue={email}
                         onChangeText={(newValue) => setEmail(newValue)}
                     />
+                    {errors.email && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.email}</ParagrafoErro>}
+
                     <FormInput
                         label="Descrição"
                         placeholder="Descricao da campanha"
                         fieldValue={descricao}
                         onChangeText={(newValue) => setDescricao(newValue)}
                     />
+
+                    {errors.descricao && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.descricao}</ParagrafoErro>}
+
 
                     <SelectContainer>
                         <SubTitulo>Aceita doação?</SubTitulo>
@@ -201,20 +221,27 @@ export const NovaCampanha = () => {
                         fieldValue={cep}
                         onChangeText={(newValue) => setCep(newValue)}
                     />
+                    {errors.cep && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.cep}</ParagrafoErro>}
+                    
 
-                    <SubTitulo style={{ top: 15 }}>Selecione o local onde acontecerá:  </SubTitulo>
+
+                    <SubTitulo style={{ top: 15 }}>Selecione a data que acontecerá:</SubTitulo>
                     <FormInput
-                        label="Data de início (Opcional)"
-                        placeholder="00/00/0000"
+                        label="Data de início"
+                        // placeholder="00/00/0000"
                         fieldValue={dataInicio}
                         onChangeText={(newvalue) => setDataInicio(newvalue)}
                     />
+                    {errors.dataInicio && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.dataInicio}</ParagrafoErro>}
+
                     <FormInput
-                        label="Data de encerramento (Opcional) "
-                        placeholder="00/00/0000"
+                        label="Data de encerramento"
+                        // placeholder="00/00/0000"
                         fieldValue={dataFinal}
                         onChangeText={(newvalue) => setDataFinal(newvalue)}
                     />
+                    {errors.dataFinal && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.dataFinal}</ParagrafoErro>}
+
 
                     <Botao
                         textoBotao="Cadastrar"

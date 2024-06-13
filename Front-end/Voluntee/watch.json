@@ -1,0 +1,15 @@
+{
+    "campanhas": [],
+    "codRecupSenha": null,
+    "cpf": "37637637676",
+    "dataNascimento": "2000-04-04T00:00:00",
+    "email": "juliaranyol@gmail.com",
+    "foto": "https://blobvitalhub08.blob.core.windows.net/blobvitalhubcontainer/pfpstandard.png",
+    "fotoAtualizada": true,
+    "id": "dbc298c8-d237-4289-86e3-feebc32871ae",
+    "nome": "Júlia Aben-Athar ",
+    "perfilEditado": true,
+    "pontos": 100,
+    "presencaCampanhas": [],
+    "senha": "$2a$11$s9cYqj19/TplIbnbkDlE2OLtg9iuLBjsG3nL53KMRrqxJiZ/8QNxu"
+}

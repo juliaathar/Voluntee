@@ -11,15 +11,16 @@ export const HeaderHome = ({
     onPress,
     navigation
 }) => {
-    const [foto,setFoto] =useState("https://voxnews.com.br/wp-content/uploads/2017/04/unnamed.png")
+    const [fotoPerfil,setFotoPerfil] =useState("")
 
     async function CarregarPerfil() {
         const token = await userDecodeToken()
 
-        api.get(`/Usuario/${token.id}`)
+        api.get(`/Usuario/Id?id=${token.id}`)
         .then(async response =>{
-            await setFoto(response.data.Foto)
+            await setFotoPerfil(response.data.foto)
             console.log(response.data);
+            console.log(fotoPerfil);
         })
         .catch(error =>{
             console.log(`Erro no Header: ${error}`);
@@ -40,7 +41,7 @@ export const HeaderHome = ({
             {alter ? <LogoBrancoSvg width="120" height="50" /> : <LogoAzulSvg width="120" height="50" />}
 
             <MenuHam onPress={() => navigation.navigate("Perfil")}>
-                <ImagePerfil source={{uri: foto}} />
+                <ImagePerfil source={{uri: fotoPerfil}} />
             </MenuHam>
         </HeaderContainer>
     )

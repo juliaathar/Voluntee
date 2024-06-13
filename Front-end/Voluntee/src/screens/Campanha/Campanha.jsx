@@ -45,13 +45,17 @@ async function getAddressFromCoordinates(latitude, longitude) {
 }
 
 export const Campanha = ({ route, navigation }) => {
-    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas ,latitude, longitude } = route.params;
+    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas ,latitude, longitude, idCampanha } = route.params;
 
     const [menu, setMenu] = useState(false)
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [showModalAppointment, setShowAppointment] = useState(false);
 
     const [address, setAddress] = useState(local);
+
+    const closeModal = () => {
+        setShowAppointment(false);
+    };
 
     useEffect(() => {
         if (latitude && longitude) {
@@ -117,6 +121,8 @@ export const Campanha = ({ route, navigation }) => {
                 visible={showModalAppointment}
                 setShowAppointment={setShowAppointment}
                 navigation={navigation}
+                idCampanha={idCampanha}
+                onCloseModal={closeModal}
             />
 
             <Menu

@@ -63,24 +63,6 @@ export default function App() {
         />
 
         <Stack.Screen
-          name='Eduardo'
-          component={Eduardo}
-          options={{ title: 'Eduardo' }}
-        />
-
-        <Stack.Screen
-          name='Pedro'
-          component={Pedro}
-          options={{ title: 'Pedro' }}
-        />
-
-        <Stack.Screen
-          name='Joao'
-          component={Joao}
-          options={{ title: 'Joao' }}
-        />
-
-        <Stack.Screen
           name='Home'
           component={Home}
           options={{ title: 'Home' }}

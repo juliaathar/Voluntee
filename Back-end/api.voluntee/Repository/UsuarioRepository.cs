@@ -71,7 +71,7 @@ namespace api.voluntee.Repository
 
                 if (usuarioBuscado.PerfilEditado == false)
                 {
-                    _pontuacaoService.IncrementarPontos(id, 100);
+                    _pontuacaoService.IncrementarPontos(id, 170);
                     usuarioBuscado.PerfilEditado = true;
                 }
 
@@ -152,7 +152,7 @@ namespace api.voluntee.Repository
                     usuarioBuscado.Foto = novaUrlFoto;
                     if (usuarioBuscado.FotoAtualizada == false)
                     {
-                        _pontuacaoService.IncrementarPontos(id, 100);
+                        _pontuacaoService.IncrementarPontos(id, 250);
                         usuarioBuscado.FotoAtualizada = true;
                     }
                 }

@@ -58,7 +58,7 @@ export const TituloCard = styled.Text`
 export const DescricaoCard = styled.Text`
     font-family: 'Lexend_400Regular';
     font-size: 14px;
-    color: #1E1E1E;
+    color: ${({ alter }) => (alter ? '#FBFBFB' : '#1E1E1E')};
 `
 
 export const Data = styled(DescricaoCard)`

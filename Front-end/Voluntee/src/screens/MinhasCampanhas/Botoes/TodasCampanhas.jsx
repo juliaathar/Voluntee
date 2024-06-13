@@ -126,8 +126,8 @@ export const CardCampanha = ({
 
             <InfoContainer>
                 <Info>
-                    <TituloCard>{QuebraPalavra(titulo, 23)}</TituloCard>
-                    <DescricaoCard>{QuebraPalavra(descricao, 80)}</DescricaoCard>
+                    <TituloCard alter>{QuebraPalavra(titulo, 23)}</TituloCard>
+                    <DescricaoCard alter>{QuebraPalavra(descricao, 80)}</DescricaoCard>
                 </Info>
 
                 <DataLocal>

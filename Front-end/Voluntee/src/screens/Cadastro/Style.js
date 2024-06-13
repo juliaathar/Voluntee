@@ -48,7 +48,7 @@ export const ConteinerIcon = styled.TouchableOpacity`
 
 
 export const ConteinerBolaMaiorCampanha = styled.View`
-    max-height: 1000px;
+    max-height: 1200px;
     background-color: #FBFBFB;
     border-radius: 20px 20px 0px 0px;
     position: relative;
@@ -58,7 +58,7 @@ export const ConteinerBolaMaiorCampanha = styled.View`
 `
 
 export const ConteinerBolaMaiorInstituicao = styled.SafeAreaView`
-    max-height: 1000px;
+    max-height: 1200px;
     width: 100%;
     background-color: #FBFBFB;
     border-radius: 20px 20px 0px 0px;

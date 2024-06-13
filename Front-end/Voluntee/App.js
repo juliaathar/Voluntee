@@ -10,7 +10,7 @@ import { Apresentacao } from './src/screens/Apresentacao/Apresentacao';
 import { Home } from './src/screens/Home/Home';
 import { RecuperarSenha } from './src/screens/RecuperarSenha/RecuperarSenha';
 import { VerificarEmail } from './src/screens/VerificarEmail/VerificarEmail';
-import { RedefinirSenha } from './src/screens/RedefinirSeha/RedefinirSenha';
+import { RedefinirSenha } from './src/screens/RedefinirSenha/RedefinirSenha';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
 import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';

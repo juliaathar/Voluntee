@@ -103,7 +103,9 @@ export const Home = ({navigation}) => {
                 onBack={() => setMenu(false)}
             />
             
-            <BotaoConsulta />
+            <BotaoConsulta 
+                navigation={navigation}
+            />
         </>
     )
 }

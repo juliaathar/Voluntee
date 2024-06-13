@@ -21,4 +21,5 @@ export const MenuHam = styled.TouchableOpacity`
     height: 60px;
     align-items: center;
     justify-content: center;
+    //border: 1px;
 `

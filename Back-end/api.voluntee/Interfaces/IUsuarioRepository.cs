@@ -14,5 +14,7 @@ namespace api.voluntee.Interfaces
         bool AlterarSenha(string email, string senhaNova);
 
         public void AtualizarFoto(Guid id, string novaUrlFoto);
+
+        List<Campanha> ListarPresencasCampanhas(Guid id);
     }
 }

@@ -26,7 +26,7 @@ export const Menu = ({
                         <LinkLetra>Home</LinkLetra>
                     </LinkMenu>
                     <LinkMenu>
-                        <LinkLetra onPress={() => navigation.navigate("Home")}>Campanhas</LinkLetra>
+                        <LinkLetra onPress={() => navigation.navigate("MinhasCampanhas")}>Minhas Campanhas</LinkLetra>
                     </LinkMenu>
                     <LinkMenu onPress={() => navigation.navigate("Home")}>
                         <LinkLetra>Instituições</LinkLetra>

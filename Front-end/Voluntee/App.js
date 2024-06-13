@@ -15,8 +15,10 @@ import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
 import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';
 
-import { Pedro } from './src/screens/Testes/pedro';
-import { Joao } from './src/screens/Testes/joao';
+// import { Pedro } from './src/screens/Testes/pedro';
+// import { Joao } from './src/screens/Testes/joao';
+// import Eduardo from './src/screens/Testes/eduardo';
+
 //Fontes
 import { useFonts } from 'expo-font';
 import {
@@ -25,8 +27,8 @@ import {
   Lexend_600SemiBold,
   Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
-import Eduardo from './src/screens/Testes/eduardo';
 import { Instituicao } from './src/screens/Instituiçao/Instituicao';
+import { MinhasCampanhas } from './src/screens/MinhasCampanhas/MinhasCampanhas';
 
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
@@ -64,13 +66,13 @@ export default function App() {
           options={{ title: 'Login' }}
         />
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name='Eduardo'
           component={Eduardo}
           options={{ title: 'Eduardo' }}
-        />
+        /> */}
 
-        <Stack.Screen
+        {/* <Stack.Screen
           name='Pedro'
           component={Pedro}
           options={{ title: 'Pedro' }}
@@ -80,7 +82,7 @@ export default function App() {
           name='Joao'
           component={Joao}
           options={{ title: 'Joao' }}
-        />
+        /> */}
 
         <Stack.Screen
           name='Home'
@@ -128,6 +130,12 @@ export default function App() {
           name='Instituicao'
           component={Instituicao}
           options={{ title: 'Instituicao' }}
+        />
+
+        <Stack.Screen
+          name='MinhasCampanhas'
+          component={MinhasCampanhas}
+          options={{ title: 'MinhasCampanhas' }}
         />
 
       </Stack.Navigator>

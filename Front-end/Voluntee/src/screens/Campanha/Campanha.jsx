@@ -45,7 +45,7 @@ async function getAddressFromCoordinates(latitude, longitude) {
 }
 
 export const Campanha = ({ route, navigation }) => {
-    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas ,latitude, longitude } = route.params;
+    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas ,latitude, longitude } = route;
 
     const [menu, setMenu] = useState(false)
     const [showModalCancel, setShowModalCancel] = useState(false);
@@ -53,7 +53,7 @@ export const Campanha = ({ route, navigation }) => {
 
     const [address, setAddress] = useState(local);
 
-    useEffect(() => {
+    useEffect(() => {   
         if (latitude && longitude) {
             getAddressFromCoordinates(latitude, longitude)
                 .then(address => setAddress(address))
@@ -67,7 +67,7 @@ export const Campanha = ({ route, navigation }) => {
                 alter
                 onPress={() => setMenu(true)}
                 navigation={navigation}
-            />
+                />
 
             <ContainerCamapnha>
                 <Paragrafo>Responsável pela campanha</Paragrafo>

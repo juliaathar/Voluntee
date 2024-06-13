@@ -69,6 +69,7 @@ export const LabelInput = styled.Text`
     color: #FBFBFB;
     
     top: 16px;
+    left: 2%;
 `
 
 export const ConteinerInput = styled.ScrollView`

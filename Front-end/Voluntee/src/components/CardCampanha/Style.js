@@ -51,7 +51,7 @@ export const DataLocal = styled.View`
 export const TituloCard = styled.Text`
     font-family: "Lexend_600SemiBold";
     font-size: 16px;
-    color: #0066FF;
+    color: ${({ alter }) => (alter ? '#FBFBFB' : '#0066FF')};
     
 `
 

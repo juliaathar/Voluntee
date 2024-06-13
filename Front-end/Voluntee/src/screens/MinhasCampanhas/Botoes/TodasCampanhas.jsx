@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style"
+import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "../../../components/CardCampanha/Style"
 import { FontAwesome6 } from '@expo/vector-icons';
 import { useState, useEffect } from "react";
 import axios from 'axios';
@@ -126,8 +126,8 @@ export const CardCampanha = ({
 
             <InfoContainer>
                 <Info>
-                    <TituloCard>{QuebraPalavra(titulo, 23)}</TituloCard>
-                    <DescricaoCard>{QuebraPalavra(descricao, 80)}</DescricaoCard>
+                    <TituloCard alter>{QuebraPalavra(titulo, 23)}</TituloCard>
+                    <DescricaoCard alter>{QuebraPalavra(descricao, 80)}</DescricaoCard>
                 </Info>
 
                 <DataLocal>

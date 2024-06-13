@@ -14,14 +14,58 @@ import { TituloH2 } from '../../components/Titulo/Style';
 import { HeaderHome } from '../../components/Header/Header';
 import { Botao } from '../../components/Botao/Botao';
 import Maps from '../../components/Maps/Maps';
+import { Menu } from '../../components/Menu/Menu';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export const Instituicao = () => {
+async function getAddressFromCoordinates(latitude, longitude) {
+    try {
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=`);
+        if (response.data.status === "OK") {
+            const addressComponents = response.data.results[0].address_components;
+            let city = '';
+            let state = '';
+
+            addressComponents.forEach(component => {
+                if (component.types.includes('administrative_area_level_2')) {
+                    city = component.long_name;
+                }
+                if (component.types.includes('administrative_area_level_1')) {
+                    state = component.short_name;
+                }
+            });
+
+            return `${city}, ${state}`;
+        } else {
+            throw new Error("Unable to fetch address.");
+        }
+    } catch (error) {
+        console.error("Error fetching address: ", error);
+        return "Unknown location";
+    }
+}
+
+export const Instituicao = ({ route, navigation }) => {
+    const { titulo, descricao, imagem, funcionarios, local, email, alimento, dinheiro, roupas ,latitude, longitude } = route.params;
+
+    const [menu, setMenu] = useState(false)
+    const [address, setAddress] = useState(local);
+
+    useEffect(() => {
+        if (latitude && longitude) {
+            getAddressFromCoordinates(latitude, longitude)
+                .then(address => setAddress(address))
+                .catch(error => console.error(error));
+        }
+    }, [latitude, longitude]);
+
     return (
 
         <ContainerAzul>
 
             <HeaderHome
                 alter
+                onPress={() => setMenu(true)}
             />
 
             <View style={{ height: 50 }}></View>
@@ -29,40 +73,45 @@ export const Instituicao = () => {
             <ConteinerInfCampanha>
                 <ConteinerBolaMaiorInstituicao>
 
-                    <ImagemCampanha source={require('../../assets/images/WordSkills.png')} />
+                    <ImagemCampanha source={{ uri: imagem }} />
 
-                    <TituloH2 style={{ top: 10 }} >Chuvas no RS</TituloH2>
+                    <TituloH2 style={{ top: 10 }} >{titulo}</TituloH2>
 
 
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" />  São Paulo, Brasil</Text>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" /> {address}</Text>
 
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}><FontAwesome name="group" size={20} color="#0066FF" />  8090 Funcionarios</Text>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}><FontAwesome name="group" size={20} color="#0066FF" />  {funcionarios} Funcionários</Text>
 
                     <ContainerParagrafo style={{ top: 20 }}>
                         <View style={{ border: 1, backgroundColor: '#0066FF', width: 2 }}></View>
-                        <ParagrafoCamapanha style={{ top: 0}}>A WorldSkills é uma organização global dedicada à promoção da excelência em competências profissionais. Fundada em 1950, a instituição organiza competições internacionais onde jovens de diversos países demonstram suas habilidades em diferentes profissões. O objetivo é inspirar e elevar os padrões de formação profissional, fomentando a troca de conhecimentos e melhores práticas entre nações. A WorldSkills também trabalha em parceria com governos, educadores e indústrias para valorizar e desenvolver o ensino técnico e profissionalizante ao redor do mundo.</ParagrafoCamapanha>
+                        <ParagrafoCamapanha style={{ top: 0}}>{descricao}</ParagrafoCamapanha>
                     </ContainerParagrafo>
 
                     <TituloH2 style={{ fontSize: 18 }}> Aceitamos doações!</TituloH2>
 
                     <ContainerIcones>
-
-                        <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text>
-
+                        {alimento ? <Text><FontAwesome6 name="utensils" size={18} color="#0066FF" />  Alimentos</Text> : null}
+                        {dinheiro ? <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text> : null}
+                        {roupas ?   <Text><FontAwesome6 name="shirt" size={18} color="#0066FF" />  Roupas</Text> : null}
                     </ContainerIcones>
 
                     <ParagrafoCamapanha>Para doar, entre em contato com este email:</ParagrafoCamapanha>
 
-                    <TituloH2 style={{ fontSize: 16 }}> worldskills@gmail.com</TituloH2>
+                    <TituloH2 style={{ fontSize: 16 }}> {email}</TituloH2>
 
 
                     <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}> Veja o endereço da instituição:</TituloH2>
 
-                    <Maps />
-
+                    <Maps latitude={latitude} longitude={longitude} />
 
                 </ConteinerBolaMaiorInstituicao>
             </ConteinerInfCampanha>
+
+            <Menu
+                visible={menu}
+                onRequestClose={() => setMenu(false)}
+                onBack={() => setMenu(false)}
+            />
 
             <StatusBar style="auto" />
 

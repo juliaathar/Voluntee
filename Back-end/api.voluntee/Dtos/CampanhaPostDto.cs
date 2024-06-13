@@ -25,9 +25,11 @@ namespace api.voluntee.Dtos
 
         public bool Roupas { get; set; }
 
-        public decimal Longitude { get; set; }
+        //public decimal Longitude { get; set; }
+        public string Longitude { get; set; }
 
-        public decimal Latitude { get; set; }
+        //public decimal Latitude { get; set; }
+        public string Latitude { get; set; }
 
         public DateTime DataInicio { get; set; }
 

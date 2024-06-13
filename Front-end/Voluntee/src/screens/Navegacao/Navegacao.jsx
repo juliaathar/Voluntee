@@ -51,17 +51,8 @@ export const Navegacao = ({ navigation }) => {
                 onPress={() => navigation.navigate("Perfil")}
             />
             <Button
-                title="Campanha"
-                onPress={() => navigation.navigate("Campanha")}
-            />
-            <Button
                 title="NovaCampanha"
                 onPress={() => navigation.navigate("NovaCampanha")}
-            />
-
-            <Button
-                title="Instituicao"
-                onPress={() => navigation.navigate("Instituicao")}
             />
         </View>
     )

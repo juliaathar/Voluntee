@@ -6,15 +6,15 @@ import MapViewDirections from 'react-native-maps-directions';
 import { mapskey } from '../../utils/MapsApiKey';
 import { MapContainer } from './Style';
 
-export default function Maps() {
+export default function Maps({ latitude, longitude }) {
   const mapReference = useRef(null)
 
   const [initialPosition, setInitialPosition] = useState(null);
   const [finalPosition, setFinalPosition] = useState({
-    latitude: -23.7024,
-    longitude: -46.5035,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05
+    latitude: latitude,
+    longitude: longitude,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01
   })
 
   async function getInitialPosition() {
@@ -30,7 +30,6 @@ export default function Maps() {
     if (mapReference.current && initialPosition) {
       mapReference.current.fitToCoordinates(
         [
-          { latitude: initialPosition.latitude, longitude: initialPosition.longitude },
           { latitude: finalPosition.latitude, longitude: finalPosition.longitude }
         ],
         {
@@ -48,12 +47,12 @@ export default function Maps() {
       accuracy: LocationAccuracy.Highest,
       timeInterval: 1000,
       distanceInterval: 1
-    // }, response => {
-    //   setInitialPosition(response.coords);
-    //   mapReference?.current.animateCamera({
-    //     pitch: 60,
-    //     center: response.coords
-    //   })
+      // }, response => {
+      //   setInitialPosition(response.coords);
+      //   mapReference?.current.animateCamera({
+      //     pitch: 60,
+      //     center: response.coords
+      //   })
     })
   }, [1000]);
 
@@ -66,23 +65,23 @@ export default function Maps() {
       {
         initialPosition ? (
           <View style={{ flex: 1, borderRadius: 10, overflow: 'hidden' }}>
-            <MapView 
+            <MapView
               style={{ width: '100%', flex: 1 }}
               mapType='mutedStandard'
               initialRegion={{
-                latitude: initialPosition.latitude,
-                longitude: initialPosition.longitude,
-                latitudeDelta: 0.05,
-                longitudeDelta: 0.05
+                latitude: latitude,
+                longitude: longitude,
+                latitudeDelta: 0.01,
+                longitudeDelta: 0.01
               }}
               provider={PROVIDER_GOOGLE}
               ref={mapReference}
             >
-              <Marker 
-                coordinate={finalPosition}
+              <Marker
+                coordinate={{ latitude: latitude, longitude: longitude }}
                 title='Destino'
-                description='Local de destino'
-                pinColor='blue'
+                description='Local da campanha'
+                pinColor='#0066FF'
               />
             </MapView>
           </View>

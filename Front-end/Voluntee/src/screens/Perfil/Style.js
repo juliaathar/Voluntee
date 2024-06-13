@@ -40,6 +40,7 @@ export const ImagemMedalha = styled.Image`
 export const FotoPerfil = styled.Image`
     width: 190px;
     height: 190px;
+    border-radius: 100px;
 `
 
 export const TituloPerfil = styled(TituloH2)`
@@ -68,6 +69,7 @@ export const LabelInput = styled.Text`
     color: #FBFBFB;
     
     top: 16px;
+    left: 2%;
 `
 
 export const ConteinerInput = styled.ScrollView`

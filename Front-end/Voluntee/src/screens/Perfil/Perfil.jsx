@@ -3,7 +3,6 @@ import { userDecodeToken } from '../../utils/Auth';
 // import { useCameraPermissions } from 'expo-camera';
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
-
 import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
 import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, BotaoCamera, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
@@ -11,12 +10,14 @@ import { Input } from '../../components/Input/Input';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView, ScrollView } from 'react-native';
 import { TextButton } from '../../components/Botao/Style';
-
 import * as Progress from "react-native-progress"
 import { useEffect, useState } from 'react';
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as MediaLibrary from 'expo-media-library'
+import * as ImagePicker from 'expo-image-picker'
 
 import { Masks, useMaskedInputProps } from "react-native-mask-input"
+import api from '../../service/ApiService';
 
 export const Perfil = ({ navigation, route }) => {
 
@@ -34,30 +35,50 @@ export const Perfil = ({ navigation, route }) => {
     async function carregarPerfil() {
         const token = await userDecodeToken()
 
-
         setNome(token.name)
         setEmail(token.email)
         setCpf(token.cpf)
         setDataNasc(token.dataNasc)
         setIdUsuario(token.id)
 
-        await atualizarUsuario(token)
+        // try {
+        //     const response = await api.get(`/Usuario/Id?id=${token.id}`)
+        //     console.log(response.status);
+        //     console.log(response.data);
+        // } catch (error) {
+        //     console.log("erro");
+        // }
+        
+        api.get(`/Usuario/Id?id=${token.id}`)
+            .then(async response => {
+                setFotoPerfil(response.data.foto)
+                console.log(response.data + "aaaaa");
+            })
+            .catch(error => {
+                console.log(`Erro no perfil: ${error}`);
+                //console.log(token.id);
+            })
 
+        console.log(token);
         console.log(token);
     }
 
+    useEffect(() => {
+        (async () => {
+            const { status } = await MediaLibrary.requestPermissionsAsync();
+            await ImagePicker.requestMediaLibraryPermissionsAsync();
+            requestPermission(status === 'granted')
+            //console.log(getMediaLibrary);
+        })
+    }, [])
 
-    // async function atualizarUsuario(token) {
-
-    //     try {
-    //         const response = await api.get(`/${url}/BuscarPorId?id=${token.jti}`);
-    //         setFotoPerfil(response.data.usuarioDto.fotoPerfil)
-    //         setDataNasc(response.data.usuarioDto.dataNascimento)
-    //         setCpf(response.data.usuarioDto.cpf)
-    //     } catch (error) {
-    //         Alert.alert("Erro ao buscar dados do usuario:" + error)
-    //     }
-    // }
+    async function SelectImageGallery() {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1
+        });
+        setFotoPerfil(result.assets[0].uri)
+    }
 
     async function atualizarUsuario() {
         const token = JSON.parse(await AsyncStorage.getItem('token')).token;
@@ -78,26 +99,28 @@ export const Perfil = ({ navigation, route }) => {
     }
 
     async function AlterarFotoPerfil() {
+        console.log(fotoPerfil);
+        console.log(idUsuario);
+        
         const formData = new FormData();
         formData.append("Arquivo", {
-            uri: route.params.photoUri,
-            name: `image.jpg`,
-            type: `image/jpg`
+            uri: fotoPerfil,
+            name: `image.${fotoPerfil.split(".").pop()}`,
+            type: `image/${fotoPerfil.split(".").pop()}`
         })
 
-        try {
-            await api.put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            }).then(() => {
-                setFotoUsuario(route.params.photoUri)
-            })
-        } catch (error) {
+        await api.put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then(response=> {
+            setFotoUsuario(fotoPerfil)
+            console.log("Foto atualizada");
+            console.log(response.status);
+        }).catch(error =>{
             Alert.alert('Erro ao atualizar foto de perfil do usuario')
             console.log(error);
-        }
-
+        })
     }
 
     async function cancelarEdicao() {
@@ -110,11 +133,10 @@ export const Perfil = ({ navigation, route }) => {
     }, [])
 
     useEffect(() => {
-        if (route.params && idUsuario != '') {
+        if (fotoPerfil) {
             AlterarFotoPerfil()
         }
-
-    }, [route.params, idUsuario])
+    }, [fotoPerfil])
 
     async function fecharApp() {
         await AsyncStorage.removeItem('token')
@@ -167,7 +189,7 @@ export const Perfil = ({ navigation, route }) => {
                         <ConteinerAtrásPerfil>
                             <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                            <BotaoCamera onPress={() => navigation.navigate("CameraPhoto")}>
+                            <BotaoCamera onPress={() => SelectImageGallery()}>
                                 <Feather
                                     name="edit"
                                     size={24}

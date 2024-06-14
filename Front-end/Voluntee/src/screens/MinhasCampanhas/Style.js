@@ -26,17 +26,3 @@ export const ConteinerBotoesCampanha = styled.View`
     
     margin-top: 31px;
 `
-
-export const BotaoDirecionavel = styled.TouchableOpacity`
-    width: 100px;
-    height: 28px;
-    border-radius: 500px;
-    background-color: #FBFBFB;
-
-    padding: 5px;
-`
-
-export const BotaoTexto = styled(TextButton)`
-    font-family: 'Lexend_400Regular';
-    font-size: 14px;
-`

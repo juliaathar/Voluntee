@@ -74,7 +74,7 @@ export const Apresentacao = ({navigation}) => {
             }}
 
             bottomButton
-            onDone={() => navigation.replace("Login")}
+            onDone={() => navigation.replace("Home")}
 
             renderNextButton={() =>
               <View style={styles.slideButton}>

@@ -7,10 +7,12 @@ import { Input } from "../../components/Input/Input"
 import { CardCampanhaList } from "../../components/CardCampanha/CardCampanha"
 import { useEffect, useState } from "react"
 import api from "../../service/ApiService"
+import { BotaoConsulta } from "../../components/BotaoFiltro/BotaoFiltro"
 
 
 
 export const MinhasCampanhas = ({ navigation, route }) => {
+    const [datas, setDatas] = useState()
     const [campanhas, setCampanhas] = useState([])
 
     async function ListarCampanhas() {
@@ -52,17 +54,19 @@ export const MinhasCampanhas = ({ navigation, route }) => {
 
                         <ConteinerBotoesCampanha>
 
-                            <BotaoDirecionavel>
-                                <BotaoTexto>Todas</BotaoTexto>
-                            </BotaoDirecionavel>
+                            <BotaoConsulta
+                                textButton={'Todas'}
+                            />
 
-                            <BotaoDirecionavel>
-                                <BotaoTexto>Participadas</BotaoTexto>
-                            </BotaoDirecionavel>
+                            <BotaoConsulta
+                                textButton={'Participadas'}
+                            />
 
-                            <BotaoDirecionavel>
-                                <BotaoTexto>Futuras</BotaoTexto>
-                            </BotaoDirecionavel>
+                            <BotaoConsulta
+                                textButton={'Futuras'}
+                            />
+
+
 
                         </ConteinerBotoesCampanha>
 
@@ -78,9 +82,7 @@ export const MinhasCampanhas = ({ navigation, route }) => {
 
 
 
-
                 </ConteinerCentral>
-
 
 
 

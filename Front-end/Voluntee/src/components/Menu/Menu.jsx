@@ -1,4 +1,6 @@
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import LogoAzulSvg from "../LogoAzulSvg/LogoAzulSvg";
 import { LinkContainer, LinkLetra, LinkMenu, Links, MarBaixo, MarCima, MenuContainer } from "./Style";
 
@@ -8,6 +10,11 @@ export const Menu = ({
     onBack
 }) => {
     const navigation = useNavigation();
+
+    async function fecharApp() {
+        await AsyncStorage.removeItem('token');
+        navigation.replace("Login");
+    }
 
     return (
         <MenuContainer
@@ -25,16 +32,13 @@ export const Menu = ({
                     <LinkMenu onPress={() => navigation.navigate("Home")}>
                         <LinkLetra>Home</LinkLetra>
                     </LinkMenu>
-                    <LinkMenu>
-                        <LinkLetra onPress={() => navigation.navigate("MinhasCampanhas")}>Minhas Campanhas</LinkLetra>
+                    <LinkMenu onPress={() => navigation.navigate("MinhasCampanhas")}>
+                        <LinkLetra>Minhas Campanhas</LinkLetra>
                     </LinkMenu>
-                    <LinkMenu onPress={() => navigation.navigate("Home")}>
-                        <LinkLetra>Instituições</LinkLetra>
+                    <LinkMenu onPress={() => navigation.navigate("Perfil")}>
+                        <LinkLetra>Perfil</LinkLetra>
                     </LinkMenu>
-                    <LinkMenu>
-                        <LinkLetra onPress={() => navigation.navigate("Perfil")}>Perfil</LinkLetra>
-                    </LinkMenu>
-                    <LinkMenu onPress={onRequestClose}>
+                    <LinkMenu onPress={fecharApp}>
                         <LinkLetra>Sair</LinkLetra>
                     </LinkMenu>
                 </Links>

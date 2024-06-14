@@ -5,6 +5,8 @@ import LogoAzulSvg from "../LogoAzulSvg/LogoAzulSvg";
 import LogoBrancoSvg from "../LogoBrancoSvg/LogoBrancoSvg";
 import { HeaderContainer, ImagePerfil, MenuHam } from "./Style"
 import { FontAwesome5 } from '@expo/vector-icons';
+import IconLogoAzulSvg from "../LogoAzulSvg/IconLogoAzulSvg";
+import IconLogoBrancoSvg from "../LogoBrancoSvg/IconLogoBrancoSvg";
 
 export const HeaderHome = ({
     alter = false,
@@ -38,7 +40,7 @@ export const HeaderHome = ({
                 <FontAwesome5 name="bars" size={30} color={alter ? "#FBFBFB" : "#0066FF"} />
             </MenuHam>
 
-            {alter ? <LogoBrancoSvg width="120" height="50" /> : <LogoAzulSvg width="120" height="50" />}
+            {alter ? <IconLogoBrancoSvg width="120" height="50" /> : <IconLogoAzulSvg width="120" height="50" />}
 
             <MenuHam onPress={() => navigation.navigate("Perfil")}>
                 <ImagePerfil source={{uri: fotoPerfil}} />

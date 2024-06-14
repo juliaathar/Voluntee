@@ -8,11 +8,13 @@ import { CardCampanhaList } from "../../components/CardCampanha/CardCampanha"
 import { useEffect, useState } from "react"
 import api from "../../service/ApiService"
 import { BotaoConsulta } from "../../components/BotaoFiltro/BotaoFiltro"
+import { Menu } from "../../components/Menu/Menu"
 
 
 
 export const MinhasCampanhas = ({ navigation, route }) => {
     const [datas, setDatas] = useState()
+    const [menu, setMenu] = useState(false)
     const [campanhas, setCampanhas] = useState([])
 
     async function ListarCampanhas() {
@@ -35,6 +37,7 @@ export const MinhasCampanhas = ({ navigation, route }) => {
     return (
         <ContainerAzul>
             <HeaderHome
+                 onPress={() => setMenu(true)}
                 alter
             />
             <ScrollView>
@@ -84,7 +87,11 @@ export const MinhasCampanhas = ({ navigation, route }) => {
 
                 </ConteinerCentral>
 
-
+                <Menu
+                visible={menu}
+                onRequestClose={() => setMenu(false)}
+                onBack={() => setMenu(false)}
+            />
 
 
             </ScrollView>

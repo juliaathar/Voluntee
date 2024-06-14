@@ -22,24 +22,25 @@ export const MarBaixo = styled(MarCima)`
 `
 
 export const LinkContainer = styled.View`
-    height: 50%;
+    height: 45%;
     align-items: center;
+    justify-content: space-around;
     //border: 1px;
 `
 
 export const Links = styled.View`
     justify-content: space-between;
-    height: 70%;
+    height: 55%;
     //border: 1px;
 `
 
 export const LinkMenu = styled.TouchableOpacity`
     align-items: center;
-    margin-bottom: 10px;
 `
 
 export const LinkLetra = styled.Text`
     color: #0066FF;
     font-family: "Lexend_600SemiBold";
-    font-size: 25px;
+    font-size: 20px;
+    margin-top: 10px;
 `

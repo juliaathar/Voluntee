@@ -72,10 +72,10 @@ export const Home = ({navigation}) => {
                         navigation={navigation}
                     />
 
-                    <Input
+                    {/* <Input
                         placeholder={"Pesquise"}
                         icon="search"
-                    />
+                    /> */}
 
                     <CardPopularContainer
                         dados={campanhasPopulares}

@@ -83,7 +83,7 @@ export const NovaCampanha = ({navigation}) => {
             const endereco = await getCoordinatesFromCEP();
             const formData = new FormData();
 
-            formData.append("UsuarioId", "DBC298C8-D237-4289-86E3-FEEBC32871AE");
+            formData.append("UsuarioId", "59052A5B-C97F-4985-8FA2-2DDD6303D32F");
             formData.append("Imagem", imagemUri);
             formData.append("Nome", nome);
             formData.append("Email", email);

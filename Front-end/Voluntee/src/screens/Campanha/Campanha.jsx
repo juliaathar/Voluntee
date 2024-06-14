@@ -19,7 +19,7 @@ import axios from 'axios';
 
 async function getAddressFromCoordinates(latitude, longitude) {
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`);
         if (response.data.status === "OK") {
             const addressComponents = response.data.results[0].address_components;
             let city = '';
@@ -45,9 +45,9 @@ async function getAddressFromCoordinates(latitude, longitude) {
 }
 
 export const Campanha = ({ route, navigation }) => {
-    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas ,latitude, longitude, idCampanha } = route.params;
+    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas, latitude, longitude, idCampanha } = route.params;
 
-    const [menu, setMenu] = useState(false)
+    const [menu, setMenu] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [showModalAppointment, setShowAppointment] = useState(false);
 
@@ -64,6 +64,8 @@ export const Campanha = ({ route, navigation }) => {
                 .catch(error => console.error(error));
         }
     }, [latitude, longitude]);
+
+    const acceptsDonations = alimento || dinheiro || roupas;
 
     return (
         <ContainerAzul>
@@ -96,16 +98,18 @@ export const Campanha = ({ route, navigation }) => {
                         <View style={{ border: 1, backgroundColor: '#0066FF', width: 2 }}></View>
                         <ParagrafoCamapanha style={{ top: 0 }}>{descricao}</ParagrafoCamapanha>
                     </ContainerParagrafo>
-                    <TituloH2 style={{ fontSize: 18 }}> Aceitamos doações!</TituloH2>
-                    <ContainerIcones>
-                        {alimento ? <Text><FontAwesome6 name="utensils" size={18} color="#0066FF" />  Alimentos</Text> : null}
-                        {dinheiro ? <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text> : null}
-                        {roupas ? <Text><FontAwesome6 name="shirt" size={18} color="#0066FF" />  Roupas</Text> : null}
-                    </ContainerIcones>
-                    <ParagrafoCamapanha>Para doar, entre em contato com este email:</ParagrafoCamapanha>
-                    <TituloH2 style={{ fontSize: 16 }}> {email}</TituloH2>
-                    <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}> Veja o local da campanha:</TituloH2>
-                    <Maps latitude={latitude} longitude={longitude}/>
+                    <TituloH2 style={{ fontSize: 18, top:10 }}>{acceptsDonations ? 'Aceitamos doações!' : 'Entre em contato'}</TituloH2>
+                    {acceptsDonations ? (
+                        <ContainerIcones>
+                            {alimento && <Text><FontAwesome6 name="utensils" size={18} color="#0066FF" />  Alimentos</Text>}
+                            {dinheiro && <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text>}
+                            {roupas && <Text><FontAwesome6 name="shirt" size={18} color="#0066FF" />  Roupas</Text>}
+                        </ContainerIcones>
+                    ) : null}
+                    <ParagrafoCamapanha>{acceptsDonations ? 'Para doar, entre em contato com este email:' : 'Para saber mais, entre em contato com este email:'}</ParagrafoCamapanha>
+                    <TituloH2 style={{ fontSize: 16 }}>{email}</TituloH2>
+                    <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}>Veja o local da campanha:</TituloH2>
+                    <Maps latitude={latitude} longitude={longitude} />
                     <ConteinerButton>
                         <Botao
                             alter

@@ -25,7 +25,7 @@ const CampanhaModal = ({ visible, idCampanha, setShowAppointment, onCloseModal, 
 
         const fetchCampanhasUsuario = async () => {
             try {
-                const response = await api.get(`/Usuario/ListarPresencasCampanhas?idUsuario={idUsuario}`);
+                const response = await api.get(`/Usuario/ListarPresencasCampanhas?idUsuario=${idUsuario}`);
                 setCampanhasUsuario(response.data);
             } catch (error) {
                 console.error("Erro ao obter campanhas do usuário:", error);
@@ -49,6 +49,7 @@ const CampanhaModal = ({ visible, idCampanha, setShowAppointment, onCloseModal, 
             const response = await api.post(`/PresencaCampanha?idUsuario=${idUsuario}&idCampanha=${idCampanha}`);
 
             if (response.status === 201) {
+                setIsPresente(true);
                 setShowAppointment(false);
             }
         } catch (error) {

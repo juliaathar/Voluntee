@@ -1,12 +1,12 @@
 import moment from "moment";
-import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style"
+import { Blur, CardBody, CardList, Data, DataLocal, DescricaoCard, ImgCard, Info, InfoContainer, List, ListName, Local, More, ShowMore, TituloCard } from "./Style";
 import { FontAwesome6 } from '@expo/vector-icons';
 import { useState, useEffect } from "react";
 import axios from 'axios';
 
 async function getCityFromCoordinates(latitude, longitude) {
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`);
         if (response.data.status === "OK") {
             console.log(response);
             const addressComponents = response.data.results[0].address_components;
@@ -18,8 +18,6 @@ async function getCityFromCoordinates(latitude, longitude) {
                 }
             });
 
-            
-
             return city || 'Unknown city';
         } else {
             throw new Error("Unable to fetch address.");
@@ -29,8 +27,6 @@ async function getCityFromCoordinates(latitude, longitude) {
         return "Unknown city";
     }
 }
-
-
 
 function QuebraPalavra(nome, max = 15) {
     if (nome.length > max) {
@@ -42,19 +38,15 @@ function QuebraPalavra(nome, max = 15) {
 export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => {
     const [profileData, setProfileData] = useState('')
 
+    const displayData = dados.slice(0, 3);
 
     return (
-        <CardList
-            tamanho={dados.length}
-        >
+        <CardList tamanho={dados.length}>
             <ListName>Outras campanhas</ListName>
-            <List
-                scrollEnable={scroll}
-                data={dados}
-                keyExtractor={(item) => item.id}
-                initialNumToRender={3}
-                renderItem={({ item }) => item.pessoasPresentes < 5001 ?
+            {displayData.map((item) => (
+                item.pessoasPresentes < 5001 ? (
                     <CardCampanha
+                        key={item.id}
                         titulo={item.nome}
                         descricao={item.descricao}
                         imagem={item.imagem}
@@ -77,19 +69,16 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                             latitude: item.latitude,
                             longitude: item.longitude
                         })}
-                        
                     />
-                    :
-                    <></>
-                }
-            />
-            <ShowMore onPress={onPressMore}>
-                <More>Ver mais...</More>
-            </ShowMore>
-
-
+                ) : null
+            ))}
+            {dados.length > 3 && (
+                <ShowMore onPress={() => navigation.navigate("")}>
+                    <More>Ver mais...</More>
+                </ShowMore>
+            )}
         </CardList>
-    )
+    );
 }
 
 export const CardCampanha = ({
@@ -113,23 +102,15 @@ export const CardCampanha = ({
     }, [latitude, longitude]);
 
     return (
-        <CardBody
-            onPress={onPress}
-        >
-
-            <ImgCard
-                source={{ uri: imagem }}
-            >
+        <CardBody onPress={onPress}>
+            <ImgCard source={{ uri: imagem }}>
                 <Blur />
             </ImgCard>
-
-
             <InfoContainer>
                 <Info>
                     <TituloCard>{QuebraPalavra(titulo, 23)}</TituloCard>
                     <DescricaoCard>{QuebraPalavra(descricao, 80)}</DescricaoCard>
                 </Info>
-
                 <DataLocal>
                     <Data>
                         <FontAwesome6 name="calendar-day" size={14} color="#0066FF" /> {datas}
@@ -140,5 +121,5 @@ export const CardCampanha = ({
                 </DataLocal>
             </InfoContainer>
         </CardBody>
-    )
+    );
 }

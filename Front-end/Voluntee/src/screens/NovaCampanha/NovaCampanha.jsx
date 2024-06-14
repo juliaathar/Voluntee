@@ -16,7 +16,9 @@ import * as ImagePicker from 'expo-image-picker'
 import axios from "axios"
 import * as yup from "yup"
 import { ParagrafoErro } from "../../components/Paragrafo/Style"
-export const NovaCampanha = () => {
+
+
+export const NovaCampanha = ({navigation}) => {
     const [menu, setMenu] = useState(false);
     const [imagemUri, setImagemUri] = useState("");
     const [nome, setNome] = useState("");
@@ -107,6 +109,7 @@ export const NovaCampanha = () => {
                 },
             }).then(async response => {
                 console.log("Campanha Cadastrada:", response.status);
+                navigation.navigate('Home');
             }).catch(error => {
                 console.log(`Erro ao cadastrar campanha: ${error}`);
             });

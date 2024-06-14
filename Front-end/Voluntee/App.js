@@ -25,6 +25,7 @@ import {
 } from '@expo-google-fonts/lexend';
 import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 import { MinhasCampanhas } from './src/screens/MinhasCampanhas/MinhasCampanhas';
+import { CameraScrenn} from './src/screens/Camera/CameraScrenn';
 
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
@@ -114,6 +115,12 @@ export default function App() {
           name='MinhasCampanhas'
           component={MinhasCampanhas}
           options={{ title: 'MinhasCampanhas' }}
+        />
+
+        <Stack.Screen
+          name='CameraScrenn'
+          component={CameraScrenn}
+          options={{ title: 'CameraScrenn' }}
         />
 
       </Stack.Navigator>

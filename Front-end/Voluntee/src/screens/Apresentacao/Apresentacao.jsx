@@ -1,4 +1,4 @@
-import { ConteinerGeral, ConteinerText } from '../../components/Container/Style';
+import { ContainerImage, ConteinerGeral, ConteinerText } from '../../components/Container/Style';
 import { ImagemApresentacao, LogoBranca } from '../../components/Imagem/Imagem';
 import { Paragrafo } from '../../components/Paragrafo/Style';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
@@ -6,9 +6,10 @@ import { TituloH3 } from '../../components/Titulo/Style';
 import { useState } from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import { ConteinerSlide, ImagemSlide, SlideBody, SlideText } from './Style';
+import LogoBrancoSvg from '../../components/LogoBrancoSvg/LogoBrancoSvg';
 
 
-export const Apresentacao = ({navigation}) => {
+export const Apresentacao = ({ navigation }) => {
 
   const [showHome, setShowHome] = useState(false)
 
@@ -23,7 +24,7 @@ export const Apresentacao = ({navigation}) => {
       key: "2",
       titulo: "Envolva-se em projetos significativos.",
       paragrafo: "Participe de iniciativas que realmente fazem a diferença e contribua para a transformação de vidas.",
-      imagem: require('../../assets/images/apresentacao2.png')
+      imagem: require('../../assets/images/imagem2.png')
     },
     {
       key: "3",
@@ -36,10 +37,14 @@ export const Apresentacao = ({navigation}) => {
   const Slides = ({ item }) => {
     return (
       <SlideBody>
+
+
         <ImagemSlide
           source={item.imagem}
-          style={{ width: item.imagem == require('../../assets/images/apresentacao3.png') ? "70%" : "90%" }}
+          style={{ width: item.imagem == require('../../assets/images/apresentacao3.png') ? "100%" : "100%" }}
         />
+
+
 
         <SlideText>
           <TituloH3>{item.titulo}</TituloH3>
@@ -54,7 +59,9 @@ export const Apresentacao = ({navigation}) => {
   } else {
     return (
       <SafeAreaView style={styles.container}>
-        <LogoBranca source={require('../../assets/images/LogoBranca.png')} style={{ marginTop: 30, marginBottom: 10 }} />
+
+        <LogoBrancoSvg width='210' />
+
 
         <ConteinerSlide>
 
@@ -66,10 +73,13 @@ export const Apresentacao = ({navigation}) => {
 
             activeDotStyle={{
               backgroundColor: '#FBFBFB',
+              marginTop: -30,
               width: 28
             }}
             dotStyle={{
               backgroundColor: '#FBFBFB',
+              marginTop: -30,
+
               width: 8
             }}
 
@@ -103,18 +113,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#0066FF',
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'space-around'
   },
-  slideButton: { 
-    width: '100%', 
-    height: 60, 
-    alignItems: "center", 
-    justifyContent: "center", 
-    backgroundColor: "#FBFBFB", 
-    borderRadius: 30 
+  slideButton: {
+    width: '100%',
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#FBFBFB",
+    marginBottom: 20,
+    borderRadius: 30
   },
-  slideButtonText: { 
-    fontFamily: 'Lexend_600SemiBold', 
-    fontSize: 20, 
-    color: "#0066FF" }
+  slideButtonText: {
+    fontFamily: 'Lexend_600SemiBold',
+    fontSize: 20,
+    color: "#0066FF"
+  }
 });

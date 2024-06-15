@@ -16,7 +16,9 @@ import * as ImagePicker from 'expo-image-picker'
 import axios from "axios"
 import * as yup from "yup"
 import { ParagrafoErro } from "../../components/Paragrafo/Style"
-export const NovaCampanha = () => {
+
+
+export const NovaCampanha = ({navigation}) => {
     const [menu, setMenu] = useState(false);
     const [imagemUri, setImagemUri] = useState("");
     const [nome, setNome] = useState("");
@@ -81,7 +83,7 @@ export const NovaCampanha = () => {
             const endereco = await getCoordinatesFromCEP();
             const formData = new FormData();
 
-            formData.append("UsuarioId", "DBC298C8-D237-4289-86E3-FEEBC32871AE");
+            formData.append("UsuarioId", "59052A5B-C97F-4985-8FA2-2DDD6303D32F");
             formData.append("Imagem", imagemUri);
             formData.append("Nome", nome);
             formData.append("Email", email);
@@ -107,6 +109,7 @@ export const NovaCampanha = () => {
                 },
             }).then(async response => {
                 console.log("Campanha Cadastrada:", response.status);
+                navigation.navigate('Home');
             }).catch(error => {
                 console.log(`Erro ao cadastrar campanha: ${error}`);
             });

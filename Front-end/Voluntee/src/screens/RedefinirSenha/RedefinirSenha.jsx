@@ -1,5 +1,5 @@
 import { AntDesign } from '@expo/vector-icons';
-import { StyleSheet } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style";
 import { TituloH3 } from '../../components/Titulo/Style';
 import { Paragrafo, ParagrafoErro } from '../../components/Paragrafo/Style';
@@ -74,8 +74,9 @@ export const RedefinirSenha = ({ navigation, route }) => {
                 onChangeText={(txt) => setSenha(txt)}
                 style={{ borderColor: errors.senha ? '#fbfbfb' : '#fbfbfb', borderWidth: 2 }}
             />
-            {errors.senha && <ParagrafoErro>{errors.senha}</ParagrafoErro>}
-
+            <View style={styles.errorContainer}>
+                {errors.senha && <ParagrafoErro>{errors.senha}</ParagrafoErro>}
+            </View>
             <Input
                 icon='olhoBranco'
                 placeholder='Confirme sua senha'
@@ -83,7 +84,10 @@ export const RedefinirSenha = ({ navigation, route }) => {
                 onChangeText={(txt) => Setconfirmarsenha(txt)}
                 style={{ borderColor: errors.confirmarSenha ? '#fbfbfb' : '#fbfbfb', borderWidth: 2 }}
             />
-            {errors.confirmarSenha && <ParagrafoErro>{errors.confirmarSenha}</ParagrafoErro>}
+
+            <View style={styles.errorContainer}>
+                {errors.confirmarSenha && <ParagrafoErro>{errors.confirmarSenha}</ParagrafoErro>}
+            </View>
 
             <ConteinerButton>
                 <Botao
@@ -104,5 +108,11 @@ const styles = StyleSheet.create({
         backgroundColor: '#0066FF',
         alignItems: 'center',
         justifyContent: 'center',
+        gap:10
     },
+    errorContainer: {
+        alignSelf: 'flex-start',
+        marginLeft: 15,
+        marginTop: -20
+      }
 });

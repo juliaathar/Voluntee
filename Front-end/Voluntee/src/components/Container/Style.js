@@ -10,6 +10,9 @@ export const ContainerAzul = styled.SafeAreaView`
     align-items: center;
     background-color: #0066FF;
 `
+export const ContainerImage = styled.View`
+   width: 90%;
+`
 
 export const ConteinerGeral = styled.View`
     width: 90%;

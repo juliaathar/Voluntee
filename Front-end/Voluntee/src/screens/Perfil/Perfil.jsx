@@ -16,7 +16,7 @@ import { useEffect, useState } from 'react';
 import api from '../../service/ApiService';
 import moment from 'moment';
 
-export const Perfil = ({ navigation }) => {
+export const Perfil = ({ navigation, route  }) => {
 
     //dados do perfil
     const [editarPerfil, setEditarPerfil] = useState(false)
@@ -123,29 +123,26 @@ export const Perfil = ({ navigation }) => {
 
     }
 
-    async function AlterarFotoPerfil() {
-        //console.log("foto: "+fotoPerfil);
-        //console.log("usuario: "+idUsuario);
-
+    async function AlterarFotoPerfil(newPhotoUri) {
         const formData = new FormData();
         formData.append("Arquivo", {
-            uri: fotoPerfil,
-            name: `image.${fotoPerfil.split(".").pop()}`,
-            type: `image/${fotoPerfil.split(".").pop()}`
-        })
-
+            uri: newPhotoUri,
+            name: `image.${newPhotoUri.split(".").pop()}`,
+            type: `image/${newPhotoUri.split(".").pop()}`
+        });
+    
         await api.put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
             }
         }).then(response => {
-            setFotoUsuario(fotoPerfil)
+            setFotoPerfil(newPhotoUri);
             console.log("Foto atualizada");
             console.log(response.status);
         }).catch(error => {
-            Alert.alert('Erro ao atualizar foto de perfil do usuario')
+            Alert.alert('Erro ao atualizar foto de perfil do usuario');
             console.log(error);
-        })
+        });
     }
 
     async function cancelarEdicao() {
@@ -155,7 +152,13 @@ export const Perfil = ({ navigation }) => {
 
     useEffect(() => {
         carregarPerfil();
-    }, [])
+    
+        if (route.params?.photoUri) {
+            setFotoPerfil(route.params.photoUri);
+            AlterarFotoPerfil(route.params.photoUri);
+        }
+    }, [route.params?.photoUri]);
+    
 
     useEffect(() => {
         if (fotoPerfil) {
@@ -200,7 +203,7 @@ export const Perfil = ({ navigation }) => {
                         <ConteinerAtrásPerfil>
                             <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                            <BotaoCamera onPress={() => SelectImageGallery()}>
+                            <BotaoCamera onPress={() => navigation.navigate('CameraScrenn', { SetMediaLabrary: true, Tela: "Main" })}>
                                 <Feather
                                     name="edit"
                                     size={24}

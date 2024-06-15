@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 //card popular
 export const Card = styled.TouchableOpacity`
-    width: 155px;
-    height: 200px;
+    width: 197px;
+    height: 217px;
     border-radius: 20px;
     margin-right: 10px;
     //margin-left: 5px;
@@ -17,7 +17,7 @@ export const ImgFundo = styled.ImageBackground`
 `
 
 export const BlurPreto = styled.View`
-    background-color: rgba(0,0,0, 0.3);
+    background-color: rgba(0,0,0, 0.4);
     border-radius: 20px;
     width: 100%;
     height: 100%;
@@ -41,7 +41,7 @@ export const NomeCard = styled.Text`
 //container de card popular
 export const CardsField = styled.View`
     width: 90%;
-    height: 250px;
+    height: 260px;
     margin-top: 30px;
 `
 

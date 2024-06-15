@@ -42,7 +42,7 @@ export const InfoTexts = styled.View`
     //border: 1px blue;
 `
 export const MaskHelp = styled.View`
-    width: 70px;
+    width: 40px;
     flex: 0.3;
     flex-direction: row;
     align-items: center;

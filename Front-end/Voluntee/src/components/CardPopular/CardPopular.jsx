@@ -67,7 +67,7 @@ export const CardPopular = ({
                 imageStyle={{ borderRadius: 20 }}
             >
                 <BlurPreto>
-                    <NomeCard>{titulo}</NomeCard>
+                    <NomeCard>{QuebraPalavra(titulo)}</NomeCard>
                     <Descricao>{QuebraPalavra(descricao)}</Descricao>
                 </BlurPreto>
             </ImgFundo>

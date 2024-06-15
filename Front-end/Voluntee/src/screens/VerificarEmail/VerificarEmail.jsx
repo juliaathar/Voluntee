@@ -128,7 +128,10 @@ export const VerificarEmail = ({ navigation, route }) => {
                     />
                 ))}
             </ContentVerify>
-            {errors && <ParagrafoErro>{errors}</ParagrafoErro>}
+
+            <View style={styles.errorContainer}>
+                {errors && <ParagrafoErro>{errors}</ParagrafoErro>}
+            </View>
 
             <ConteinerButton>
                 <Botao
@@ -138,7 +141,7 @@ export const VerificarEmail = ({ navigation, route }) => {
                 />
             </ConteinerButton>
 
-            <Link onPress={reenviarCodigo} alter>Reenviar código</Link>
+            <Link style={styles.btnCode} onPress={reenviarCodigo} alter>Reenviar código</Link>
 
             <StatusBar style="auto" />
         </Container>
@@ -152,4 +155,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    errorContainer: {
+        alignSelf: 'flex-start',
+        marginLeft: 35,
+        marginTop: -15
+    },
+    btnCode: {
+        marginTop: 25
+    }
 });

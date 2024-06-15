@@ -33,15 +33,60 @@ export const VerificarEmail = ({ navigation, route }) => {
     }
 
     async function ValidarCodigo() {
-        console.log(codigo);
+        setBtnLoad(true);
 
-        await api.post(`/RecuperarSenha/ValidarCodigoRecuperacaoSenha?email=${route.params.emailRecuperacao}&codigo=${codigo}`)
-            .then(() => {
-                navigation.replace("RedefinirSenha", { emailRecuperacao: route.params.emailRecuperacao });
-            }).catch(error => {
-                console.log(error);
-            })
+        if (codigo.length !== 4) {
+            setErrors('O código deve ter 4 dígitos');
+            return;
+        }
+
+        try {
+            await api.post(`/RecuperarSenha/ValidarCodigoRecuperarSenha?email=${route.params.emailRecuperacao}&codigo=${codigo}`)
+                .then(() => {
+                    console.log({ emailRecuperacao: route.params.emailRecuperacao })
+                    navigation.replace("RedefinirSenha", { emailRecuperacao: route.params.emailRecuperacao });
+                }).catch(error => {
+                    console.log(error);
+                    setErrors('Código inválido');
+                });
+        } catch (error) {
+            console.log(error);
+            setErrors('Erro ao validar código');
+        }
+        setBtnLoad(false);
+
     }
+    async function EnviarEmail(email) {
+        setBtnLoad(true);
+        try {
+            const schema = yup.object().shape({
+                email: yup.string().required("Campo obrigatório").email("E-mail inválido")
+            });
+
+            await schema.validate({ email }, { abortEarly: false });
+
+            const response = await api.post(`/RecuperarSenha?email=${email}`);
+            console.log('Email response:', response);
+        } catch (error) {
+            if (error instanceof yup.ValidationError) {
+                let validationErrors = {};
+                error.inner.forEach(err => {
+                    validationErrors[err.path] = err.message;
+                });
+                setErrors(validationErrors);
+            } else {
+                console.error('Erro ao recuperar senha:', error);
+            }
+        } finally {
+            setBtnLoad(false);
+        }
+    }
+
+    const reenviarCodigo = () => {
+        EnviarEmail(route.params.emailRecuperacao);
+        console.log(route.params);
+        console.log("email enviado");
+    };
 
     useEffect(() => {
         inputs[0].current.focus();
@@ -87,7 +132,7 @@ export const VerificarEmail = ({ navigation, route }) => {
 
             <ConteinerButton>
                 <Botao
-                   loading={btnLoad}
+                    loading={btnLoad}
                     textoBotao='Continuar'
                     onPress={ValidarCodigo}
                 />

@@ -17,36 +17,47 @@ builder.WebHost.ConfigureKestrel(options =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
+
 
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultChallengeScheme = "JwtBearer";
     options.DefaultAuthenticateScheme = "JwtBearer";
 }).AddJwtBearer("JwtBearer", options =>
- {
-     options.TokenValidationParameters = new TokenValidationParameters
-     {
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("voluntee-webapi-chave-symmetricsecuritykey")),
+        ClockSkew = TimeSpan.FromMinutes(30),
+        ValidIssuer = "Voluntee-WebAPI",
+        ValidAudience = "Voluntee-WebAPI"
+    };
+});
 
-         ValidateIssuer = true,
-
-
-         ValidateAudience = true,
-
-
-         ValidateLifetime = true,
-
-
-         IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes("voluntee-webapi-chave-symmetricsecuritykey")),
-
-     
-         ClockSkew = TimeSpan.FromMinutes(30),
-
-         ValidIssuer = "Voluntee-WebAPI",
-
-
-         ValidAudience = "Voluntee-WebAPI"
-     };
- });
+// Add CORS service
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyHeader()
+                   .AllowAnyMethod();
+        });
+});
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -62,7 +73,6 @@ builder.Services.AddSwaggerGen(options =>
             Name = "Senai Informática"
         }
     });
-
 
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
@@ -89,7 +99,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IInstituicaoRepository, InstituicaoRepository>();
 builder.Services.AddScoped<ICampanhaRepository, CampanhaRepository>();
@@ -99,7 +108,7 @@ builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection(nameo
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddScoped<EmailSendingService>();
 builder.Services.AddDbContext<VolunteeContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=NOTE22-S21\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai@134; TrustServerCertificate=true;")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=ABENATHAR\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;")));
 
 var app = builder.Build();
 
@@ -111,6 +120,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAllOrigins");  // Adicione esta linha
 app.UseAuthentication();
 app.UseAuthorization();
 

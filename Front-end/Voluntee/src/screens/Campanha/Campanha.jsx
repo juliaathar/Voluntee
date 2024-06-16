@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { FontAwesome6 } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { Text, View } from "react-native";
@@ -13,13 +14,13 @@ import { HeaderHome } from '../../components/Header/Header';
 import { Botao } from '../../components/Botao/Botao';
 import Maps from '../../components/Maps/Maps';
 import CampanhaModal from '../../components/CampanhaModal/CampanhaModal';
-import { useState, useEffect } from 'react';
 import { Menu } from '../../components/Menu/Menu';
 import axios from 'axios';
+import api from "../../service/ApiService";
 
 async function getAddressFromCoordinates(latitude, longitude) {
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=YOUR_API_KEY`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=API_KEY`);
         if (response.data.status === "OK") {
             const addressComponents = response.data.results[0].address_components;
             let city = '';
@@ -45,13 +46,28 @@ async function getAddressFromCoordinates(latitude, longitude) {
 }
 
 export const Campanha = ({ route, navigation }) => {
-    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas, latitude, longitude, idCampanha } = route.params;
+    const { titulo, descricao, imagem, datas, local, email, alimento, dinheiro, roupas, latitude, longitude, idCampanha, userId } = route.params;
 
     const [menu, setMenu] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [showModalAppointment, setShowAppointment] = useState(false);
+    const [userData, setUserData] = useState(null); // Estado para armazenar os dados do usuário
 
     const [address, setAddress] = useState(local);
+
+    async function getUserData(userId) {
+        try {
+            const response = await api.get(`Usuario/Id?id=${userId}`); // Substitua pela sua rota de usuários
+            if (response.status === 200) {
+                return response.data; // Retorna os dados do usuário
+            } else {
+                throw new Error("Unable to fetch user data.");
+            }
+        } catch (error) {
+            console.error("Error fetching user data: ", error);
+            return null;
+        }
+    }
 
     const closeModal = () => {
         setShowAppointment(false);
@@ -64,6 +80,15 @@ export const Campanha = ({ route, navigation }) => {
                 .catch(error => console.error(error));
         }
     }, [latitude, longitude]);
+
+    useEffect(() => {
+        // Busca os dados do usuário que cadastrou a campanha
+        if (userId) {
+            getUserData(userId)
+                .then(data => setUserData(data))
+                .catch(error => console.error("Error fetching user data: ", error));
+        }
+    }, [userId]);
 
     const acceptsDonations = alimento || dinheiro || roupas;
 
@@ -78,10 +103,12 @@ export const Campanha = ({ route, navigation }) => {
             <ContainerCamapnha>
                 <Paragrafo>Responsável pela campanha</Paragrafo>
 
-                <ContainerAccount>
-                    <ImagePerfil source={require('../../assets/images/PerfilTeste.png')} />
-                    <AccountName>John doe</AccountName>
-                </ContainerAccount>
+                {userData && (
+                    <ContainerAccount>
+                        <ImagePerfil source={{ uri: userData.foto }} />
+                        <AccountName>{userData.nome}</AccountName>
+                    </ContainerAccount>
+                )}
             </ContainerCamapnha>
 
             <ConteinerInfCampanha>
@@ -98,7 +125,7 @@ export const Campanha = ({ route, navigation }) => {
                         <View style={{ border: 1, backgroundColor: '#0066FF', width: 2 }}></View>
                         <ParagrafoCamapanha style={{ top: 0 }}>{descricao}</ParagrafoCamapanha>
                     </ContainerParagrafo>
-                    <TituloH2 style={{ fontSize: 18, top:10 }}>{acceptsDonations ? 'Aceitamos doações!' : 'Entre em contato'}</TituloH2>
+                    <TituloH2 style={{ fontSize: 18, top: 10 }}>{acceptsDonations ? 'Aceitamos doações!' : 'Entre em contato'}</TituloH2>
                     {acceptsDonations ? (
                         <ContainerIcones>
                             {alimento && <Text><FontAwesome6 name="utensils" size={18} color="#0066FF" />  Alimentos</Text>}

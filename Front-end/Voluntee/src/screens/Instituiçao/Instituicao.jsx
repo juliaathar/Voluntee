@@ -1,7 +1,5 @@
 import { FontAwesome6 } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
 import { Text, View } from "react-native";
 import { ContainerAzul, ConteinerButton } from "../../components/Container/Style";
 import { ConteinerBolaMaiorInstituicao } from "../Cadastro/Style";
@@ -46,9 +44,9 @@ async function getAddressFromCoordinates(latitude, longitude) {
 }
 
 export const Instituicao = ({ route, navigation }) => {
-    const { titulo, descricao, imagem, funcionarios, local, email, alimento, dinheiro, roupas ,latitude, longitude } = route.params;
+    const { titulo, descricao, imagem, funcionarios, local, email, alimento, dinheiro, roupas, latitude, longitude } = route.params;
 
-    const [menu, setMenu] = useState(false)
+    const [menu, setMenu] = useState(false);
     const [address, setAddress] = useState(local);
 
     useEffect(() => {
@@ -59,10 +57,10 @@ export const Instituicao = ({ route, navigation }) => {
         }
     }, [latitude, longitude]);
 
+    const acceptsDonations = alimento || dinheiro || roupas;
+
     return (
-
         <ContainerAzul>
-
             <HeaderHome
                 alter
                 onPress={() => setMenu(true)}
@@ -72,38 +70,39 @@ export const Instituicao = ({ route, navigation }) => {
 
             <ConteinerInfCampanha>
                 <ConteinerBolaMaiorInstituicao>
-
                     <ImagemCampanha source={{ uri: imagem }} />
+                    <TituloH2 style={{ top: 10 }}>{titulo}</TituloH2>
 
-                    <TituloH2 style={{ top: 10 }} >{titulo}</TituloH2>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}>
+                        <FontAwesome6 name="location-dot" size={20} color="#0066FF" /> {address}
+                    </Text>
 
-
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 20 }}><FontAwesome6 name="location-dot" size={20} color="#0066FF" /> {address}</Text>
-
-                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}><FontAwesome name="group" size={20} color="#0066FF" />  {funcionarios} Funcionários</Text>
+                    <Text style={{ fontFamily: "Lexend_600SemiBold", top: 25 }}>
+                        <FontAwesome name="group" size={20} color="#0066FF" />  {funcionarios} Funcionários
+                    </Text>
 
                     <ContainerParagrafo style={{ top: 20 }}>
                         <View style={{ border: 1, backgroundColor: '#0066FF', width: 2 }}></View>
-                        <ParagrafoCamapanha style={{ top: 0}}>{descricao}</ParagrafoCamapanha>
+                        <ParagrafoCamapanha style={{ top: 0 }}>{descricao}</ParagrafoCamapanha>
                     </ContainerParagrafo>
 
-                    <TituloH2 style={{ fontSize: 18 }}> Aceitamos doações!</TituloH2>
+                    <TituloH2 style={{ fontSize: 18, top: 10 }}>{acceptsDonations ? 'Aceitamos doações!' : 'Entre em contato'}</TituloH2>
 
-                    <ContainerIcones>
-                        {alimento ? <Text><FontAwesome6 name="utensils" size={18} color="#0066FF" />  Alimentos</Text> : null}
-                        {dinheiro ? <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text> : null}
-                        {roupas ?   <Text><FontAwesome6 name="shirt" size={18} color="#0066FF" />  Roupas</Text> : null}
-                    </ContainerIcones>
+                    {acceptsDonations && (
+                        <ContainerIcones>
+                            {alimento && <Text><FontAwesome6 name="utensils" size={18} color="#0066FF" />  Alimentos</Text>}
+                            {dinheiro && <Text><FontAwesome6 name="hand-holding-dollar" size={18} color="#0066FF" />  Financeiras</Text>}
+                            {roupas && <Text><FontAwesome6 name="shirt" size={18} color="#0066FF" />  Roupas</Text>}
+                        </ContainerIcones>
+                    )}
 
-                    <ParagrafoCamapanha>Para doar, entre em contato com este email:</ParagrafoCamapanha>
+                    <ParagrafoCamapanha>{acceptsDonations ? 'Para doar, entre em contato com este email:' : 'Para saber mais, entre em contato com este email:'}</ParagrafoCamapanha>
 
-                    <TituloH2 style={{ fontSize: 16 }}> {email}</TituloH2>
+                    <TituloH2 style={{ fontSize: 16 }}>{email}</TituloH2>
 
-
-                    <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}> Veja o endereço da instituição:</TituloH2>
+                    <TituloH2 style={{ fontSize: 18, color: "#00000", top: 40 }}>Veja o endereço da instituição:</TituloH2>
 
                     <Maps latitude={latitude} longitude={longitude} />
-
                 </ConteinerBolaMaiorInstituicao>
             </ConteinerInfCampanha>
 
@@ -114,11 +113,6 @@ export const Instituicao = ({ route, navigation }) => {
             />
 
             <StatusBar style="auto" />
-
         </ContainerAzul>
-
-
-
     );
-
-}
+};

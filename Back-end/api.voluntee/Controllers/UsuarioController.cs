@@ -113,9 +113,9 @@ namespace api.voluntee.Controllers
                     return NotFound();
                 }
 
-                var connectionString = "DefaultEndpointsProtocol=https;AccountName=volunteebd;AccountKey=w6ATIwZS+MWNF8mYn6PeWbeKQSfr8jOE10BMyLHDp6/xgOmCfab5tIVN/BMku2GdNg9y3X65bMNB+ASt/jQS9w==;EndpointSuffix=core.windows.net";
+                var connectionString = "";
 
-                var containerName = "imagem";
+                var containerName = "";
 
                 string fotoUrl = await AzureBlobStorageHelper.UploadImageBlobAsync(form.Arquivo!, connectionString!, containerName!);
 

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import { ConteinerButton, ConteinerCadastro, ConteinerGeral, ConteinerLink } from '../../components/Container/Style';
 import { Input } from '../../components/Input/Input';
 import { ConteinerBolaMenor, ConteinerBolaMaior, ConteinerIcon } from './Style';
@@ -11,15 +12,19 @@ import { Link, TextLink } from '../../components/Link/Link';
 import { ParagrafoErro } from '../../components/Paragrafo/Style';
 import api from '../../service/ApiService';
 import * as yup from 'yup';
+import { format, differenceInYears, isValid } from 'date-fns';
 
 export const Cadastro = ({ navigation }) => {
   const [nome, setNome] = useState('');
-  const [data, setData] = useState('');
+  const [data, setData] = useState(null);
   const [cpf, setCpf] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirm, setConfirm] = useState('');
+  const [btnLoad, setBtnLoad] = useState(false);
   const [errors, setErrors] = useState({});
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [disableNavigation, setDisableNavigation] = useState(false);
 
   const schema = yup.object().shape({
     nome: yup.string().required('Campo obrigatório').test('nome-sobrenome', 'Deve conter nome e sobrenome', value => {
@@ -28,17 +33,40 @@ export const Cadastro = ({ navigation }) => {
     }),
     email: yup.string().email('Email inválido').matches(/@gmail\.com$/, 'Email deve ser @gmail.com').required('Campo obrigatório'),
     cpf: yup.string().matches(/^\d{11}$/, 'CPF deve conter 11 dígitos').required('Campo obrigatório'),
+    data: yup.date().nullable().required('Campo obrigatório').test('idade', 'Você deve ter pelo menos 18 anos', value => {
+      if (!value) return false; // Evita erro de tipo inválido ao não escolher uma data
+      return differenceInYears(new Date(), new Date(value)) >= 18;
+    }),
     senha: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial').required('Campo obrigatório'),
     confirm: yup.string().oneOf([yup.ref('senha'), null], 'Senhas não conferem').required('Campo obrigatório')
   });
 
+  useEffect(() => {
+    if (btnLoad) {
+      setDisableNavigation(true);
+    } else {
+      setDisableNavigation(false);
+    }
+  }, [btnLoad]);
+
   async function cadastrar() {
+    setBtnLoad(true);
     try {
-      await schema.validate({ nome, email, cpf, senha, confirm }, { abortEarly: false });
+      if (!isValid(new Date(data))) {
+        setErrors(prevErrors => ({
+          ...prevErrors,
+          data: 'Campo obrigatório'
+        }));
+        return;
+      }
+
+      await schema.validate({ nome, email, cpf, data, senha, confirm }, { abortEarly: false });
+
+      const formattedData = format(new Date(data), 'yyyy-MM-dd');
 
       const jsonData = {
         nome: nome,
-        dataNascimento: data,
+        dataNascimento: formattedData,
         cpf: cpf,
         senha: senha,
         email: email,
@@ -69,13 +97,20 @@ export const Cadastro = ({ navigation }) => {
         console.log('Erro ao cadastrar:', error);
       }
     }
+    setBtnLoad(false);
   }
+
+  const onChangeDate = (event, selectedDate) => {
+    const currentDate = selectedDate || data;
+    setShowDatePicker(Platform.OS === 'ios');
+    setData(currentDate);
+  };
 
   return (
     <View style={styles.container}>
       <ConteinerBolaMenor>
-        <ConteinerIcon onPress={() => navigation.navigate('Login')}>
-          <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
+        <ConteinerIcon onPress={() => !btnLoad && navigation.navigate('Login')}>
+          <AntDesign name="left" size={26} color="#0066FF" />
         </ConteinerIcon>
       </ConteinerBolaMenor>
       <ConteinerBolaMaior>
@@ -109,13 +144,28 @@ export const Cadastro = ({ navigation }) => {
               style={{ borderColor: errors.cpf ? '#C81D25' : '#0066FF', borderWidth: errors.cpf ? 2 : 2 }}
             />
             {errors.cpf && <ParagrafoErro style={{ color: '#C81D25' }}>{errors.cpf}</ParagrafoErro>}
-            <Input
-              alter
-              icon='calendar'
-              placeholder='Data Nascimento'
-              fieldValue={data}
-              onChangeText={(v) => setData(v)}
-            />
+            <TouchableOpacity onPress={() => setShowDatePicker(true)}>
+              <Input
+                alter
+                icon='calendar'
+                placeholder='Data Nascimento'
+                fieldValue={data ? format(new Date(data), 'dd/MM/yyyy') : ''}
+                editable={false}
+                pointerEvents="none"
+                style={{ borderColor: errors.data ? '#C81D25' : '#0066FF', borderWidth: errors.data ? 2 : 2 }}
+              />
+            </TouchableOpacity>
+            {errors.data && <ParagrafoErro style={{ color: '#C81D25' }}>{errors.data}</ParagrafoErro>}
+            {showDatePicker && (
+              <DateTimePicker
+                testID="dateTimePicker"
+                value={data ? new Date(data) : new Date()}
+                mode="date"
+                display="default"
+                onChange={onChangeDate}
+                maximumDate={new Date()}
+              />
+            )}
             <Input
               alter
               icon='olhoAzul'
@@ -139,13 +189,15 @@ export const Cadastro = ({ navigation }) => {
             <ConteinerButton>
               <Botao
                 alter
+                loading={btnLoad}
+                white={true}
                 textoBotao='Cadastrar'
                 onPress={cadastrar}
               />
             </ConteinerButton>
-            <ConteinerLink onPress={() => navigation.navigate('Login')}>
+            <ConteinerLink onPress={() => !btnLoad && navigation.navigate('Login')}>
               <TextLink>Já tem uma conta?</TextLink>
-              <Link onPress={() => navigation.navigate('Login')}>Voltar</Link>
+              <Link onPress={() => !btnLoad && navigation.navigate('Login')}>Voltar</Link>
             </ConteinerLink>
           </ConteinerCadastro>
         </ConteinerGeral>
@@ -163,3 +215,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Cadastro;

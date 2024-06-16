@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import * as yup from 'yup';
 import { ConteinerButton, ConteinerCadastro, ConteinerGeral, ConteinerLink, ConteinerTopLogin } from "../../components/Container/Style";
@@ -24,13 +24,12 @@ export const Login = ({ navigation }) => {
   });
 
   const handleLogin = async () => {
+    if (btnLoad) return; 
     setBtnLoad(true)
     try {
       await schema.validate({ email, senha }, { abortEarly: false });
 
       console.log("Iniciando tentativa de login...");
-
-      console.log(email, senha);
 
       const response = await api.post('/Login', {
         email: email,
@@ -45,9 +44,6 @@ export const Login = ({ navigation }) => {
 
       navigation.replace('Home');
 
-      setBtnLoad(false);
-
-
     } catch (error) {
       if (error instanceof yup.ValidationError) {
         let validationErrors = {};
@@ -55,41 +51,32 @@ export const Login = ({ navigation }) => {
           validationErrors[err.path] = err.message;
         });
         setErrors(validationErrors);
-        setBtnLoad(false)
       } else {
         console.log("Erro no login");
         console.log(error);
       }
     }
+    setBtnLoad(false);
   }
 
   return (
     <View style={styles.container}>
-
       <ConteinerTopLogin>
-
-        <LogoAzulSvg width="239" height="100" />
+        <LogoAzulSvg width="239" />
 
         <TituloH2>Entre e transforme vidas hoje!</TituloH2>
-        {/* <TituloH2>Vidas Hoje!</TituloH2> */}
-
       </ConteinerTopLogin>
 
-
       <ConteinerBolaMaiorLogin>
-
-        <TituloH2
-          alter>
-          Login</TituloH2>
+        <TituloH2 alter>Login</TituloH2>
 
         <ConteinerGeral>
           <ConteinerCadastro>
-
             <Input
               icon='envelopeBranco'
               placeholder='Email'
               value={email}
-              onChangeText={(newValue) => { setEmail(newValue) }}
+              onChangeText={(newValue) => setEmail(newValue)}
               style={{ borderColor: errors.email ? '#fbfbfb' : '#fbfbfb', borderWidth: errors.email ? 2 : 2 }}
             />
             {errors.email && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.email}</ParagrafoErro>}
@@ -99,42 +86,37 @@ export const Login = ({ navigation }) => {
               placeholder='Senha'
               value={senha}
               secure={true}
-              onChangeText={(newValue) => { setSenha(newValue) }}
+              onChangeText={(newValue) => setSenha(newValue)}
               style={{ borderColor: errors.senha ? '#fbfbfb' : '#fbfbfb', borderWidth: errors.senha ? 2 : 2 }}
             />
             {errors.senha && <ParagrafoErro style={{ color: '#fbfbfb' }}>{errors.senha}</ParagrafoErro>}
 
-            <ConteinerLink onPress={() => navigation.navigate("RecuperarSenha")}>
+            <ConteinerLink onPress={() => navigation.navigate("RecuperarSenha")} disabled={btnLoad}>
               <Link alter>Esqueceu a senha?</Link>
             </ConteinerLink>
 
             <ConteinerButton>
-
               <Botao
                 loading={btnLoad}
                 onPress={handleLogin}
                 textoBotao='Entrar'
+                disabled={btnLoad}
               />
-
             </ConteinerButton>
 
-            <ConteinerLink onPress={() =>{
-               navigation.navigate('Cadastro')
-               setEmail('')
-               setSenha('')
+            <ConteinerLink onPress={() => {
+              if (!btnLoad) {
+                navigation.navigate('Cadastro');
+                setEmail('');
+                setSenha('');
+              }
             }}>
-
               <TextLink alter>Não tem uma conta?</TextLink>
               <Link alter>Cadastre-se</Link>
-
             </ConteinerLink>
-
           </ConteinerCadastro>
-
         </ConteinerGeral>
-
       </ConteinerBolaMaiorLogin>
-
     </View>
   )
 }
@@ -147,3 +129,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+export default Login;

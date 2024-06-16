@@ -95,7 +95,7 @@ export const VerificarEmail = ({ navigation, route }) => {
     return (
         <Container style={styles.container}>
             <ConteinerBolaMenor>
-                <ConteinerIcon onPress={() => navigation.navigate("RecuperarSenha")}>
+                <ConteinerIcon onPress={() => !btnLoad && navigation.navigate("RecuperarSenha")}>
                     <AntDesign name="left" size={26} color="#0066FF" />
                 </ConteinerIcon>
             </ConteinerBolaMenor>
@@ -136,12 +136,13 @@ export const VerificarEmail = ({ navigation, route }) => {
             <ConteinerButton>
                 <Botao
                     loading={btnLoad}
+                    disabled={btnLoad}
                     textoBotao='Continuar'
                     onPress={ValidarCodigo}
                 />
             </ConteinerButton>
 
-            <Link style={styles.btnCode} onPress={reenviarCodigo} alter>Reenviar código</Link>
+            <Link style={styles.btnCode} onPress={!btnLoad && reenviarCodigo} alter>Reenviar código</Link>
 
             <StatusBar style="auto" />
         </Container>

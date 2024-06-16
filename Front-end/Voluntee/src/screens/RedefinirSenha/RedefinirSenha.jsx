@@ -56,7 +56,7 @@ export const RedefinirSenha = ({ navigation, route }) => {
     return (
         <Container style={styles.container}>
             <ConteinerBolaMenor>
-                <ConteinerIcon onPress={() => navigation.navigate("VerificarEmail")}>
+                <ConteinerIcon onPress={() => !btnLoad && navigation.navigate("VerificarEmail")}>
                     <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
                 </ConteinerIcon>
             </ConteinerBolaMenor>
@@ -93,6 +93,7 @@ export const RedefinirSenha = ({ navigation, route }) => {
                 <Botao
                     textoBotao='Redefinir'
                     loading={btnLoad}
+                    disabled={btnLoad}
                     onPress={() => AtualizarSenha()}
                 />
             </ConteinerButton>

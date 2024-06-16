@@ -9,10 +9,11 @@ export const Botao = ({
     disabled = false,
     onPress,
     loading,
+    white
 }) => {
     return (
         <Button onPress={onPress} alter={alter} disabled={disabled} width={width} loading={loading}>
-            {loading ? <ActivityIndicator color="#0066FF" /> : <TextButton alter={alter}>{textoBotao}</TextButton>}
+            {loading ? (white? <ActivityIndicator color="#fbfbfb"/> : <ActivityIndicator color="#0066FF"/>)  : <TextButton alter={alter}>{textoBotao}</TextButton>}
         </Button>
     )
 }

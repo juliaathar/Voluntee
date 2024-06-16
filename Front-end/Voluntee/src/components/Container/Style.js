@@ -43,6 +43,7 @@ export const ConteinerCadastro = styled.ScrollView`
     height: 76%;
 
     margin-left: 110px;
+    margin-top: 20px;
     top: 30px;
 `
 
@@ -65,12 +66,12 @@ export const ConteinerLink = styled.TouchableOpacity`
 
 export const ConteinerTopLogin = styled.View`
     position: absolute;
-    top: 10%;
-
-    height: 35%;
-    width: 75%;
-
-    justify-content: space-evenly;`
+    top: 1%;
+    height: 40%;
+    width: 90%;
+    align-items:center;
+    justify-content: space-evenly;
+    `
 
 export const ContainerInput = styled.View`
     margin-right: 5%; 

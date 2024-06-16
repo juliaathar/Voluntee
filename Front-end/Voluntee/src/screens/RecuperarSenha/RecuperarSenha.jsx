@@ -10,6 +10,7 @@ import { Input } from '../../components/Input/Input';
 import { Botao } from '../../components/Botao/Botao';
 import { StatusBar } from 'expo-status-bar';
 import api from '../../service/ApiService';
+import { ConteinerBolaMenor, ConteinerIcon } from '../Cadastro/Style';
 
 export const RecuperarSenha = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -42,13 +43,11 @@ export const RecuperarSenha = ({ navigation }) => {
 
   return (
     <Container style={styles.container}>
-      <AntDesign
-        name="left"
-        size={26}
-        color="#0066FF"
-        onPress={() => navigation.goBack()}
-        style={styles.backIcon}
-      />
+      <ConteinerBolaMenor>
+        <ConteinerIcon onPress={() => !btnLoad && navigation.navigate("Login")}>
+          <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
+        </ConteinerIcon>
+      </ConteinerBolaMenor>
       <TituloH3>Recuperar Senha</TituloH3>
       <ImagemRecupSenha source={require('../../assets/images/RecuperarSenha.png')} />
       <Paragrafo>Informe seu email cadastrado para enviarmos um link de recuperação de senha.</Paragrafo>
@@ -68,7 +67,7 @@ export const RecuperarSenha = ({ navigation }) => {
         {errors.email && <ParagrafoErro>{errors.email}</ParagrafoErro>}
       </View>
       <ConteinerButton>
-        <Botao loading={btnLoad} textoBotao="Continuar" onPress={EnviarEmail} />
+        <Botao disable={btnLoad} loading={btnLoad} textoBotao="Continuar" onPress={EnviarEmail} />
       </ConteinerButton>
       <StatusBar style="auto" />
     </Container>

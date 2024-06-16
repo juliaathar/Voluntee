@@ -32,7 +32,7 @@ export const Cadastro = ({ navigation }) => {
       return parts.length >= 2;
     }),
     email: yup.string().email('Email inválido').matches(/@gmail\.com$/, 'Email deve ser @gmail.com').required('Campo obrigatório'),
-    cpf: yup.string().matches(/^\d{14}$/, 'CPF deve conter 11 dígitos').required('Campo obrigatório'),
+    cpf: yup.string().matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{11}$/, 'CPF inválido').required('Campo obrigatório'),
     data: yup.date().nullable().required('Campo obrigatório').test('idade', 'Você deve ter pelo menos 18 anos', value => {
       if (!value) return false; 
       return differenceInYears(new Date(), new Date(value)) >= 18;

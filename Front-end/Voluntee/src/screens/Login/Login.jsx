@@ -107,8 +107,6 @@ export const Login = ({ navigation }) => {
             <ConteinerLink onPress={() => {
               if (!btnLoad) {
                 navigation.navigate('Cadastro');
-                setEmail('');
-                setSenha('');
               }
             }}>
               <TextLink alter>Não tem uma conta?</TextLink>

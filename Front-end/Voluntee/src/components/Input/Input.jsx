@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { LabelInput } from '../../screens/Perfil/Style';
-import { IconCalendar, IconEnvelopeAzul, IconEnvelopeBranco, IconIdCard, IconOlhoCorteAzul, IconOlhoCorteBranco, IconPesquisar, IconUser } from '../Icones/IconesSvg';
-import { FormInputBody, FormInsert, FormView, InputBody, InputInsert } from "./Style"
+import { IconCalendar, IconEnvelopeAzul, IconEnvelopeBranco, IconIdCard, IconOlhoAzul, IconOlhoBranco, IconOlhoCorteAzul, IconOlhoCorteBranco, IconPesquisar, IconUser } from '../Icones/IconesSvg';
+import { FormInputBody, FormInsert, FormView, InputBody, InputInsert } from "./Style";
 import { TouchableOpacity } from 'react-native';
 
 export const Input = ({
@@ -18,57 +18,47 @@ export const Input = ({
     const [showPassword, setShowPassword] = useState(false);
 
     const toggleShowPassword = () => {
-      setShowPassword(!showPassword);
+        setShowPassword(!showPassword);
     };
-  
+
     const handleBlur = () => {
-      setShowPassword(false); 
+        setShowPassword(false); 
     };
 
-    { alter ? placeholderTextColor = "#0066FF" : '#FBFBFB' }
-
-    //icones:
-    // <IconUser/> -- user
-    // <IconIdCard/> -- idCard
-    // <IconPesquisar/> -- search
-    // <IconCalendar/> -- calendar
-    // <IconOlhoCorteAzul/> -- olhoAzul
-    // <IconOlhoCorteBranco/> -- olhoBranco
-    // <IconEnvelopeAzul/> -- envelopeAzul
-    // <IconEnvelopeBranco/> -- envelopeBranco
+    if (alter) placeholderTextColor = "#0066FF";
 
     function IconPull(nome) {
         switch (nome) {
             case "user":
-                return <IconUser />
-                break;
+                return <IconUser />;
             case "idCard":
-                return <IconIdCard />
-                break;
+                return <IconIdCard />;
             case "search":
-                return <IconPesquisar />
-                break;
+                return <IconPesquisar />;
             case "calendar":
-                return <IconCalendar />
-                break;
+                return <IconCalendar />;
             case "olhoAzul":
-                return <IconOlhoCorteAzul />
-                break;
+                return <IconOlhoCorteAzul />;
             case "olhoBranco":
-                return <IconOlhoCorteBranco />
-                break;
+                return <IconOlhoCorteBranco />;
             case "envelopeAzul":
-                return <IconEnvelopeAzul />
-                break;
+                return <IconEnvelopeAzul />;
             case "envelopeBranco":
-                return <IconEnvelopeBranco />
-                break;
-
+                return <IconEnvelopeBranco />;
             default:
-                return ""
-                break;
+                return "";
         }
     }
+
+    const renderIcon = () => {
+        if (secure && icon === 'olhoBranco') {
+            return showPassword ? <IconOlhoBranco /> : <IconOlhoCorteBranco />;
+        } else if (secure && icon === 'olhoAzul') {
+            return showPassword ? <IconOlhoAzul /> : <IconOlhoCorteAzul />;
+        } else {
+            return IconPull(icon);
+        }
+    };
 
     return (
         <InputBody
@@ -83,13 +73,19 @@ export const Input = ({
                 value={fieldValue}
                 alter={alter}
                 secureTextEntry={!showPassword && secure}
-                onBlur={handleBlur} 
+                onBlur={handleBlur}
                 keyboardType={icon === "idCard" ? "numeric" : "default"}
             />
-            <TouchableOpacity onPress={toggleShowPassword}>{IconPull(icon)}</TouchableOpacity>
+            {secure ? (
+                <TouchableOpacity onPress={toggleShowPassword}>
+                    {renderIcon()}
+                </TouchableOpacity>
+            ) : (
+                IconPull(icon)
+            )}
         </InputBody>
-    )
-}
+    );
+};
 
 export const FormInput = ({
     placeholderTextColor = '#FBFBFB',
@@ -115,5 +111,5 @@ export const FormInput = ({
                 />
             </FormInputBody>
         </FormView>
-    )
-}
+    );
+};

@@ -48,6 +48,22 @@ export const IconOlhoCorteAzul = () => {
     )
 }
 
+export const IconOlhoAzul = () => {
+    return (
+        <Svg width={20} height={20} viewBox="0 0 64 64">
+            <Path fill="#0066ff" d="M32 12C18.8 12 8 21.7 8 32s10.8 20 24 20 24-9.7 24-20S45.2 12 32 12zm0 32c-6.6 0-12-5.4-12-12s5.4-12 12-12 12 5.4 12 12-5.4 12-12 12zm0-20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
+        </Svg>
+    )
+}
+export const IconOlhoBranco = () => {
+    return (
+        <Svg width={20} height={20} viewBox="0 0 64 64">
+            <Path fill="#fbfbfb" d="M32 12C18.8 12 8 21.7 8 32s10.8 20 24 20 24-9.7 24-20S45.2 12 32 12zm0 32c-6.6 0-12-5.4-12-12s5.4-12 12-12 12 5.4 12 12-5.4 12-12 12zm0-20c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z"/>
+        </Svg>
+    )
+}
+
+
 export const IconOlhoCorteBranco = () => {
     return (
         <Svg width={20} height={20} viewBox="0 0 640 512">

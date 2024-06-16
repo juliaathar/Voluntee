@@ -4,7 +4,7 @@ import { Paragrafo } from "../Paragrafo/Style";
 
 export const SubTitulo = styled(TituloH3)`
     font-size: 18px;
-    text-align: start;
+    text-align: left;
     margin-bottom: 5px;
 `
 

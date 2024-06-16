@@ -32,9 +32,9 @@ export const Cadastro = ({ navigation }) => {
       return parts.length >= 2;
     }),
     email: yup.string().email('Email inválido').matches(/@gmail\.com$/, 'Email deve ser @gmail.com').required('Campo obrigatório'),
-    cpf: yup.string().matches(/^\d{11}$/, 'CPF deve conter 11 dígitos').required('Campo obrigatório'),
+    cpf: yup.string().matches(/^\d{14}$/, 'CPF deve conter 11 dígitos').required('Campo obrigatório'),
     data: yup.date().nullable().required('Campo obrigatório').test('idade', 'Você deve ter pelo menos 18 anos', value => {
-      if (!value) return false; // Evita erro de tipo inválido ao não escolher uma data
+      if (!value) return false; 
       return differenceInYears(new Date(), new Date(value)) >= 18;
     }),
     senha: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, 'A senha deve ter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma letra minúscula, um número e um caractere especial').required('Campo obrigatório'),
@@ -106,6 +106,29 @@ export const Cadastro = ({ navigation }) => {
     setData(currentDate);
   };
 
+
+  const formatarCPF = (inputCPF) => {
+    const cpfLimpo = inputCPF.replace(/\D/g, '');
+
+    let cpfFormatado = '';
+    cpfLimpo.split('').forEach((char, index) => {
+      if (index === 3 || index === 6) {
+        cpfFormatado += '.';
+      } else if (index === 9) {
+        cpfFormatado += '-';
+      }
+      cpfFormatado += char;
+    });
+
+    return cpfFormatado;
+  };
+
+  const handleCPFChange = (newText) => {
+    if (newText.length <= 14) {
+      setCpf(newText);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ConteinerBolaMenor>
@@ -139,8 +162,10 @@ export const Cadastro = ({ navigation }) => {
               alter
               icon='idCard'
               placeholder='CPF'
-              fieldValue={cpf}
-              onChangeText={(v) => setCpf(v)}
+              fieldValue={formatarCPF(cpf)}
+              onChangeText={handleCPFChange}
+              maxLength={14} 
+              keyboardType="numeric"
               style={{ borderColor: errors.cpf ? '#C81D25' : '#0066FF', borderWidth: errors.cpf ? 2 : 2 }}
             />
             {errors.cpf && <ParagrafoErro style={{ color: '#C81D25' }}>{errors.cpf}</ParagrafoErro>}
@@ -148,7 +173,7 @@ export const Cadastro = ({ navigation }) => {
               <Input
                 alter
                 icon='calendar'
-                placeholder='Data Nascimento'
+                placeholder='Data de nascimento'
                 fieldValue={data ? format(new Date(data), 'dd/MM/yyyy') : ''}
                 editable={false}
                 pointerEvents="none"

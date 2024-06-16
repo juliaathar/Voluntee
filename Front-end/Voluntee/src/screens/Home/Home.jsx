@@ -72,11 +72,6 @@ export const Home = ({navigation}) => {
                         navigation={navigation}
                     />
 
-                    {/* <Input
-                        placeholder={"Pesquise"}
-                        icon="search"
-                    /> */}
-
                     <CardPopularContainer
                         dados={campanhasPopulares}
                         navigation={navigation}

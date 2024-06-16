@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { LabelInput } from '../../screens/Perfil/Style';
 import { IconCalendar, IconEnvelopeAzul, IconEnvelopeBranco, IconIdCard, IconOlhoCorteAzul, IconOlhoCorteBranco, IconPesquisar, IconUser } from '../Icones/IconesSvg';
 import { FormInputBody, FormInsert, FormView, InputBody, InputInsert } from "./Style"
+import { TouchableOpacity } from 'react-native';
 
 export const Input = ({
     placeholder,
@@ -13,6 +15,15 @@ export const Input = ({
     secure,
     style
 }) => {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+      setShowPassword(!showPassword);
+    };
+  
+    const handleBlur = () => {
+      setShowPassword(false); 
+    };
 
     { alter ? placeholderTextColor = "#0066FF" : '#FBFBFB' }
 
@@ -71,9 +82,11 @@ export const Input = ({
                 editable={editable}
                 value={fieldValue}
                 alter={alter}
-                secureTextEntry={secure}
+                secureTextEntry={!showPassword && secure}
+                onBlur={handleBlur} 
+                keyboardType={icon === "idCard" ? "numeric" : "default"}
             />
-            {IconPull(icon)}
+            <TouchableOpacity onPress={toggleShowPassword}>{IconPull(icon)}</TouchableOpacity>
         </InputBody>
     )
 }

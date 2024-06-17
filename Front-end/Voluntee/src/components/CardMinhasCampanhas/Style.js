@@ -16,6 +16,7 @@ export const ImgCard = styled.ImageBackground`
     height: 100%;
     border-radius: 10px 0px 0px 40px;
     overflow: hidden;
+
 `
 
 export const Blur = styled.View`
@@ -29,7 +30,7 @@ export const InfoContainer = styled.View`
     width: 70%;
     border-radius: 0px 40px 10px 0px;
     //border-left-color: transparent;
-    border: 1px #0066FF;
+    border: 1px #FFFFFF;
     align-items: center;
     justify-content: space-evenly;
 `
@@ -39,7 +40,7 @@ export const Info = styled.View`
     //border: 1px;
 `
 
-export const DataLocal = styled.View`   
+export const DataLocal = styled.View`
     width: 92%;
     height: 25%;
     //border: 1px;
@@ -52,7 +53,7 @@ export const TituloCard = styled.Text`
     font-family: "Lexend_600SemiBold";
     font-size: 16px;
     color: ${({ alter }) => (alter ? '#FBFBFB' : '#0066FF')};
-    
+
 `
 
 export const DescricaoCard = styled.Text`
@@ -63,29 +64,18 @@ export const DescricaoCard = styled.Text`
 
 export const Data = styled(DescricaoCard)`
     font-size: 12px;
+    color:#FFFFFF;
 `
 export const Local = styled(Data)``
 
 //flatlist de cards
-export const CardList = styled(CardsField)`
-    height: ${({ tamanho }) => (tamanho >= 3 ? '480px' : tamanho == 2 ? '270px' : '130px')};
+export const CardList = styled.View`
+    width: 90%;
+    margin-top: 30px;
+    height: 100%;
     margin-bottom: 20px;
 `
 
 export const ListName = styled(FieldName)`
     color: #0066FF;
-`
-export const List = styled.FlatList`
-    //height: ${({ tamanho }) => (tamanho >= 3 ? '500px' : tamanho == 2 ? '290px' : '150px')};
-    height: 500px;
-`
-
-export const ShowMore = styled.TouchableOpacity`
-    width: 100%;
-    align-items: center;
-    justify-content: flex-end;
-    flex-direction: row;
-`
-export const More = styled(TituloCard)`
-    font-family: "Lexend_500Medium";
 `

@@ -26,6 +26,8 @@ import {
 import { Instituicao } from './src/screens/Instituiçao/Instituicao';
 import { MinhasCampanhas } from './src/screens/MinhasCampanhas/MinhasCampanhas';
 import { CameraScrenn} from './src/screens/Camera/CameraScrenn';
+import { TodasCampanhas } from './src/screens/TodasCampanhas/TodasCampanhas';
+import { TodasInstituicao } from './src/screens/TodasInstituiçoes/TodasInstituicoes';
 
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
@@ -121,6 +123,18 @@ export default function App() {
           name='CameraScrenn'
           component={CameraScrenn}
           options={{ title: 'CameraScrenn' }}
+        />
+
+        <Stack.Screen
+          name='TodasCampanhas'
+          component={TodasCampanhas}
+          options={{ title: 'TodasCampanhas' }}
+        />
+
+        <Stack.Screen
+          name='TodasInstituicao'
+          component={TodasInstituicao}
+          options={{ title: 'TodasInstituicao' }}
         />
 
       </Stack.Navigator>

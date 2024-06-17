@@ -1,28 +1,30 @@
-import { ScrollView, View } from "react-native"
-import { ContainerAzul } from "../../components/Container/Style"
-import { HeaderHome } from "../../components/Header/Header"
-import { BotaoDirecionavel, BotaoTexto, BottomConteiner, ConteinerBotoesCampanha, ConteinerCentral, MiddleConteiner } from "./Style"
-import { TituloH3 } from "../../components/Titulo/Style"
-import { Input } from "../../components/Input/Input"
-import { useEffect, useState } from "react"
-import api from "../../service/ApiService"
-import { BotaoConsulta } from "../../components/BotaoFiltro/BotaoFiltro"
-import { Menu } from "../../components/Menu/Menu"
-import { userDecodeToken } from "../../utils/Auth"
-import { CardMinhasCampanhasList } from "../../components/CardMinhasCampanhas/CardMinhasCampanhas"
+import { ScrollView, View } from "react-native";
+import { ContainerAzul } from "../../components/Container/Style";
+import { HeaderHome } from "../../components/Header/Header";
+import { BotaoConsulta } from "../../components/BotaoFiltro/BotaoFiltro";
+import { Menu } from "../../components/Menu/Menu";
+import { userDecodeToken } from "../../utils/Auth";
+import { CardMinhasCampanhasList } from "../../components/CardMinhasCampanhas/CardMinhasCampanhas";
+import { TituloH3 } from "../../components/Titulo/Style";
+import { Input } from "../../components/Input/Input";
+import { useEffect, useState } from "react";
+import api from "../../service/ApiService";
+import { ConteinerBotoesCampanha, ConteinerCentral, MiddleConteiner, BottomConteiner } from "./Style";
+import { format, isAfter, isBefore } from "date-fns";
 
 export const MinhasCampanhas = ({ navigation, route }) => {
-    const [datas, setDatas] = useState()
-    const [menu, setMenu] = useState(false)
-    const [campanhas, setCampanhas] = useState([])
+    const [datas, setDatas] = useState();
+    const [menu, setMenu] = useState(false);
+    const [campanhas, setCampanhas] = useState([]);
     const [usuarioId, setUsuarioId] = useState('');
     const [pesquisaCampanha, setpesquisaCampanha] = useState('');
+    const [filter, setFilter] = useState('todas');
 
     async function getUserId() {
         try {
             const token = await userDecodeToken();
             setUsuarioId(token.id);
-            console.log(token.id);
+            console.log("Usuário ID:", token.id); // Log do ID do usuário
         } catch (error) {
             console.log(`Erro no token: ${error}`);
         }
@@ -30,9 +32,9 @@ export const MinhasCampanhas = ({ navigation, route }) => {
 
     async function ListarCampanhas(idUsuario) {
         try {
-            const response = await api.get(`Usuario/ListarPresencasCampanhas?idUsuario=${idUsuario}`)
-            console.log("Campanhas:", response.data);
-            setCampanhas(response.data)
+            const response = await api.get(`Usuario/ListarPresencasCampanhas?idUsuario=${idUsuario}`);
+            console.log("Campanhas:", response.data); // Log das campanhas recebidas
+            setCampanhas(response.data);
         } catch (error) {
             console.log(`Erro ao listar campanhas: ${error}`);
         }
@@ -51,9 +53,23 @@ export const MinhasCampanhas = ({ navigation, route }) => {
         }
     }, [usuarioId]);
 
-    const filteredCampanhas = campanhas.filter(campanha =>
-        campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase())
-    );
+    const currentDate = new Date();
+    console.log("Data atual:", currentDate); // Log da data atual
+
+    const filteredCampanhas = campanhas.filter(campanha => {
+        const campanhaDate = new Date(campanha.data); // Certifique-se de que o formato da data está correto
+        console.log(`Campanha: ${campanha.nome}, Data: ${campanha.data}, Campanha Date: ${campanhaDate}`); // Log das datas das campanhas
+
+        if (filter === 'todas') {
+            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase());
+        } else if (filter === 'participadas') {
+            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase()) && isBefore(campanhaDate, currentDate);
+        } else if (filter === 'futuras') {
+            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase()) && isAfter(campanhaDate, currentDate);
+        }
+    });
+
+    console.log(`Filtered Campanhas (${filter}):`, filteredCampanhas); // Log das campanhas filtradas
 
     return (
         <ContainerAzul>
@@ -76,12 +92,24 @@ export const MinhasCampanhas = ({ navigation, route }) => {
                             <ConteinerBotoesCampanha>
                                 <BotaoConsulta
                                     textButton={'Todas'}
+                                    onPress={() => {
+                                        setFilter('todas');
+                                        console.log("Filtro: todas"); // Log do filtro
+                                    }}
                                 />
                                 <BotaoConsulta
                                     textButton={'Participadas'}
+                                    onPress={() => {
+                                        setFilter('participadas');
+                                        console.log("Filtro: participadas"); // Log do filtro
+                                    }}
                                 />
                                 <BotaoConsulta
                                     textButton={'Futuras'}
+                                    onPress={() => {
+                                        setFilter('futuras');
+                                        console.log("Filtro: futuras"); // Log do filtro
+                                    }}
                                 />
                             </ConteinerBotoesCampanha>
                         </MiddleConteiner>
@@ -101,5 +129,5 @@ export const MinhasCampanhas = ({ navigation, route }) => {
                 />
             </ScrollView>
         </ContainerAzul>
-    )
-}
+    );
+};

@@ -27,8 +27,8 @@ export const NewConsul = styled.TouchableOpacity`
     border-radius: 50px;
     background-color: #0066FF;
     position: absolute;
-    bottom: 20px;
-    right: 20px;
+    bottom: 40px;
+    right: 30px;
     justify-content: center;
     align-items: center;
 `

@@ -32,7 +32,7 @@ export const TodasCampanhas = ({ navigation, route }) => {
             <ContainerMinhasCampanhas>
                 <HeaderHome onPress={() => setMenu(true)} alter />
 
-                <TituloH3 style={{ marginTop: 25 }}>
+                <TituloH3 style={{ top: 25 }}>
                     Todas Campanhas
                 </TituloH3>
 

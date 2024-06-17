@@ -1,5 +1,6 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useFocusEffect } from '@react-navigation/native';
 import { View, StyleSheet } from "react-native";
 import api from "../../service/ApiService";
 import { userDecodeToken } from "../../utils/Auth";
@@ -23,9 +24,11 @@ export const HeaderHome = ({ alter = false, onPress, navigation }) => {
     }
   }
 
-  useEffect(() => {
-    carregarPerfil();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      carregarPerfil();
+    }, [])
+  );
 
   return (
     <HeaderContainer>

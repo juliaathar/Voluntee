@@ -7,11 +7,12 @@ import { HeaderHome } from "../../components/Header/Header";
 import OndaHome from "../../components/OndaHome/OndaHome";
 import { Input } from "../../components/Input/Input";
 import { Menu } from "../../components/Menu/Menu";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import api from "../../service/ApiService";
 import { ScrollView } from "react-native";
+import { useFocusEffect } from '@react-navigation/native';
 
-export const Home = ({navigation}) => {
+export const Home = ({ navigation }) => {
 
     const [menu, setMenu] = useState(false)
     const [campanhas, setCampanhas] = useState([])
@@ -20,47 +21,51 @@ export const Home = ({navigation}) => {
 
     async function ListarCampanhasPopulares() {
         await api.get(`/Campanha/ListarCampanhaPopulares`)
-        .then(async response => {
-            console.log("Campanhas populares:");
-            //console.log(response.data);
-            await setCampanhasPopulares(response.data)
-            console.log(campanhasPopulares);
-        })
-        .catch(error =>{
-            console.log(`Erro ao listar campanhas populares: ${error}`);
-        })
+            .then(async response => {
+                console.log("Campanhas populares:");
+                //console.log(response.data);
+                await setCampanhasPopulares(response.data)
+                console.log(campanhasPopulares);
+            })
+            .catch(error => {
+                console.log(`Erro ao listar campanhas populares: ${error}`);
+            })
     }
     async function ListarCampanhas() {
         await api.get(`/Campanha`)
-        .then(async response => {
-            console.log("Campanhas:");
-            await setCampanhas(response.data)
-            //console.log(response.data);
-            console.log(campanhas);
-        })
-        .catch(error =>{
-            console.log(`Erro ao listar campanhas: ${error}`);
-        })
+            .then(async response => {
+                console.log("Campanhas:");
+                await setCampanhas(response.data)
+                //console.log(response.data);
+                console.log(campanhas);
+            })
+            .catch(error => {
+                console.log(`Erro ao listar campanhas: ${error}`);
+            })
     }
     async function ListarInstituicoes() {
         await api.get(`/Instituicao`)
-        .then(async response => {
-            console.log("Instituicoes:");
-            await setInstituicoes(response.data)
-            //console.log(response.data);
-            console.log(instituicoes);
-        })
-        .catch(error =>{
-            console.log(`Erro ao listar instituicao: ${error}`);
-        })
+            .then(async response => {
+                console.log("Instituicoes:");
+                await setInstituicoes(response.data)
+                //console.log(response.data);
+                console.log(instituicoes);
+            })
+            .catch(error => {
+                console.log(`Erro ao listar instituicao: ${error}`);
+            })
     }
 
-    useEffect(() => {
-        ListarCampanhasPopulares()
-        ListarCampanhas()
-        ListarInstituicoes()
-    },[])
+    useFocusEffect(
+        useCallback(() => {
+            ListarCampanhasPopulares()
+            ListarCampanhas()
+            ListarInstituicoes()
+        }, [])
+    )
+
     
+
     return (
         <>
             <ScrollView>
@@ -97,8 +102,8 @@ export const Home = ({navigation}) => {
                 onRequestClose={() => setMenu(false)}
                 onBack={() => setMenu(false)}
             />
-            
-            <BotaoConsulta 
+
+            <BotaoConsulta
                 navigation={navigation}
             />
         </>

@@ -37,9 +37,9 @@ namespace api.voluntee.Repository
             {
                 var usuarioBuscado = ctx.Usuarios.Find(campanhaDto.UsuarioId) ?? throw new Exception("Usuário não encontrado");
 
-                var connectionString = "DefaultEndpointsProtocol=https;AccountName=volunteebd;AccountKey=w6ATIwZS+MWNF8mYn6PeWbeKQSfr8jOE10BMyLHDp6/xgOmCfab5tIVN/BMku2GdNg9y3X65bMNB+ASt/jQS9w==;EndpointSuffix=core.windows.net";
+                var connectionString = "";
 
-                var containerName = "imagem";
+                var containerName = "";
                 string imagemUrl = null;
 
                 if (campanhaDto.ImagemArquivo != null)

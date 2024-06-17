@@ -74,6 +74,7 @@ export const CardList = styled.View`
     margin-top: 30px;
     height: 100%;
     margin-bottom: 20px;
+    
 `
 
 export const ListName = styled(FieldName)`

@@ -28,24 +28,26 @@ export const TodasCampanhas = ({ navigation, route }) => {
 
     return (
 
-        <ContainerMinhasCampanhas>
-            <HeaderHome onPress={() => setMenu(true)} alter />
+        <ScrollView>
+            <ContainerMinhasCampanhas>
+                <HeaderHome onPress={() => setMenu(true)} alter />
 
-            <TituloH3 style={{ marginTop: 25 }}>
-                Todas Campanhas
-            </TituloH3>
+                <TituloH3 style={{ marginTop: 25 }}>
+                    Todas Campanhas
+                </TituloH3>
 
-            <CardMinhasCampanhasList
-                dados={campanhas}
-                navigation={navigation}
-            />
+                <CardMinhasCampanhasList
+                    dados={campanhas}
+                    navigation={navigation}
+                />
 
-            <Menu
-                visible={menu}
-                onRequestClose={() => setMenu(false)}
-                onBack={() => setMenu(false)}
-            />
-        </ContainerMinhasCampanhas>
+                <Menu
+                    visible={menu}
+                    onRequestClose={() => setMenu(false)}
+                    onBack={() => setMenu(false)}
+                />
+            </ContainerMinhasCampanhas>
+        </ScrollView>
 
     );
 };

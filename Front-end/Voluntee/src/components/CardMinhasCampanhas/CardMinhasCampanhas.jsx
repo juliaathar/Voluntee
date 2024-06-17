@@ -39,7 +39,7 @@ export const CardMinhasCampanhasList = ({ navigation, dados, onPressMore, scroll
     const [profileData, setProfileData] = useState('');
 
     return (
-        <CardList tamanho={dados.length}>
+        <CardList>
             <ListName>Outras campanhas</ListName>
             {dados.map((item) => (
                 item.pessoasPresentes < 5001 ? (
@@ -65,7 +65,8 @@ export const CardMinhasCampanhasList = ({ navigation, dados, onPressMore, scroll
                             alimento: item.alimento,
                             roupas: item.roupas,
                             latitude: item.latitude,
-                            longitude: item.longitude
+                            longitude: item.longitude,
+                            userId: item.usuarioId
                         })}
                     />
                 ) : null

@@ -43,7 +43,8 @@ export const CardPopularContainer = ({
                             alimento:item.alimento,
                             roupas:item.roupas,
                             latitude: item.latitude,
-                            longitude: item.longitude
+                            longitude: item.longitude,
+                            userId: item.usuarioId
                         })}
                     />
                 }

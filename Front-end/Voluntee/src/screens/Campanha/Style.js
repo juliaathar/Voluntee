@@ -9,9 +9,11 @@ export const AccountName = styled.Text`
 `
 
 export const ContainerAccount = styled.View`
-    margin-top: 35px;
+    margin-top: 10px;
+    margin-bottom: 10px;
     flex-direction: row;
-    gap: 5px;
+    justify-content: center;
+    gap: 10px;
 `
 
 export const ContainerCamapnha = styled.View`

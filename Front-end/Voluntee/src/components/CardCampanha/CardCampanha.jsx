@@ -67,7 +67,8 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                             alimento: item.alimento,
                             roupas: item.roupas,
                             latitude: item.latitude,
-                            longitude: item.longitude
+                            longitude: item.longitude,
+                            userId: item.usuarioId
                         })}
                     />
                 ) : null

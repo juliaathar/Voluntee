@@ -17,6 +17,7 @@ import CampanhaModal from '../../components/CampanhaModal/CampanhaModal';
 import { Menu } from '../../components/Menu/Menu';
 import axios from 'axios';
 import api from "../../service/ApiService";
+import { SubTitulo } from "../../components/SelectBox/Style";
 
 async function getAddressFromCoordinates(latitude, longitude) {
     try {
@@ -51,15 +52,15 @@ export const Campanha = ({ route, navigation }) => {
     const [menu, setMenu] = useState(false);
     const [showModalCancel, setShowModalCancel] = useState(false);
     const [showModalAppointment, setShowAppointment] = useState(false);
-    const [userData, setUserData] = useState(null); // Estado para armazenar os dados do usuário
+    const [userData, setUserData] = useState(null);
 
     const [address, setAddress] = useState(local);
 
     async function getUserData(userId) {
         try {
-            const response = await api.get(`Usuario/Id?id=${userId}`); // Substitua pela sua rota de usuários
+            const response = await api.get(`Usuario/Id?id=${userId}`);
             if (response.status === 200) {
-                return response.data; // Retorna os dados do usuário
+                return response.data;
             } else {
                 throw new Error("Unable to fetch user data.");
             }
@@ -82,7 +83,6 @@ export const Campanha = ({ route, navigation }) => {
     }, [latitude, longitude]);
 
     useEffect(() => {
-        // Busca os dados do usuário que cadastrou a campanha
         if (userId) {
             getUserData(userId)
                 .then(data => setUserData(data))
@@ -101,11 +101,21 @@ export const Campanha = ({ route, navigation }) => {
             />
 
             <ContainerCamapnha>
-                <Paragrafo>Responsável pela campanha</Paragrafo>
+                <View style={{marginTop: 30, alignSelf: 'center'}}>
+                    <SubTitulo>Responsável pela campanha:</SubTitulo>
+                </View>
 
                 {userData && (
                     <ContainerAccount>
-                        <ImagePerfil source={{ uri: userData.foto }} />
+                        {userData.foto ? (
+                            <ImagePerfil
+                                source={{ uri: userData.foto }}
+                            />
+                        ) : (
+                            <ImagePerfil
+                                source={require("../../assets/images/pfpdefault.png")}
+                            />
+                        )}
                         <AccountName>{userData.nome}</AccountName>
                     </ContainerAccount>
                 )}

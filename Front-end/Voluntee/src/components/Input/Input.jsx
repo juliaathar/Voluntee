@@ -93,7 +93,8 @@ export const FormInput = ({
     fieldValue = null,
     editable = true,
     placeholder = "",
-    label = ""
+    label = "",
+    keyboardType = "default"
 }) => {
     return (
         <FormView>
@@ -108,6 +109,7 @@ export const FormInput = ({
                     editable={editable}
                     value={fieldValue}
                     alter={true}
+                    keyboardType={keyboardType}
                 />
             </FormInputBody>
         </FormView>

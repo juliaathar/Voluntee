@@ -37,10 +37,9 @@ namespace api.voluntee.Repository
             {
                 var usuarioBuscado = ctx.Usuarios.Find(campanhaDto.UsuarioId) ?? throw new Exception("Usuário não encontrado");
 
-                bool primeiraCampanha = !ctx.Campanhas.Any(c => c.UsuarioId == campanhaDto.UsuarioId);
-                var connectionString = "";
+                var connectionString = "DefaultEndpointsProtocol=https;AccountName=volunteebd;AccountKey=w6ATIwZS+MWNF8mYn6PeWbeKQSfr8jOE10BMyLHDp6/xgOmCfab5tIVN/BMku2GdNg9y3X65bMNB+ASt/jQS9w==;EndpointSuffix=core.windows.net";
 
-                var containerName = "";
+                var containerName = "imagem";
                 string imagemUrl = null;
 
                 if (campanhaDto.ImagemArquivo != null)
@@ -68,10 +67,10 @@ namespace api.voluntee.Repository
 
                 ctx.Campanhas.Add(campanha);
 
-                if (primeiraCampanha)
-                {
+     
+              
                     _pontuacaoService.IncrementarPontos(campanha.UsuarioId, 100);
-                }
+               
 
                 ctx.SaveChanges();
             }

@@ -93,6 +93,7 @@ export const LinkPerfil = styled.Text`
     font-family: 'Lexend_400Medium';
     font-size: 18px;
     color: #FBFBFB;
+    margin-bottom:20px;
 `
 
 export const ConteinerLinkPerfil = styled.TouchableOpacity`

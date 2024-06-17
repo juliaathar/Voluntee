@@ -1,8 +1,23 @@
-import { ButtonPerfil, ConteinerAtrásPerfil, ConteinerImagem, ConteinerInput, ConteinerLinkPerfil, ConteinerPerfil, BotaoCamera, FotoPerfil, ImagemMedalha, LabelInput, LinkPerfil, NomePerfil, TituloLevel, TituloPerfil } from './Style';
+import { 
+    ButtonPerfil, 
+    ConteinerAtrásPerfil, 
+    ConteinerImagem, 
+    ConteinerInput, 
+    ConteinerLinkPerfil, 
+    ConteinerPerfil, 
+    BotaoCamera, 
+    FotoPerfil, 
+    ImagemMedalha, 
+    LabelInput, 
+    LinkPerfil, 
+    NomePerfil, 
+    TituloLevel, 
+    TituloPerfil 
+} from './Style';
 import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { KeyboardAvoidingView, ScrollView } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, View, TextInput } from 'react-native';
 import { TextButton } from '../../components/Botao/Style';
 import { Input } from '../../components/Input/Input';
 import { userDecodeToken } from '../../utils/Auth';
@@ -12,11 +27,12 @@ import * as ImagePicker from 'expo-image-picker'
 import { AntDesign } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import api from '../../service/ApiService';
 import moment from 'moment';
 
-export const Perfil = ({ navigation, route  }) => {
+export const Perfil = ({ navigation, route }) => {
 
     //dados do perfil
     const [editarPerfil, setEditarPerfil] = useState(false)
@@ -27,66 +43,63 @@ export const Perfil = ({ navigation, route  }) => {
     const [nome, setNome] = useState('')
     const [cpf, setCpf] = useState('')
 
-    //sistema de Xp
-    const [xp, setXp] = useState(0)
-    const [xpMax, setXpMax] = useState(300)
-    const [level, setLevel] = useState(2)
+    const [xp, setXp] = useState(0);
+    const [level, setLevel] = useState(1);
+    const [xpMax, setXpMax] = useState(300);
 
-    function CalcularLevel(xp,xpMax) {
-        console.log(xp/xpMax);
-        console.log(xp);
-        console.log(xpMax);
-        return(xp/xpMax)
+    function calcularProgressoNivel() {
+        return xp / xpMax;
     }
 
-    function DefinirLevel() {
-        switch (xp) {
-            case xp < 300:
-                setLevel(1)
-                setXpMax(600)
-                break;
-            case xp < 600:
-                setLevel(2)
-                setXpMax(1200)
-                break;
-            case xp < 1200:
-                setLevel(3)
-                setXpMax(2400)
-                break;
-            case xp <= 2400:
-                setLevel(4)
-                setXpMax(4800)
-                break;
-        
-            default:
-                break;
-        }
+    function definirNivel(xp) {
+        if (xp >= 2400) return 5;
+        else if (xp >= 1200) return 4;
+        else if (xp >= 600) return 3;
+        else if (xp >= 300) return 2;
+        else return 1;
     }
 
     async function carregarPerfil() {
-        const token = await userDecodeToken()
+        try {
+            const token = await userDecodeToken();
+            setNome(token.name);
+            setEmail(token.email);
+            setIdUsuario(token.id);
 
-        setNome(token.name)
-        setEmail(token.email)
-        setIdUsuario(token.id)
+            const response = await api.get(`/Usuario/Id?id=${token.id}`);
+            const userData = response.data;
 
+            setFotoPerfil(userData.foto);
+            setCpf(userData.cpf);
+            setDataNasc(userData.dataNascimento);
+            setXp(userData.pontos);
 
-        api.get(`/Usuario/Id?id=${token.id}`)
-            .then(async response => {
-                await setFotoPerfil(response.data.foto)
-                setCpf(response.data.cpf)
-                setDataNasc(response.data.dataNascimento)
-                setXp(response.data.pontos)
-                console.log(response.data);
+            setLevel(definirNivel(userData.pontos));
 
-                DefinirLevel()
-            })
-            .catch(error => {
-                console.log(`Erro no perfil: ${error}`);
-                //console.log(token.id);
-            })
+            switch (level) {
+                case 1:
+                    setXpMax(300);
+                    break;
+                case 2:
+                    setXpMax(600);
+                    break;
+                case 3:
+                    setXpMax(1200);
+                    break;
+                case 4:
+                    setXpMax(2400);
+                    break;
+                case 5:
+                    setXpMax(4800);
+                    break;
+                default:
+                    setXpMax(300);
+            }
 
-        //console.log(token);
+        } catch (error) {
+            console.log('Erro ao carregar perfil:', error);
+        }
+        navigation.navigate('Perfil')
     }
 
     useEffect(() => {
@@ -94,9 +107,15 @@ export const Perfil = ({ navigation, route  }) => {
             const { status } = await MediaLibrary.requestPermissionsAsync();
             await ImagePicker.requestMediaLibraryPermissionsAsync();
             requestPermission(status === 'granted')
-            //console.log(getMediaLibrary);
         })
+        carregarPerfil()
     }, [])
+
+    useFocusEffect(
+        useCallback(() => {
+            carregarPerfil();
+        }, [])
+    );
 
     async function SelectImageGallery() {
         const result = await ImagePicker.launchImageLibraryAsync({
@@ -107,20 +126,34 @@ export const Perfil = ({ navigation, route  }) => {
     }
 
     async function atualizarUsuario() {
-        const token = JSON.parse(await AsyncStorage.getItem('token')).token;
-        console.log(token);
+        try {
+            const token = JSON.parse(await AsyncStorage.getItem('token')).token;
 
+            const requestBody = {
+                nome: nome,
+                email: email
+            };
 
-        await api.patch(`/Usuario/Id?id=${idUsuario}`, {nome: nome, email: email})
-        .then(async response =>{
-            console.log("perfil atualizado");
-            console.log(response.status);
-        })
-        .catch(error =>{
-            console.log('Não foi possível atualizar os dados do usuário: ' + error);
-        })
-        setEditarPerfil(false);
+            await api
+                .patch(`/Usuario/Id?id=${idUsuario}`, requestBody, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+                .then(response => {
+                    console.log('Perfil atualizado');
+                    console.log(response.status);
+                    carregarPerfil();  
+                    navigation.navigate('Perfil')
+                })
+                .catch(error => {
+                    console.log('Não foi possível atualizar os dados do usuário: ' + error);
+                });
 
+            setEditarPerfil(false);
+        } catch (error) {
+            console.log('Erro ao atualizar usuário:', error);
+        }
     }
 
     async function AlterarFotoPerfil(newPhotoUri) {
@@ -130,7 +163,7 @@ export const Perfil = ({ navigation, route  }) => {
             name: `image.${newPhotoUri.split(".").pop()}`,
             type: `image/${newPhotoUri.split(".").pop()}`
         });
-    
+
         await api.put(`/Usuario/AlterarFotoPerfil?id=${idUsuario}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"
@@ -152,13 +185,12 @@ export const Perfil = ({ navigation, route  }) => {
 
     useEffect(() => {
         carregarPerfil();
-    
+
         if (route.params?.photoUri) {
             setFotoPerfil(route.params.photoUri);
             AlterarFotoPerfil(route.params.photoUri);
         }
     }, [route.params?.photoUri]);
-    
 
     useEffect(() => {
         if (fotoPerfil) {
@@ -180,103 +212,89 @@ export const Perfil = ({ navigation, route  }) => {
 
     return (
         <KeyboardAvoidingView style={{ width: '100%', alignSelf: 'center' }} keyboardVerticalOffset={80}>
-                <ScrollView>
+            <ScrollView>
 
-                    <ContainerAzul>
+                <ContainerAzul>
 
-                        <ConteinerBolaMenor>
-                            <ConteinerIcon onPress={() => navigation.navigate('Home')}>
-                                <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
-                            </ConteinerIcon>
-                        </ConteinerBolaMenor>
+                    <ConteinerBolaMenor>
+                        <ConteinerIcon onPress={() => navigation.navigate('Home')}>
+                            <AntDesign name="left" size={26} color="#0066FF" z-index='1' />
+                        </ConteinerIcon>
+                    </ConteinerBolaMenor>
 
+                    <ConteinerPerfil>
+                        <TituloPerfil alter>Perfil</TituloPerfil>
 
-                        <ConteinerPerfil>
-                            <TituloPerfil alter>Perfil</TituloPerfil>
+                        {fotoPerfil ? <FotoPerfil source={{ uri: fotoPerfil }} /> : <FotoPerfil source={require("../../assets/images/pfpdefault.png")} />}
 
-                            {/* <FotoPerfil source={require('../../assets/images/PerfilTeste.png')} /> */}
-                            <FotoPerfil source={{ uri: fotoPerfil }} />
+                        <NomePerfil>{nome}</NomePerfil>
+                    </ConteinerPerfil>
 
-                            <NomePerfil>{nome}</NomePerfil>
-                        </ConteinerPerfil>
+                    <ConteinerAtrásPerfil>
+                        <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
 
-                        <ConteinerAtrásPerfil>
-                            <ImagemMedalha source={require('../../assets/images/GoldMedal.png')} />
+                        <BotaoCamera onPress={() => navigation.navigate('CameraScrenn', { SetMediaLabrary: true, Tela: "Main" })}>
+                            <Feather name="edit" size={24} color="white" />
+                        </BotaoCamera>
+                    </ConteinerAtrásPerfil>
 
-                            <BotaoCamera onPress={() => navigation.navigate('CameraScrenn', { SetMediaLabrary: true, Tela: "Main" })}>
-                                <Feather
-                                    name="edit"
-                                    size={24}
-                                    color="white"
-                                />
-                            </BotaoCamera>
+                    <ConteinerImagem>
+                        <Progress.Bar
+                            progress={calcularProgressoNivel()}
+                            width={200} 
+                            borderColor='#FBFBFB'
+                            color='#fbfbfb' 
+                        />
+                        <TituloLevel>{`Nível ${level}`}</TituloLevel>
+                    </ConteinerImagem>
 
-                        </ConteinerAtrásPerfil>
+                    <ConteinerGeral>
+                        <ConteinerInput>
 
-                        <ConteinerImagem>
+                            <LabelInput>Nome</LabelInput>
+                            <Input
+                                fieldValue={nome}
+                                onChangeText={(newValue) => setNome(newValue)}
+                                editable={editarPerfil}
+                            />
 
-                            <Progress.Bar progress={CalcularLevel(xp,xpMax)} width={200} borderColor='#FBFBFB' color='#FBFBFB' />
+                            <LabelInput>E-mail</LabelInput>
+                            <Input
+                                fieldValue={email}
+                                onChangeText={(newValue) => setEmail(newValue)}
+                                editable={editarPerfil}
+                            />
 
-                            <TituloLevel>{level} Level</TituloLevel>
-
-                        </ConteinerImagem>
-
-
-                        <ConteinerGeral>
-
-                            <ConteinerInput>
-
-                                <LabelInput>Nome</LabelInput>
-                                <Input
-                                    fieldValue={nome}
-                                    onChangeText={(newValue) => setNome(newValue)}
-                                    editable={editarPerfil}
-                                >
-                                </Input>
-
-                                <LabelInput>E-mail</LabelInput>
-                                <Input
-                                    fieldValue={email}
-                                    onChangeText={(newValue) => setEmail(newValue)}
-                                    editable={editarPerfil}
-                                >
-                                </Input>
-
+                            <View style={{ opacity: editarPerfil ? 0.5 : 1 }}>
                                 <LabelInput>Data de nascimento</LabelInput>
                                 <Input
                                     fieldValue={dataNasc ? formatarData(dataNasc) : null}
                                     editable={false}
-                                >
-                                </Input>
+                                />
 
-                                <LabelInput>Cpf</LabelInput>
+                                <LabelInput>CPF</LabelInput>
                                 <Input
                                     fieldValue={cpf}
                                     editable={false}
-                                >
-                                </Input>
+                                />
+                            </View>
+                        </ConteinerInput>
+                    </ConteinerGeral>
 
-                            </ConteinerInput>
+                    <ButtonPerfil onPress={editarPerfil ? () => atualizarUsuario() : () => setEditarPerfil(true)}>
+                        <TextButton>{editarPerfil ? "Salvar" : "Editar"}</TextButton>
+                    </ButtonPerfil>
 
-
-                        </ConteinerGeral>
-
-
-                        <ButtonPerfil onPress={editarPerfil ? () => atualizarUsuario() : () => setEditarPerfil(true)}>
-                            <TextButton>{editarPerfil ? "Salvar" : "Editar"}</TextButton>
-                        </ButtonPerfil>
-
+                    {!editarPerfil && (
                         <ConteinerLinkPerfil>
                             <LinkPerfil onPress={() => fecharApp()}>Sair</LinkPerfil>
                         </ConteinerLinkPerfil>
+                    )}
 
+                </ContainerAzul>
 
-                    </ContainerAzul>
-
-                    <StatusBar style="auto" />
-
-                </ScrollView>
+                <StatusBar style="auto" />
+            </ScrollView>
         </KeyboardAvoidingView>
-
     )
 }

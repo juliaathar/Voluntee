@@ -72,8 +72,8 @@ export const Cadastro = ({ navigation }) => {
         email: email,
         codRecupSenha: 0,
         pontos: 0,
-        perfilEditado: true,
-        fotoAtualizada: true,
+        perfilEditado: false,
+        fotoAtualizada: false,
       };
 
       const response = await api.post("/Usuario", JSON.stringify(jsonData), {

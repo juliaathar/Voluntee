@@ -1,18 +1,18 @@
-import { 
-    ButtonPerfil, 
-    ConteinerAtrásPerfil, 
-    ConteinerImagem, 
-    ConteinerInput, 
-    ConteinerLinkPerfil, 
-    ConteinerPerfil, 
-    BotaoCamera, 
-    FotoPerfil, 
-    ImagemMedalha, 
-    LabelInput, 
-    LinkPerfil, 
-    NomePerfil, 
-    TituloLevel, 
-    TituloPerfil 
+import {
+    ButtonPerfil,
+    ConteinerAtrásPerfil,
+    ConteinerImagem,
+    ConteinerInput,
+    ConteinerLinkPerfil,
+    ConteinerPerfil,
+    BotaoCamera,
+    FotoPerfil,
+    ImagemMedalha,
+    LabelInput,
+    LinkPerfil,
+    NomePerfil,
+    TituloLevel,
+    TituloPerfil
 } from './Style';
 import { ContainerAzul, ConteinerGeral } from "../../components/Container/Style"
 import { ConteinerBolaMenor, ConteinerIcon } from "../Cadastro/Style"
@@ -62,12 +62,14 @@ export const Perfil = ({ navigation, route }) => {
     async function carregarPerfil() {
         try {
             const token = await userDecodeToken();
-            setNome(token.name);
-            setEmail(token.email);
+
             setIdUsuario(token.id);
 
             const response = await api.get(`/Usuario/Id?id=${token.id}`);
             const userData = response.data;
+            
+            setNome(userData.nome);
+            setEmail(userData.email);
 
             setFotoPerfil(userData.foto);
             setCpf(userData.cpf);
@@ -143,7 +145,7 @@ export const Perfil = ({ navigation, route }) => {
                 .then(response => {
                     console.log('Perfil atualizado');
                     console.log(response.status);
-                    carregarPerfil();  
+                    carregarPerfil();
                     navigation.navigate('Perfil')
                 })
                 .catch(error => {
@@ -241,9 +243,9 @@ export const Perfil = ({ navigation, route }) => {
                     <ConteinerImagem>
                         <Progress.Bar
                             progress={calcularProgressoNivel()}
-                            width={200} 
+                            width={200}
                             borderColor='#FBFBFB'
-                            color='#fbfbfb' 
+                            color='#fbfbfb'
                         />
                         <TituloLevel>{`Nível ${level}`}</TituloLevel>
                     </ConteinerImagem>

@@ -37,6 +37,11 @@ export const VerificarEmail = ({ navigation, route }) => {
 
         if (codigo.length !== 4) {
             setErrors('O código deve ter 4 dígitos');
+            setBtnLoad(false); // Parar o carregamento em caso de erro
+            setReenviarDisabled(true); // Desativar o botão de reenviar
+            setTimeout(() => {
+                setReenviarDisabled(false); // Reativar o botão após 30 segundos
+            }, 30000);
             return;
         }
 
@@ -48,10 +53,18 @@ export const VerificarEmail = ({ navigation, route }) => {
                 }).catch(error => {
                     console.log(error);
                     setErrors('Código inválido');
+                    setReenviarDisabled(true); 
+                    setTimeout(() => {
+                        setReenviarDisabled(false);
+                    }, 3000);
                 });
         } catch (error) {
             console.log(error);
             setErrors('Erro ao validar código');
+            setBtnLoad(true);
+            setTimeout(() => {
+                setBtnLoad(false); 
+            }, 3000);
         }
         setBtnLoad(false);
 
@@ -142,7 +155,7 @@ export const VerificarEmail = ({ navigation, route }) => {
                 />
             </ConteinerButton>
 
-            <Link style={styles.btnCode} onPress={!btnLoad && reenviarCodigo} alter>Reenviar código</Link>
+            <Link style={styles.btnCode} onPress={() => { !btnLoad && reenviarCodigo }} alter>Reenviar código</Link>
 
             <StatusBar style="auto" />
         </Container>

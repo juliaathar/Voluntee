@@ -78,3 +78,8 @@ export const ContainerInput = styled.View`
     margin-left: 5%;  
     flex-direction: row;
 `
+export const ContainerMinhasCampanhas = styled.SafeAreaView`
+    flex: 1;
+    align-items: center;
+    background-color: #0066FF;
+`

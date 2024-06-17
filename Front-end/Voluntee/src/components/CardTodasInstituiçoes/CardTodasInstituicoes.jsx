@@ -1,5 +1,5 @@
-import { CardIn, Img, ImgIns, InfoTexts, Infos, MarkImg, MaskHelp } from "./Style"
-import { CardList, DescricaoCard, ListName, More, ShowMore, TituloCard } from "../CardCampanha/Style"
+import { CardIn, Img, ImgIns, InfoTexts, Infos, MarkImg, MaskHelp } from "./Style";
+import { CardList, DescricaoCard, ListName, TituloCard } from "../CardCampanha/Style";
 import { FontAwesome6 } from '@expo/vector-icons';
 import { useState } from "react";
 
@@ -10,15 +10,13 @@ function QuebraPalavra(nome, max = 15) {
     return nome;
 }
 
-export const CardInstituicaoList = ({ navigation, dados, onPressMore, scroll }) => {
-    const [profileData, setProfileData] = useState('')
-
-    const displayData = dados.slice(0, 3);
+export const CardTodasInstituicaoList = ({ navigation, dados, onPressMore, scroll }) => {
+    const [profileData, setProfileData] = useState('');
 
     return (
-        <CardList style={{height: 250, marginBottom: 90}}>
+        <CardList tamanho={dados.length}>
             <ListName>Instituições que aceitam doações</ListName>
-            {displayData.map((item) => (
+            {dados.map((item) => (
                 <CardInstituicao
                     key={item.id}
                     titulo={item.nome}
@@ -46,14 +44,9 @@ export const CardInstituicaoList = ({ navigation, dados, onPressMore, scroll }) 
                     })}
                 />
             ))}
-            {dados.length > 3 && (
-                <ShowMore onPress={() => navigation.navigate("TodasInstituicao")}>
-                    <More>Ver mais...</More>
-                </ShowMore>
-            )}
         </CardList>
-    )
-}
+    );
+};
 
 export const CardInstituicao = ({
     titulo = "titulo do card",
@@ -73,16 +66,16 @@ export const CardInstituicao = ({
 
             <Infos>
                 <InfoTexts>
-                    <TituloCard>{QuebraPalavra(titulo, 25)}</TituloCard>
-                    <DescricaoCard>{QuebraPalavra(descricao, 35)}</DescricaoCard>
+                    <TituloCard alter>{QuebraPalavra(titulo, 25)}</TituloCard>
+                    <DescricaoCard alter>{QuebraPalavra(descricao, 35)}</DescricaoCard>
                 </InfoTexts>
 
                 <MaskHelp>
-                    {alimento ? <FontAwesome6 name="utensils" size={14} color="#0066FF" /> : null} 
-                    {dinheiro ? <FontAwesome6 name="hand-holding-dollar" size={14} color="#0066FF" /> : null} 
-                    {roupas ? <FontAwesome6 name="shirt" size={14} color="#0066FF" /> : null} 
+                    {alimento ? <FontAwesome6 name="utensils" size={14} color="#ffffff" /> : null} 
+                    {dinheiro ? <FontAwesome6 name="hand-holding-dollar" size={14} color="#ffffff" /> : null} 
+                    {roupas ? <FontAwesome6 name="shirt" size={14} color="#ffffff" /> : null} 
                 </MaskHelp>
             </Infos>
         </CardIn>
-    )
-}
+    );
+};

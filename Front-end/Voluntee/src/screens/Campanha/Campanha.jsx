@@ -20,7 +20,7 @@ import api from "../../service/ApiService";
 
 async function getAddressFromCoordinates(latitude, longitude) {
     try {
-        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=API_KEY`);
+        const response = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=`);
         if (response.data.status === "OK") {
             const addressComponents = response.data.results[0].address_components;
             let city = '';

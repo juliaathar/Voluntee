@@ -73,7 +73,7 @@ export const CardCampanhaList = ({ navigation, dados, onPressMore, scroll }) => 
                 ) : null
             ))}
             {dados.length > 3 && (
-                <ShowMore onPress={() => navigation.navigate("")}>
+                <ShowMore onPress={() => navigation.navigate("TodasCampanhas")}>
                     <More>Ver mais...</More>
                 </ShowMore>
             )}

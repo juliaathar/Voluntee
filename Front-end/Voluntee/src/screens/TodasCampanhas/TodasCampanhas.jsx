@@ -6,6 +6,7 @@ import { TituloH3 } from "../../components/Titulo/Style";
 import api from "../../service/ApiService";
 import { Menu } from "../../components/Menu/Menu";
 import { CardMinhasCampanhasList } from "../../components/CardMinhasCampanhas/CardMinhasCampanhas";
+import { View } from "react-native-web";
 
 export const TodasCampanhas = ({ navigation, route }) => {
     const [campanhas, setCampanhas] = useState([]);
@@ -26,25 +27,25 @@ export const TodasCampanhas = ({ navigation, route }) => {
     }, []);
 
     return (
-        <ScrollView>
-            <ContainerMinhasCampanhas>
-                <HeaderHome onPress={() => setMenu(true)} alter />
 
-                <TituloH3 style={{ marginTop: 25 }}>
-                    Todas Campanhas
-                </TituloH3>
+        <ContainerMinhasCampanhas>
+            <HeaderHome onPress={() => setMenu(true)} alter />
 
-                <CardMinhasCampanhasList
-                    dados={campanhas}
-                    navigation={navigation}
-                />
+            <TituloH3 style={{ marginTop: 25 }}>
+                Todas Campanhas
+            </TituloH3>
 
-                <Menu
-                    visible={menu}
-                    onRequestClose={() => setMenu(false)}
-                    onBack={() => setMenu(false)}
-                />
-            </ContainerMinhasCampanhas>
-        </ScrollView>
+            <CardMinhasCampanhasList
+                dados={campanhas}
+                navigation={navigation}
+            />
+
+            <Menu
+                visible={menu}
+                onRequestClose={() => setMenu(false)}
+                onBack={() => setMenu(false)}
+            />
+        </ContainerMinhasCampanhas>
+
     );
 };

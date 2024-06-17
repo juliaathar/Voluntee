@@ -14,8 +14,6 @@ export const BotaoDirecionavel = styled.TouchableOpacity`
     width: 28%;
     height: 100%;
     border-radius: 500px;
-    background-color: #FBFBFB;
-
     padding: 5px;
 `
 

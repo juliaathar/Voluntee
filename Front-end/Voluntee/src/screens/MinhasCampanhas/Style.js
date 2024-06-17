@@ -20,9 +20,6 @@ export const BottomConteiner = styled.View`
 export const ConteinerBotoesCampanha = styled.View`
     width: 100%;
     align-items: center;
-
     justify-content: space-evenly;
     flex-direction: row;
-    
-    margin-top: 31px;
 `

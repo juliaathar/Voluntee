@@ -1,18 +1,18 @@
-import { ScrollView, View } from "react-native";
+import { ConteinerBotoesCampanha, ConteinerCentral, MiddleConteiner, BottomConteiner } from "./Style";
+import { CardMinhasCampanhasList } from "../../components/CardMinhasCampanhas/CardMinhasCampanhas";
+import { BotaoConsulta } from "../../components/BotaoFiltro/BotaoFiltro";
 import { ContainerAzul } from "../../components/Container/Style";
 import { HeaderHome } from "../../components/Header/Header";
-import { BotaoConsulta } from "../../components/BotaoFiltro/BotaoFiltro";
-import { Menu } from "../../components/Menu/Menu";
-import { userDecodeToken } from "../../utils/Auth";
-import { CardMinhasCampanhasList } from "../../components/CardMinhasCampanhas/CardMinhasCampanhas";
 import { TituloH3 } from "../../components/Titulo/Style";
 import { Input } from "../../components/Input/Input";
+import { format, isAfter, isBefore } from "date-fns";
+import { userDecodeToken } from "../../utils/Auth";
+import { Menu } from "../../components/Menu/Menu";
+import { ScrollView, View } from "react-native";
 import { useEffect, useState } from "react";
 import api from "../../service/ApiService";
-import { ConteinerBotoesCampanha, ConteinerCentral, MiddleConteiner, BottomConteiner } from "./Style";
-import { format, isAfter, isBefore } from "date-fns";
 
-export const MinhasCampanhas = ({ navigation, route }) => {
+export const MinhasCampanhas = ({ navigation }) => {
     const [datas, setDatas] = useState();
     const [menu, setMenu] = useState(false);
     const [campanhas, setCampanhas] = useState([]);
@@ -54,22 +54,22 @@ export const MinhasCampanhas = ({ navigation, route }) => {
     }, [usuarioId]);
 
     const currentDate = new Date();
-    console.log("Data atual:", currentDate); // Log da data atual
+    //console.log("Data atual:", currentDate); // Log da data atual
 
     const filteredCampanhas = campanhas.filter(campanha => {
-        const campanhaDate = new Date(campanha.data); // Certifique-se de que o formato da data está correto
-        console.log(`Campanha: ${campanha.nome}, Data: ${campanha.data}, Campanha Date: ${campanhaDate}`); // Log das datas das campanhas
+        //const campanhaDate = new Date(campanha.dataInicio); // Certifique-se de que o formato da data está correto
+        //console.log(`Campanha: ${campanha.nome}, Data: ${campanha.data}, Campanha Date: ${campanhaDate}`); // Log das datas das campanhas
 
         if (filter === 'todas') {
             return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase());
         } else if (filter === 'participadas') {
-            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase()) && isBefore(campanhaDate, currentDate);
+            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase()) && isBefore(campanha.dataEncerramento, currentDate);
         } else if (filter === 'futuras') {
-            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase()) && isAfter(campanhaDate, currentDate);
+            return campanha.nome.toLowerCase().includes(pesquisaCampanha.toLowerCase()) && isAfter(campanha.dataInicio, currentDate);
         }
     });
 
-    console.log(`Filtered Campanhas (${filter}):`, filteredCampanhas); // Log das campanhas filtradas
+    //console.log(`Filtered Campanhas (${filter}):`, filteredCampanhas); // Log das campanhas filtradas
 
     return (
         <ContainerAzul>
@@ -90,36 +90,17 @@ export const MinhasCampanhas = ({ navigation, route }) => {
                                 onChangeText={text => setpesquisaCampanha(text)}
                             />
                             <ConteinerBotoesCampanha>
-                                <BotaoConsulta
-                                    textButton={'Todas'}
-                                    onPress={() => {
-                                        setFilter('todas');
-                                        console.log("Filtro: todas"); // Log do filtro
-                                    }}
-                                />
-                                <BotaoConsulta
-                                    textButton={'Participadas'}
-                                    onPress={() => {
-                                        setFilter('participadas');
-                                        console.log("Filtro: participadas"); // Log do filtro
-                                    }}
-                                />
-                                <BotaoConsulta
-                                    textButton={'Futuras'}
-                                    onPress={() => {
-                                        setFilter('futuras');
-                                        console.log("Filtro: futuras"); // Log do filtro
-                                    }}
-                                />
+                                <BotaoConsulta />
+                                <BotaoConsulta />
+                                <BotaoConsulta />
                             </ConteinerBotoesCampanha>
                         </MiddleConteiner>
-                        <BottomConteiner>
-                            <CardMinhasCampanhasList
-                                dados={filteredCampanhas}
-                                scroll={false}
-                                navigation={navigation}
-                            />
-                        </BottomConteiner>
+
+                        <CardMinhasCampanhasList
+                            dados={filteredCampanhas}
+                            scroll={false}
+                            navigation={navigation}
+                        />
                     </ConteinerCentral>
                 </View>
                 <Menu

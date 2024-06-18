@@ -47,5 +47,5 @@ export const MaskHelp = styled.View`
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    //border: 1px red;
+    gap:5px;
 `

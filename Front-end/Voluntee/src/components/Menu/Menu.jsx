@@ -29,7 +29,7 @@ export const Menu = ({
                 <LogoAzulSvg width="170" />
 
                 <Links>
-                    <LinkMenu onPress={() => navigation.navigate("Home")}>
+                    <LinkMenu onPress={() => navigation.replace("Home")}>
                         <LinkLetra>Home</LinkLetra>
                     </LinkMenu>
                     <LinkMenu onPress={() => navigation.navigate("MinhasCampanhas")}>

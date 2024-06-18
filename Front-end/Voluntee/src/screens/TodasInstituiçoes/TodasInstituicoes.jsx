@@ -25,7 +25,7 @@ export const TodasInstituicao = ({ navigation, route }) => {
     }, []);
 
     return (
-
+        
         <ContainerMinhasCampanhas>
             <HeaderHome onPress={() => setMenu(true)} alter />
 

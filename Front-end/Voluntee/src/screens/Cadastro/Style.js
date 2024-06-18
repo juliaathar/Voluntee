@@ -48,7 +48,7 @@ export const ConteinerIcon = styled.TouchableOpacity`
 
 
 export const ConteinerBolaMaiorCampanha = styled.View`
-    max-height: 1200px;
+    max-height: 1400px;
     background-color: #FBFBFB;
     border-radius: 20px 20px 0px 0px;
     position: relative;

@@ -14,6 +14,11 @@ import { RedefinirSenha } from './src/screens/RedefinirSenha/RedefinirSenha';
 import { Perfil } from './src/screens/Perfil/Perfil';
 import { Campanha } from './src/screens/Campanha/Campanha';
 import { NovaCampanha } from './src/screens/NovaCampanha/NovaCampanha';
+import { Instituicao } from './src/screens/Instituiçao/Instituicao';
+import { MinhasCampanhas } from './src/screens/MinhasCampanhas/MinhasCampanhas';
+import { CameraScrenn} from './src/screens/Camera/CameraScrenn';
+import { TodasCampanhas } from './src/screens/TodasCampanhas/TodasCampanhas';
+import { TodasInstituicao } from './src/screens/TodasInstituiçoes/TodasInstituicoes';
 
 //Fontes
 import { useFonts } from 'expo-font';
@@ -23,11 +28,8 @@ import {
   Lexend_600SemiBold,
   Lexend_700Bold,
 } from '@expo-google-fonts/lexend';
-import { Instituicao } from './src/screens/Instituiçao/Instituicao';
-import { MinhasCampanhas } from './src/screens/MinhasCampanhas/MinhasCampanhas';
-import { CameraScrenn} from './src/screens/Camera/CameraScrenn';
-import { TodasCampanhas } from './src/screens/TodasCampanhas/TodasCampanhas';
-import { TodasInstituicao } from './src/screens/TodasInstituiçoes/TodasInstituicoes';
+
+import { LogBox } from 'react-native';
 
 export default function App() {
   const [fontsLoaded, fontsError] = useFonts({
@@ -39,6 +41,9 @@ export default function App() {
   if (!fontsLoaded && !fontsError) {
     return null;
   }
+
+  LogBox.ignoreLogs(['Warning: ...']); // Ignora as notificações do log por mensagem
+  LogBox.ignoreAllLogs();//Ignora todas as notificações do log
 
   return (
     <NavigationContainer>

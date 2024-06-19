@@ -112,7 +112,6 @@ namespace api.voluntee.Controllers
                 {
                     return NotFound();
                 }
-
                 var connectionString = "";
 
                 var containerName = "";

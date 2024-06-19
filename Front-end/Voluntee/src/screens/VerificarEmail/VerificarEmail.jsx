@@ -53,7 +53,7 @@ export const VerificarEmail = ({ navigation, route }) => {
                 }).catch(error => {
                     console.log(error);
                     setErrors('Código inválido');
-                    setReenviarDisabled(true); 
+                    setReenviarDisabled(true);
                     setTimeout(() => {
                         setReenviarDisabled(false);
                     }, 3000);
@@ -63,7 +63,7 @@ export const VerificarEmail = ({ navigation, route }) => {
             setErrors('Erro ao validar código');
             setBtnLoad(true);
             setTimeout(() => {
-                setBtnLoad(false); 
+                setBtnLoad(false);
             }, 3000);
         }
         setBtnLoad(false);

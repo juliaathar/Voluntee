@@ -74,6 +74,7 @@ export const MinhasCampanhas = ({ navigation }) => {
     return (
         <ContainerAzul>
             <HeaderHome
+            navigation={navigation}
                 onPress={() => setMenu(true)}
                 alter
             />

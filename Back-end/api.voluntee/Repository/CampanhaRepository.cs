@@ -40,6 +40,7 @@ namespace api.voluntee.Repository
                 var connectionString = "";
 
                 var containerName = "";
+
                 string imagemUrl = null;
 
                 if (campanhaDto.ImagemArquivo != null)

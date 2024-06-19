@@ -26,7 +26,13 @@ public partial class VolunteeContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
+<<<<<<< HEAD
         => optionsBuilder.UseSqlServer("Data Source=tcp:NOTE06-S21\\SQLSERVER,5500; initial catalog=Voluntee; user Id = sa; pwd = Senai@134; TrustServerCertificate=true;");
+=======
+
+       => optionsBuilder.UseSqlServer("Data Source=NOTE22-S21\\SQLEXPRESS; initial catalog=Voluntee; user Id = sa; pwd = senai@134; TrustServerCertificate=true;");
+
+>>>>>>> origin/develop
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -64,6 +70,10 @@ public partial class VolunteeContext : DbContext
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Descricao).IsUnicode(false);
+<<<<<<< HEAD
+=======
+            entity.Property(e => e.Imagem).IsUnicode(false);
+>>>>>>> origin/develop
             entity.Property(e => e.Email)
                 .HasMaxLength(255)
                 .IsUnicode(false);
@@ -95,7 +105,11 @@ public partial class VolunteeContext : DbContext
 
         modelBuilder.Entity<Usuario>(entity =>
         {
+<<<<<<< HEAD
             entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC075EBDBAD4");
+=======
+            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC0757BE5519");
+>>>>>>> origin/develop
 
             entity.ToTable("Usuario");
 
@@ -111,6 +125,11 @@ public partial class VolunteeContext : DbContext
             entity.Property(e => e.Nome)
                 .HasMaxLength(255)
                 .IsUnicode(false);
+<<<<<<< HEAD
+=======
+            entity.Property(e => e.PerfilEditado).HasDefaultValue(false);
+            entity.Property(e => e.FotoAtualizada).HasDefaultValue(false);
+>>>>>>> origin/develop
             entity.Property(e => e.Senha)
                 .HasMaxLength(255)
                 .IsUnicode(false);
